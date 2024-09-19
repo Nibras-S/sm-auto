@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
+/* App.css */
+/* * {
+  margin: 0;
+  padding-left: 0;
+  box-sizing: border-box;
+} */
+
+/* Optional: Add a default margin to all elements */
+
+body {
+  margin: 0px; /* Adds margin around the entire body */
+  background: var(--color-bg);
+}
+.gradient__bg{
+  
+  /* background: radial-gradient(circle at 8% 11%,rgb(99, 111, 149) 3%, rgba(255, 254, 254, 0.99) 47%, rgb(99, 111, 149) 100%); */
+  background: radial-gradient(circle at 8% 11%,rgb(0, 2, 7) 3%, rgba(255, 254, 254, 0.99) 47%, rgb(0, 1, 4) 100%);
+
+}
+  
+
+/* Add margins to components or sections globally */
+section {
+  margin-bottom: 20px; /* Adds space below all sections */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ nav {
+/* padding-left: 28.5rem; */
+padding: 35%;
+
+}
+header{
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* App.css */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html {
+  scroll-behavior: smooth;
 }
