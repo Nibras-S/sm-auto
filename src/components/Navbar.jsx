@@ -53,11 +53,11 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <ul className="bg-gray-800 space-y-4 py-4 text-center">
-            <li><Link to="/" className="block text-white">Home</Link></li>
-            <li><Link to="/#service" className="block text-white">Services</Link></li>
-            <li><Link to="/#brands" className="block text-white">Brands</Link></li>
-            <li><Link to="/#products" className="block text-white">Products</Link></li>
-            <li><Link to="/#contact" className="block text-white">Contact Us</Link></li>
+            <li><Link to="/sm-auto" className="block text-white">Home</Link></li>
+            <li><Link to="/sm-auto/#service" className="block text-white">Services</Link></li>
+            <li><Link to="/sm-auto/#brands" className="block text-white">Brands</Link></li>
+            <li><Link to="/sm-auto/#products" className="block text-white">Products</Link></li>
+            <li><Link to="/sm-auto/#contact" className="block text-white">Contact Us</Link></li>
           </ul>
         </div>
       )}
