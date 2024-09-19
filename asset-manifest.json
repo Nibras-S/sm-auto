@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sm-auto/static/css/main.d68592f2.css",
-    "main.js": "/sm-auto/static/js/main.bfef7e6b.js",
+    "main.js": "/sm-auto/static/js/main.7d788411.js",
     "static/media/car1.jpg": "/sm-auto/static/media/car1.b86b9cb1875c596cb10c.jpg",
     "static/media/coolingandheating.png": "/sm-auto/static/media/coolingandheating.6d102db8d1ce7add83a5.png",
     "static/media/porsche.png": "/sm-auto/static/media/porsche.e643fd384eede8cbb084.png",
@@ -56,10 +56,10 @@
     "static/media/slick.woff": "/sm-auto/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/sm-auto/index.html",
     "main.d68592f2.css.map": "/sm-auto/static/css/main.d68592f2.css.map",
-    "main.bfef7e6b.js.map": "/sm-auto/static/js/main.bfef7e6b.js.map"
+    "main.7d788411.js.map": "/sm-auto/static/js/main.7d788411.js.map"
   },
   "entrypoints": [
     "static/css/main.d68592f2.css",
-    "static/js/main.bfef7e6b.js"
+    "static/js/main.7d788411.js"
   ]
 }
