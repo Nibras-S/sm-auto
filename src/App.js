@@ -13,7 +13,7 @@ function App() {
         <RouteTop />
       <Routes>
         <Route path='/aboutus' element={<About/>}></Route>
-        <Route path='/sm-auto' element={<Home/>}></Route>
+        <Route path='/' element={<Home/>}></Route>
         <Route path='/returns' element={<Return />}></Route>
         </Routes>
 
