@@ -19,8 +19,8 @@ const Carousel = () => {
   };
 
   return (
-    <section className="mt-0"> {/* Remove any top margin */}
-      <div className="container mx-auto w-full">
+    <section className="mt-0 w-full"> {/* Remove any top margin */}
+      <div className="container mx-0 w-full">
         <Slider {...settings}>
           <div className="relative">
             <img src={car1} alt="Car 1" className="w-full h-64 md:h-96 lg:h-[32rem] object-cover" />

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../App.css'
@@ -15,7 +14,7 @@ import ScrollToTop from '../components/ScrollTop';
 
 function Home() {
   return (
-    <div id='home'>
+    <div id='home' className='w-100%'>
       {/* <Header /> */}
       
     
