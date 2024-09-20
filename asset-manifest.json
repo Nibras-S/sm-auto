@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sm-auto/static/css/main.d68592f2.css",
-    "main.js": "/sm-auto/static/js/main.7d788411.js",
+    "main.css": "/sm-auto/static/css/main.e65cadb1.css",
+    "main.js": "/sm-auto/static/js/main.d2df1baa.js",
     "static/media/car1.jpg": "/sm-auto/static/media/car1.b86b9cb1875c596cb10c.jpg",
     "static/media/coolingandheating.png": "/sm-auto/static/media/coolingandheating.6d102db8d1ce7add83a5.png",
     "static/media/porsche.png": "/sm-auto/static/media/porsche.e643fd384eede8cbb084.png",
@@ -55,11 +55,11 @@
     "static/media/slick.ttf": "/sm-auto/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/sm-auto/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/sm-auto/index.html",
-    "main.d68592f2.css.map": "/sm-auto/static/css/main.d68592f2.css.map",
-    "main.7d788411.js.map": "/sm-auto/static/js/main.7d788411.js.map"
+    "main.e65cadb1.css.map": "/sm-auto/static/css/main.e65cadb1.css.map",
+    "main.d2df1baa.js.map": "/sm-auto/static/js/main.d2df1baa.js.map"
   },
   "entrypoints": [
-    "static/css/main.d68592f2.css",
-    "static/js/main.7d788411.js"
+    "static/css/main.e65cadb1.css",
+    "static/js/main.d2df1baa.js"
   ]
 }
