@@ -31,7 +31,7 @@ const Footer = () => {
           <h4 className="text-lg font-bold">Contact Us</h4>
           <p className="text-sm">For any inquiries, feel free to reach us at:</p>
           <ul className="space-y-2">
-            <li>Email: <a href="mailto:smautospares@gmail.com" className="hover:underline">smautospares@gmail.com</a></li>
+            <li>Email: <a href="mailto:contact.smautospares@gmail.com" className="hover:underline">contact.smautospares@gmail.com</a></li>
             <li>Phone: <a href="tel:+971-507855298" className="hover:underline">+971-507855298</a></li>
             <li>Address: Dubai, UAE</li>
           </ul>
@@ -54,3 +54,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
