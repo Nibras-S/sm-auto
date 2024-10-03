@@ -3,22 +3,18 @@ import Home from './Pages/Home';
 import About from './Pages/About';
 import Return from './Pages/Return';
 import RouteTop from './components/RouteTop';
-import {  Route, Routes} from 'react-router-dom'
-
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className='gradient__bg'>
       {/* <Header /> */}
-        <RouteTop />
+      <RouteTop />
       <Routes>
-        <Route path='/aboutus' element={<About/>}></Route>
-        <Route path='/sm-auto' element={<Home/>}></Route>
-        <Route path='/returns' element={<Return />}></Route>
-        </Routes>
-
-
-    
+        <Route path='/aboutus' element={<About />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/returns' element={<Return />} />
+      </Routes>
     </div>
   );
 }

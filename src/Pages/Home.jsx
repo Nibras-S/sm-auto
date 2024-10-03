@@ -19,7 +19,7 @@ function Home() {
       
     
       <Navbar />
-      <ScrollToTop />
+      <ScrollToTop /> 
       <Carousel />
       <main>
         <Service />

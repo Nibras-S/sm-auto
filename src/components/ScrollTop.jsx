@@ -34,7 +34,7 @@ const ScrollToTop = () => {
         <div className="fixed bottom-4 right-4">
           <button
             onClick={scrollToTop}
-            className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300"
+            className="bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300"
           >
             <FiArrowUp size={24} />
           </button>

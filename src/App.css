@@ -5,15 +5,12 @@
 }
 
 body {
-
   margin: 0;
   padding: 0;
   background: var(--color-bg);
-  /* Prevent horizontal scroll */
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scroll */
   overflow-y: auto; /* Allow vertical scroll if needed */
-  scrollbar-width: none;
-   /* Hide scrollbar for Firefox */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 body::-webkit-scrollbar {
@@ -55,4 +52,7 @@ html {
   header {
     padding: 1rem;
   }
+}
+*, *::before, *::after {
+  box-sizing: border-box;
 }

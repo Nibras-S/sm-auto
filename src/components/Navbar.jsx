@@ -11,6 +11,10 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLinkClick = () => {
+    if (isOpen) setIsOpen(false); // Close the menu on link click
+  };
+
   useEffect(() => {
     // Scroll to the section if there's a hash in the URL
     if (location.hash) {
@@ -26,38 +30,36 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center h-16">
         {/* Logo and Brand Name */}
         <div className="flex items-center space-x-4">
-          {/* Increase logo size slightly above h-12 with custom size */}
           <img src={logo} alt="Logo" className="h-[7.25rem] w-auto object-contain" />
           <span className="text-xl font-bold">SM AUTO SPARE PARTS</span>
         </div>
 
         {/* Hamburger Menu for mobile */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-white">
+          <button onClick={toggleMenu} aria-label="Toggle Menu" className="text-white">
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
 
         {/* Menu items for desktop */}
         <ul className="hidden md:flex space-x-6">
-  <li><Link to="/sm-auto" className="hover:text-blue-300 ">Home</Link></li>
-  <li><Link to="/sm-auto/#service" className="hover:text-blue-300">Services</Link></li>
-  <li><Link to="/sm-auto/#brands" className="hover:text-blue-300 ">Brands</Link></li>
-  <li><Link to="/sm-auto/#products" className="hover:text-blue-300 ">Products</Link></li>
-  <li><Link to="/sm-auto/#contact" className="hover:text-blue-300 ">Contact Us</Link></li>
-</ul>
-
+          <li><Link to="/" className="hover:text-blue-300">Home</Link></li>
+          <li><Link to="/#service" className="hover:text-blue-300">Services</Link></li>
+          <li><Link to="/#brands" className="hover:text-blue-300">Brands</Link></li>
+          <li><Link to="/#products" className="hover:text-blue-300">Products</Link></li>
+          <li><Link to="/#contact" className="hover:text-blue-300">Contact Us</Link></li>
+        </ul>
       </div>
 
       {/* Mobile menu (shown only when isOpen is true) */}
       {isOpen && (
         <div className="md:hidden">
           <ul className="bg-gray-800 space-y-4 py-4 text-center">
-            <li><Link to="/sm-auto" className="block text-white">Home</Link></li>
-            <li><Link to="/sm-auto/#service" className="block text-white">Services</Link></li>
-            <li><Link to="/sm-auto/#brands" className="block text-white">Brands</Link></li>
-            <li><Link to="/sm-auto/#products" className="block text-white">Products</Link></li>
-            <li><Link to="/sm-auto/#contact" className="block text-white">Contact Us</Link></li>
+            <li><Link to="/" onClick={handleLinkClick} className="block text-white">Home</Link></li>
+            <li><Link to="/#service" onClick={handleLinkClick} className="block text-white">Services</Link></li>
+            <li><Link to="/#brands" onClick={handleLinkClick} className="block text-white">Brands</Link></li>
+            <li><Link to="/#products" onClick={handleLinkClick} className="block text-white">Products</Link></li>
+            <li><Link to="/#contact" onClick={handleLinkClick} className="block text-white">Contact Us</Link></li>
           </ul>
         </div>
       )}

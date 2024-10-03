@@ -23,11 +23,11 @@ const Header = () => {
     <header className="relative text-black py-4">
       <div className="container mx-auto flex justify-center items-center">
         {/* Animated Brand Logos */}
-        <div className="relative w-full flex justify-center items-center h-24"> {/* Adjust height */}
+        <div className="relative w-full flex justify-center items-center h-24">
           <img
             src={brandLogos[currentLogo]}
-            alt="Brand Logo"
-            className="transition-transform duration-1000 ease-in-out transform scale-50 hover:scale-75 object-cover h-full w-full"
+            alt={`Brand Logo ${currentLogo + 1}`} // Dynamic alt text
+            className="transition-transform duration-1000 ease-in-out transform scale-75 hover:scale-100 object-cover h-full w-auto max-w-xs" // Adjust max width as needed
           />
         </div>
       </div>
