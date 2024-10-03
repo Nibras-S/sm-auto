@@ -11,10 +11,20 @@ function App() {
       {/* <Header /> */}
       <RouteTop />
       <Routes>
+<<<<<<< HEAD
         <Route path='/aboutus' element={<About />} />
         <Route path='/' element={<Home />} />
         <Route path='/returns' element={<Return />} />
       </Routes>
+=======
+        <Route path='/aboutus' element={<About/>}></Route>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/returns' element={<Return />}></Route>
+        </Routes>
+
+
+    
+>>>>>>> d4143bd21938c599e99e4b4865349ab76ed82cfd
     </div>
   );
 }
