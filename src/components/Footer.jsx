@@ -22,7 +22,7 @@ const Footer = () => {
             <li><a href="#shop" className="hover:underline">Shop Now</a></li>
             <li><a href="#shipping" className="hover:underline">Shipping & Delivery</a></li>
             <li><Link to="/returns" className="hover:underline">Returns & Refunds</Link></li>
-            <li><a href="#faqs" className="hover:underline">FAQs</a></li>
+            <li><a href="/faqs" className="hover:underline">FAQs</a></li>
           </ul>
         </div>
 
