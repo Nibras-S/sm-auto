@@ -19,7 +19,6 @@ const Footer = () => {
           <h4 className="text-lg font-bold">Useful Links</h4>
           <ul className="space-y-2">
             <li><Link to='/aboutus' className="hover:underline">About Us</Link></li>
-            <li><a href="#shop" className="hover:underline">Shop Now</a></li>
             <li><a href="#shipping" className="hover:underline">Shipping & Delivery</a></li>
             <li><Link to="/returns" className="hover:underline">Returns & Refunds</Link></li>
           </ul>
