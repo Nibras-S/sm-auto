@@ -29,6 +29,7 @@ function Home() {
         <Products />
         
       </main>
+      <Faqs />
       <Footer />
     
     </div>
