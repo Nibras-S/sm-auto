@@ -9,6 +9,7 @@ import Service from '../components/Service';
 import TrendingProducts from '../components/TrendingProduct';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import About from '../Pages/About';
+import Faqs from '../Pages/Faqs'
 import ScrollToTop from '../components/ScrollTop';
 
 
