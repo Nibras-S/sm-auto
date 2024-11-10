@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import '../App.css'
+import '../App.css';
 import Carousel from '../components/carousel';
 import BrandShowcase from '../components/Brands';
 import Products from '../components/Products';
