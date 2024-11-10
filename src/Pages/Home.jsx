@@ -7,24 +7,14 @@ import BrandShowcase from '../components/Brands';
 import Products from '../components/Products';
 import Service from '../components/Service';
 import TrendingProducts from '../components/TrendingProduct';
-<<<<<<< HEAD
-=======
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import About from '../Pages/About';
-import Faqs from '../Pages/Faqs'
->>>>>>> 839682665e3f1953f07aadcd67d80a2420445d19
 import ScrollToTop from '../components/ScrollTop';
 import Whatsap from '../components/Whatsap';
 import FaqList from '../components/FaqList'
 
-
-
 function Home() {
   return (
     <div id='home' className='w-100%'>
-      {/* <Header /> */}
-      
-    
+        
       <Navbar />
       <ScrollToTop /> 
       <Carousel />
@@ -32,17 +22,11 @@ function Home() {
         <Service />
         <BrandShowcase/>
         <TrendingProducts />
-        <Products />
-        
+        <Products />        
       </main>
-<<<<<<< HEAD
       <Whatsap />
       <FaqList />
-=======
-      <Faqs />
->>>>>>> 839682665e3f1953f07aadcd67d80a2420445d19
-      <Footer />
-    
+      <Footer />    
     </div>
   )
 }
