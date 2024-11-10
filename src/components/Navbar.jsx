@@ -31,7 +31,7 @@ const Navbar = () => {
         {/* Logo and Brand Name */}
         <div className="flex items-center space-x-4">
           <img src={logo} alt="Logo" className="h-[7.25rem] w-auto object-contain" />
-          <span className="text-xl font-bold">SM AUTO SPARE PARTS</span>
+          <span className="text-2xl font-bold leading-relaxed">SPARE MEC</span>
         </div>
 
         {/* Hamburger Menu for mobile */}

@@ -7,9 +7,10 @@ import BrandShowcase from '../components/Brands';
 import Products from '../components/Products';
 import Service from '../components/Service';
 import TrendingProducts from '../components/TrendingProduct';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import About from '../Pages/About';
 import ScrollToTop from '../components/ScrollTop';
+import Whatsap from '../components/Whatsap';
+import FaqList from '../components/FaqList'
+
 
 
 function Home() {
@@ -28,6 +29,8 @@ function Home() {
         <Products />
         
       </main>
+      <Whatsap />
+      <FaqList />
       <Footer />
     
     </div>
