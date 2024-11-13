@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding in width/height */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-y: auto; /* Allow vertical scroll if needed */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
+}
+
+.gradient__bg {
+  background: radial-gradient(circle at 8% 11%, rgb(0, 2, 7) 3%, rgba(255, 254, 254, 0.99) 47%, rgb(0, 1, 4) 100%);
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+nav {
+  padding: 35%;  /* Maintain your padding */
+  width: 100%;
+  max-width: 100vw;  /* Prevents exceeding viewport width */
+  box-sizing: border-box;
+}
+
+header {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  width: 100%;
+  max-width: 100vw;  /* Ensures header doesn't exceed screen width */
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 20%;  /* Slightly reduce padding for very small screens */
+  }
+
+  header {
+    padding: 1rem;
+  }
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
