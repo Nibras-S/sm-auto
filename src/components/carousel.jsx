@@ -4,12 +4,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import car1 from '../assets/car1.jpg';
 import car2 from '../assets/car2.jpg';
-import car3 from '../assets/car3.jpg';
 
 const carouselItems = [
   { img: car1, text: "Customize, Upgrade, and Replace" },
   { img: car2, text: "Enhance Your Vehicle's Performance" },
-  { img: car3, text: "Quality Parts for Every Need" },
 ];
 
 const Carousel = () => {
