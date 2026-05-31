@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiSearch, FiFileText } from "react-icons/fi";
+import { FiMenu, FiX, FiSearch, FiFileText, FiHeart, FiChevronDown } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import logo from "../../assets/logor.png";
 import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
 import { useInquiry } from "../../context/InquiryContext";
@@ -26,95 +25,74 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.02)] border-b border-neutral-100"
-            : "bg-white/40 backdrop-blur-md border-b border-transparent"
+        className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b border-neutral-100 ${
+          scrolled ? "shadow-[0_8px_30px_rgb(0,0,0,0.02)]" : ""
         }`}
       >
-        <div className="container-x flex h-[68px] items-center justify-between gap-4">
-          {/* Brand */}
+        {/* Top Row: Logo & Actions */}
+        <div className="container-x flex h-[72px] items-center justify-between gap-4">
+          {/* Logo Brand Text (Text-only, Sora Font, matching mockup style) */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <img
-              src={logo}
-              alt="Spare Mec"
-              className="h-9 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-            />
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-lg font-extrabold tracking-tight text-ink group-hover:text-accent-500 transition-colors duration-300">
-                SPARE<span className="text-neutral-400">MEC</span>
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-[0.28em] text-neutral-400">
-                Auto Spare Parts
-              </span>
+            <span className="font-display text-2xl font-extrabold tracking-tight text-ink group-hover:text-accent-500 transition-colors duration-300">
+              Spare<span className="text-neutral-500 font-semibold">Mec</span>
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-1.5 lg:flex">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === "/"}
-                className={({ isActive }) =>
-                  `relative rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-all duration-300 ${
-                    isActive
-                      ? "text-accent-500"
-                      : "text-neutral-500 hover:text-ink hover:bg-neutral-100/60"
-                  }`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <span>{link.label}</span>
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute bottom-1.5 left-4 right-4 h-0.5 rounded-full bg-accent-500"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className="flex items-center gap-2">
+          {/* Actions, Wishlist & Profiles */}
+          <div className="flex items-center gap-3">
+            {/* Search (Circular Pill) */}
             <Link
               to="/catalogue"
               aria-label="Search catalogue"
-              className="hidden h-10 w-10 items-center justify-center rounded-full text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500 sm:flex"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
-              <FiSearch size={19} />
+              <FiSearch size={18} />
             </Link>
 
+            {/* Inquiry/Cart List (Circular Pill with Badge) */}
             <button
               onClick={openDrawer}
               aria-label="Open inquiry list"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
-              <FiFileText size={19} />
+              <FiFileText size={18} />
               {count > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-accent-500 px-1.5 text-[9px] font-bold text-white shadow-[0_0_10px_rgba(220,38,38,0.4)]">
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-accent-500 px-1.5 text-[9px] font-bold text-white shadow-sm">
                   {count}
                   <span className="absolute inset-0 -z-10 rounded-full bg-accent-500/50 animate-ping" />
                 </span>
               )}
             </button>
 
-            <a
-              href={genericWaLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-wa hidden px-4 py-2.5 text-sm md:inline-flex"
+            {/* Wishlist Heart Icon (Circular Pill) */}
+            <button
+              aria-label="Wishlist"
+              onClick={() => alert("Wishlist is currently empty.")}
+              className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
-              <FaWhatsapp size={16} />
-              <span className="hidden lg:inline">WhatsApp</span>
-            </a>
+              <FiHeart size={18} />
+            </button>
 
+            {/* User Profile Dropdown Widget (Mockup Style) */}
+            <div className="hidden md:flex items-center gap-2.5 border-l border-neutral-200 pl-4 ml-1">
+              <svg
+                viewBox="0 0 32 32"
+                className="w-9 h-9 rounded-full border border-neutral-200/80 shadow-sm"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="16" cy="16" r="16" fill="#E0F2FE" />
+                <circle cx="16" cy="12" r="5" fill="#0284C7" />
+                <path d="M7 26.5C7 20.7 11.03 16 16 16C20.97 16 25 20.7 25 26.5" fill="#0284C7" />
+              </svg>
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[10px] text-neutral-400 font-medium">Welcome!</span>
+                <span className="text-xs font-bold text-ink mt-0.5">Guest</span>
+              </div>
+              <FiChevronDown size={14} className="text-neutral-400" />
+            </div>
+
+            {/* Mobile Hamburger menu */}
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label="Toggle menu"
@@ -124,9 +102,37 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Bottom Row: Secondary Categories Navigation (Desktop only) */}
+        <div className="hidden lg:block border-t border-neutral-100 bg-neutral-50/50">
+          <div className="container-x flex h-11 items-center">
+            <nav className="flex items-center gap-1.5">
+              {navLinks.map((link) => {
+                const hasDropdown = link.label === "Catalogue" || link.label === "Categories";
+                return (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.to === "/"}
+                    className={({ isActive }) =>
+                      `flex items-center gap-1 rounded-md px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                        isActive
+                          ? "text-accent-500"
+                          : "text-neutral-500 hover:text-ink hover:bg-neutral-100/50"
+                      }`
+                    }
+                  >
+                    <span>{link.label}</span>
+                    {hasDropdown && <FiChevronDown size={12} className="opacity-75" />}
+                  </NavLink>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu Slideout */}
       <AnimatePresence>
         {open && (
           <>
@@ -142,7 +148,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-0 right-0 top-[68px] z-40 mx-3 rounded-2xl border border-neutral-200 bg-white p-3 shadow-card lg:hidden"
+              className="fixed left-0 right-0 top-[72px] z-40 mx-3 rounded-2xl border border-neutral-200 bg-white p-3 shadow-card lg:hidden"
             >
               {navLinks.map((link, i) => (
                 <motion.div
