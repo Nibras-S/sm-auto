@@ -62,40 +62,40 @@ Could you please confirm availability and pricing? Thank you!`;
 
   return (
     <section className="relative overflow-hidden bg-[#FAFAFA] pt-6 pb-12 md:pt-8 md:pb-16 lg:pt-10 lg:pb-20">
-      <div className="container-x">
+      <div className="container-x lg:max-w-[96rem]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 lg:items-stretch"
+          className="flex flex-col lg:flex-row gap-5 lg:gap-6 lg:items-stretch"
         >
-          {/* Main Hero Card (Spans 8 columns) */}
+          {/* Main Hero Card */}
           <motion.div
             variants={itemVariants}
-            className="lg:col-span-8 relative bg-[#0B0B0C] text-white rounded-[2rem] overflow-hidden shadow-glow min-h-[500px] lg:h-[540px] xl:h-[580px]"
+            className="flex-grow relative bg-[#0B0B0C] text-white rounded-[2rem] overflow-hidden shadow-glow min-h-[500px] lg:h-[540px] xl:h-[580px]"
           >
             {/* Top Content Area */}
             <div className="relative z-20 p-8 lg:p-10 xl:p-12 flex flex-col h-full pointer-events-none">
-              
+
               {/* Eyebrow Badge */}
               <div className="mb-6 pointer-events-auto">
                 <span className="text-[11px] font-normal text-neutral-400 font-display">
-                  Sale <span className="text-yellow-400 font-bold">15% Discount</span>
+                  Sale <span className="text-[#E2F314] font-bold">15% Discount</span>
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-light leading-[1.05] tracking-tight text-white lg:max-w-[65%] xl:max-w-[60%] pointer-events-auto">
-                Reliable <span className="font-extrabold">Parts</span><br />
-                For You Can<br />
-                <span className="opacity-95">— Trust.</span>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] leading-[1.05] tracking-tight text-white lg:max-w-[65%] xl:max-w-[60%] pointer-events-auto">
+                <span className="font-light">Reliable</span> <span className="font-semibold">Parts</span><br />
+                <span className="font-extrabold">For You</span> <span className="font-light">Can</span><br />
+                <span className="font-light">— Trust.</span>
               </h1>
 
               {/* CTA Button */}
               <div className="mt-8 lg:mt-10 pointer-events-auto">
                 <Link
                   to="/catalogue"
-                  className="inline-flex items-center justify-center rounded-full bg-yellow-400 text-ink px-8 py-3.5 font-bold text-[13px] hover:bg-yellow-500 transition-colors duration-300 active:scale-95"
+                  className="inline-flex items-center justify-center rounded-full bg-[#E2F314] text-[#0B0B0C] px-8 py-3.5 font-bold text-[13px] hover:bg-[#c9da0e] hover:shadow-[0_0_24px_rgba(226,243,20,0.25)] transition-all duration-300 active:scale-95"
                 >
                   Shop Now
                 </Link>
@@ -123,7 +123,7 @@ Could you please confirm availability and pricing? Thank you!`;
             {/* Full-width Lead Gen Form Panel at Bottom */}
             <div className="absolute bottom-0 left-0 right-0 bg-[#1A1A1A] p-5 sm:p-6 lg:px-10 lg:py-6 z-30 rounded-b-[2rem]">
               <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-5 xl:gap-8">
-                
+
                 {/* Form Title */}
                 <div className="flex-shrink-0">
                   <h3 className="font-display text-[13px] font-bold text-white leading-snug">
@@ -179,7 +179,7 @@ Could you please confirm availability and pricing? Thank you!`;
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-[42px] h-[42px] lg:w-[42px] flex-shrink-0 inline-flex items-center justify-center rounded-full bg-yellow-400 hover:bg-yellow-500 text-ink transition-colors mt-2 lg:mt-0"
+                    className="w-[42px] h-[42px] lg:w-[42px] flex-shrink-0 inline-flex items-center justify-center rounded-full bg-[#E2F314] hover:bg-[#c9da0e] text-[#0B0B0C] transition-colors mt-2 lg:mt-0"
                     aria-label="Get Quote"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -192,9 +192,9 @@ Could you please confirm availability and pricing? Thank you!`;
             </div>
           </motion.div>
 
-          {/* Right Column Stack (Spans 4 columns) */}
-          <div className="lg:col-span-4 flex flex-col gap-5 lg:gap-6 justify-between lg:h-[540px] xl:h-[580px]">
-            
+          {/* Right Column Stack */}
+          <div className="w-full lg:w-[420px] flex-shrink-0 flex flex-col gap-5 lg:gap-6 justify-between lg:h-[540px] xl:h-[580px]">
+
             {/* Top Product Card */}
             <motion.div
               variants={itemVariants}
@@ -209,7 +209,7 @@ Could you please confirm availability and pricing? Thank you!`;
                   Premium <span className="font-bold text-white">Brake</span><br />
                   <span className="font-light text-neutral-400">Up to 25% Offer</span>
                 </h2>
-                
+
                 <div className="mt-6 lg:mt-8">
                   <Link
                     to="/catalogue"

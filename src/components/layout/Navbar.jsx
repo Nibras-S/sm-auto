@@ -30,7 +30,7 @@ export default function Navbar() {
         }`}
       >
         {/* Top Row: Logo & Actions */}
-        <div className="container-x flex h-[72px] items-center justify-between gap-4">
+        <div className="container-x lg:max-w-[96rem] flex h-[72px] items-center justify-between gap-4">
           {/* Logo Brand Text (Text-only, Sora Font, matching mockup style) */}
           <Link to="/" className="flex items-center gap-2.5 group">
             <span className="font-display text-2xl font-extrabold tracking-tight text-ink group-hover:text-accent-500 transition-colors duration-300">
@@ -105,7 +105,7 @@ export default function Navbar() {
 
         {/* Bottom Row: Secondary Categories Navigation (Desktop only) */}
         <div className="hidden lg:block border-t border-neutral-100 bg-neutral-50/50">
-          <div className="container-x flex h-11 items-center">
+          <div className="container-x lg:max-w-[96rem] flex h-11 items-center">
             <nav className="flex items-center gap-1.5">
               {navLinks.map((link) => {
                 const hasDropdown = link.label === "Catalogue" || link.label === "Categories";
