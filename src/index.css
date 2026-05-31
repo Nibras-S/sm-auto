@@ -2,3 +2,242 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* ───────────────────────────────────────────────────────────────────
+     BRAND ACCENT — change THIS to re-theme the entire website.
+     Values are space-separated RGB channels (so opacity utilities work).
+       Monochrome           : 10 10 10
+       Racing red (default) : 220 38 38
+       Cobalt blue          : 37 99 235
+       Emerald green        : 22 163 74
+       Brass / gold         : 200 162 75
+     Set --accent (base) and --accent-strong (slightly darker, for hovers).
+     ─────────────────────────────────────────────────────────────────── */
+  :root {
+    --accent: 220 38 38;
+    --accent-strong: 185 28 28;
+    --accent-contrast: 255 255 255;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: #0d0d12;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  ::selection {
+    background: rgb(var(--accent));
+    color: rgb(var(--accent-contrast));
+  }
+
+  /* Slim monochrome scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #fafafa;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #e4e4e7;
+    border-radius: 9999px;
+    border: 2px solid #fafafa;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-accent-500;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-out focus:outline-none disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply bg-ink text-white px-6 py-3 hover:bg-neutral-800 hover:-translate-y-0.5 hover:shadow-card-hover active:translate-y-0;
+  }
+  /* Accent primary action (driven by --accent; mono by default) */
+  .btn-accent {
+    @apply bg-accent-500 text-accent-contrast px-6 py-3 hover:bg-accent-600 hover:-translate-y-0.5 hover:shadow-accent-glow active:translate-y-0;
+  }
+  .btn-outline {
+    @apply border border-neutral-300 bg-white text-ink px-6 py-3 hover:border-accent-500 hover:text-accent-500 hover:-translate-y-0.5 transition-all duration-300;
+  }
+  .btn-ghost {
+    @apply text-ink px-4 py-2 hover:bg-neutral-100 hover:text-accent-500 transition-colors duration-300;
+  }
+  .btn-wa {
+    @apply bg-[#25D366] text-white px-6 py-3 hover:bg-[#1FB457] hover:-translate-y-0.5 hover:shadow-[0_10px_20px_-5px_rgba(37,211,102,0.4)] active:translate-y-0;
+  }
+
+  .glass-premium {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.02)];
+  }
+  
+  .glass-dark {
+    @apply bg-zinc-950/80 backdrop-blur-xl border border-white/5 shadow-glow;
+  }
+
+  .card {
+    @apply rounded-2xl border border-neutral-200/80 bg-white shadow-soft transition-all duration-500 ease-out;
+  }
+
+  .hairline {
+    @apply border-neutral-200;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Thin accent top-rule (uses the global --accent) */
+  .accent-rule {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--accent)) 50%,
+      transparent
+    );
+  }
+
+  /* Accent text gradient — best on light backgrounds */
+  .text-accent-gradient {
+    background: linear-gradient(
+      120deg,
+      rgb(var(--accent)) 0%,
+      rgb(var(--accent-strong)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Metallic light gradient — for highlight words on DARK backgrounds
+     (stays visible regardless of the accent color). */
+  .text-metal {
+    background: linear-gradient(120deg, #ffffff 0%, #d4d4d8 50%, #ffffff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+
+  /* Scroll reveal (IntersectionObserver-driven .is-visible) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #0a0a0a 0%,
+      #e4e4e7 25%,
+      #0a0a0a 50%,
+      #e4e4e7 75%,
+      #0a0a0a 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
