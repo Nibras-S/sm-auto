@@ -229,7 +229,7 @@ export default function Catalogue() {
             </div>
 
             {filtered.length > 0 ? (
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {filtered.map((p, i) => (
                   <ProductCard key={p.slug} product={p} index={i} />
                 ))}

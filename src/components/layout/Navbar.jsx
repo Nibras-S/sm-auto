@@ -6,11 +6,13 @@ import { FaWhatsapp } from "react-icons/fa";
 import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
 import { useInquiry } from "../../context/InquiryContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { count, openDrawer } = useInquiry();
+  const { wishlistCount } = useWishlist();
   const location = useLocation();
 
   useEffect(() => {
@@ -65,13 +67,19 @@ export default function Navbar() {
             </button>
 
             {/* Wishlist Heart Icon (Circular Pill) */}
-            <button
+            <Link
+              to="/wishlist"
               aria-label="Wishlist"
-              onClick={() => alert("Wishlist is currently empty.")}
-              className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
               <FiHeart size={18} />
-            </button>
+              {wishlistCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-accent-500 px-1.5 text-[9px] font-bold text-white shadow-sm">
+                  {wishlistCount}
+                  <span className="absolute inset-0 -z-10 rounded-full bg-accent-500/50 animate-ping" />
+                </span>
+              )}
+            </Link>
 
             {/* User Profile Dropdown Widget (Mockup Style) */}
             <div className="hidden md:flex items-center gap-2.5 border-l border-neutral-200 pl-4 ml-1">
@@ -172,6 +180,34 @@ export default function Navbar() {
                   </NavLink>
                 </motion.div>
               ))}
+              
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.04 * navLinks.length }}
+              >
+                <NavLink
+                  to="/wishlist"
+                  className={({ isActive }) =>
+                    `flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                      isActive
+                        ? "bg-neutral-100 text-ink"
+                        : "text-neutral-600 hover:bg-neutral-50"
+                    }`
+                  }
+                >
+                  <div className="flex items-center gap-2">
+                    <FiHeart size={18} className="text-neutral-500" />
+                    <span>My Wishlist</span>
+                  </div>
+                  {wishlistCount > 0 && (
+                    <span className="rounded-full bg-accent-500 px-2.5 py-0.5 text-[11px] font-bold text-white">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </NavLink>
+              </motion.div>
+
               <a
                 href={genericWaLink()}
                 target="_blank"

@@ -74,7 +74,7 @@ export default function Category() {
                 <span className="font-semibold text-ink">{list.length}</span>{" "}
                 part{list.length !== 1 ? "s" : ""} available
               </p>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
                 {list.map((p, i) => (
                   <ProductCard key={p.slug} product={p} index={i} />
                 ))}

@@ -12,6 +12,7 @@ import Faqs from "./pages/Faqs";
 import Returns from "./pages/Returns";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
+import Wishlist from "./pages/Wishlist";
 
 // Set to true to hide the developing site and show the Coming Soon screen
 // Set to false to return to normal site viewing
@@ -48,6 +49,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/returns" element={<Returns />} />
+        <Route path="/wishlist" element={<Wishlist />} />
 
         {/* Legacy redirects */}
         <Route path="/aboutus" element={<Navigate to="/about" replace />} />
