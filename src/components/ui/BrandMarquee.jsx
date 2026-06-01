@@ -14,7 +14,7 @@ export default function BrandMarquee({ className = "", speed = "animate-marquee"
             src={b.src}
             alt={b.name}
             title={b.name}
-            className="h-9 w-auto shrink-0 object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 md:h-11"
+            className="h-9 w-auto shrink-0 object-contain opacity-80 hover:opacity-100 transition-all duration-300 md:h-11"
           />
         ))}
       </div>

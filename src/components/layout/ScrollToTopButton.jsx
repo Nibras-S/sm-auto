@@ -20,7 +20,7 @@ export default function ScrollToTopButton() {
           exit={{ opacity: 0, scale: 0.6 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Scroll to top"
-          className="fixed bottom-24 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-ink shadow-card transition-colors hover:bg-ink hover:text-white"
+          className="fixed bottom-[152px] right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200 bg-white text-ink shadow-card transition-colors hover:bg-ink hover:text-white"
         >
           <FiArrowUp size={20} />
         </motion.button>

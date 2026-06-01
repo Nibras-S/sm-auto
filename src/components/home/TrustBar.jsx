@@ -1,27 +1,27 @@
 import React from "react";
-import { FiShield, FiTruck, FiCheckCircle, FiHeadphones } from "react-icons/fi";
+import { FiMessageSquare, FiZap, FiClock, FiTruck } from "react-icons/fi";
 import Reveal from "../ui/Reveal";
 
 const items = [
   {
-    icon: FiShield,
-    title: "Genuine & OEM-Quality",
-    desc: "Authentic parts and trusted OEM-grade alternatives.",
+    icon: FiMessageSquare,
+    title: "ORDER ON WHATSAPP",
+    desc: "Fast and convenient ordering",
   },
   {
-    icon: FiCheckCircle,
-    title: "Fitment Verified",
-    desc: "We confirm by VIN before every order.",
+    icon: FiZap,
+    title: "QUICK RESPONSE",
+    desc: "Fast replies from our team",
+  },
+  {
+    icon: FiClock,
+    title: "24/7 SUPPORT",
+    desc: "Support whenever you need it",
   },
   {
     icon: FiTruck,
-    title: "UAE & GCC Delivery",
-    desc: "Fast dispatch across the Emirates and Gulf.",
-  },
-  {
-    icon: FiHeadphones,
-    title: "Expert Support",
-    desc: "Real parts specialists on WhatsApp.",
+    title: "FREE SHIPPING",
+    desc: "Available on eligible orders",
   },
 ];
 

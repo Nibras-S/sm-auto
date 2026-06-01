@@ -8,6 +8,7 @@ import RouteScrollTop from "./RouteScrollTop";
 import WhatsAppFloat from "./WhatsAppFloat";
 import ScrollToTopButton from "./ScrollToTopButton";
 import InquiryDrawer from "./InquiryDrawer";
+import ChatWidget from "./ChatWidget";
 
 export default function Layout() {
   const { pathname } = useLocation();
@@ -30,6 +31,7 @@ export default function Layout() {
       </motion.main>
       <Footer />
       <WhatsAppFloat hideOnMobile={isProduct} />
+      <ChatWidget />
       <ScrollToTopButton />
       <InquiryDrawer />
     </>
