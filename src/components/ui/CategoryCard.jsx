@@ -164,7 +164,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
             <img
               src={category.image}
               alt={category.name}
-              className="absolute right-[-8%] bottom-[11%] lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:right-4 w-[109%] sm:w-[98%] lg:w-[65%] max-w-[106%] object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1 z-10"
+              className="absolute right-[-8%] bottom-[10%] lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:right-4 w-[121%] sm:w-[98%] lg:w-[65%] max-w-[116%] object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1 z-10"
             />
 
             <div className="absolute bottom-3 left-3 lg:bottom-9 lg:left-9 z-20">
@@ -189,7 +189,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
             <img
               src={category.image}
               alt={category.name}
-              className="absolute bottom-[11%] lg:bottom-[15%] left-1/2 -translate-x-1/2 w-[109%] sm:w-[98%] lg:w-[100%] xl:w-[105%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px] z-10"
+              className="absolute bottom-[10%] lg:bottom-[15%] left-1/2 -translate-x-1/2 w-[121%] sm:w-[98%] lg:w-[100%] xl:w-[105%] max-w-[116%] object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px] z-10"
             />
 
             <div className="absolute bottom-3 left-3 lg:bottom-9 lg:left-9 z-20">

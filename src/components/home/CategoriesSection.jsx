@@ -34,7 +34,7 @@ const homeCategories = [
     tagline: "Smooth road control",
     image: suspensionImg,
     type: "small-white",
-    imageClass: "absolute right-[-21px] bottom-[-9%] w-[114%] sm:w-[95%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-27px] bottom-[-9%] w-[114%] sm:w-[95%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "fuel-air",
