@@ -124,22 +124,22 @@ export default function CategoriesSection() {
           </div>
 
           {/* Suspension & Steering */}
-          <div className="col-span-1 h-[165px] sm:h-[185px]">
+          <div className="col-span-1 h-[180px] sm:h-[200px]">
             <CategoryCard category={homeCategories[2]} index={2} />
           </div>
 
           {/* Filtration */}
-          <div className="col-span-1 h-[165px] sm:h-[185px]">
+          <div className="col-span-1 h-[180px] sm:h-[200px]">
             <CategoryCard category={homeCategories[3]} index={3} />
           </div>
 
           {/* Electrical */}
-          <div className="col-span-1 h-[165px] sm:h-[185px]">
+          <div className="col-span-1 h-[180px] sm:h-[200px]">
             <CategoryCard category={homeCategories[4]} index={4} />
           </div>
 
           {/* Lighting */}
-          <div className="col-span-1 h-[165px] sm:h-[185px]">
+          <div className="col-span-1 h-[180px] sm:h-[200px]">
             <CategoryCard category={homeCategories[5]} index={5} />
           </div>
 
