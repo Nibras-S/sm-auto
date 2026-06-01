@@ -50,15 +50,17 @@ export default function ComingSoon() {
       <main className="w-full max-w-md z-10 my-auto flex flex-col justify-center items-center">
 
         {/* Brand Main Text - Full White */}
-        <h1 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-white text-center mb-4 leading-[1.1] drop-shadow-lg animate-fadeUp">
-          Premium Spare Parts <br />
-          <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.35)]">Coming Soon</span>
+        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white text-center mb-5 leading-[1.25] drop-shadow-lg animate-fadeUp">
+          <span className="inline-block whitespace-nowrap">SpareMec Marketplace</span>
+          <br />
+          <span className="inline-block text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Coming Soon</span>
         </h1>
 
         {/* Minimal Subtitle - Full White */}
-        <p className="text-white text-sm md:text-base font-normal text-center max-w-sm mb-8 leading-relaxed drop-shadow animate-fadeUp [animation-delay:100ms]">
-          We are fine-tuning our luxury auto spares marketplace. Our spares desk is fully active and ready to assist.
-        </p>
+        <div className="text-white text-sm md:text-base font-normal text-center max-w-sm mb-8 leading-relaxed drop-shadow animate-fadeUp [animation-delay:100ms] flex flex-col gap-2">
+          <p>We're building a better online experience for auto spare parts.</p>
+          <p>For inquiries and orders, contact our team today.</p>
+        </div>
 
         {/* Glass Boxed Actions */}
         <div className="w-full bg-black/50 border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.7)] backdrop-blur-md rounded-2xl p-5 md:p-6 flex flex-col gap-3 animate-fadeUp [animation-delay:200ms]">
