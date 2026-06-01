@@ -34,7 +34,7 @@ const homeCategories = [
     tagline: "Smooth road control",
     image: suspensionImg,
     type: "small-white",
-    imageClass: "absolute right-[-21px] bottom-[-17%] w-[104%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-21px] bottom-[-9%] w-[114%] sm:w-[95%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "fuel-air",
@@ -42,7 +42,7 @@ const homeCategories = [
     tagline: "Clean engine flow",
     image: filtrationImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[-17%] w-[104%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-8px] bottom-[-9%] w-[114%] sm:w-[95%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "electrical-lighting",
@@ -50,7 +50,7 @@ const homeCategories = [
     tagline: "Reliable power systems",
     image: electricalImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[-17%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[-9%] w-[104%] sm:w-[92%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "electrical-lighting",
@@ -58,7 +58,7 @@ const homeCategories = [
     tagline: "Maximum road visibility",
     image: lightingImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[-17%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[-9%] w-[104%] sm:w-[92%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "all",
@@ -69,7 +69,7 @@ const homeCategories = [
 
 export default function CategoriesSection() {
   return (
-    <section id="categories" className="bg-[#FAF9F6]/55 py-20 md:py-28 border-t border-neutral-200/30">
+    <section id="categories" className="bg-[#FAF9F6]/55 pt-10 pb-20 md:py-28 border-t border-neutral-200/30">
       {/* Expanded Max-Width to matches Hero and layouts perfectly */}
       <div className="container-x lg:max-w-[96rem]">
         {/* Minimal Modern Header matching reference screens exactly */}

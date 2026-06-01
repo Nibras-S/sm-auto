@@ -34,7 +34,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
               )}
             </div>
             
-            <div className="absolute left-6 top-6 lg:left-9 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[55%] pointer-events-none">
+            <div className="absolute left-5 top-3 lg:left-9 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[55%] pointer-events-none">
               <h3 className="font-display font-black text-[22px] sm:text-2xl lg:text-[2.1rem] text-neutral-900 leading-[1.1] tracking-tight">
                 {category.name}
               </h3>
@@ -59,7 +59,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
 
         {isTallBlack && (
           <div className="h-full w-full relative">
-            <div className="absolute top-6 left-6 lg:top-9 lg:left-9 z-20 max-w-[55%] pointer-events-none">
+            <div className="absolute top-3 left-5 lg:top-9 lg:left-9 z-20 max-w-[55%] pointer-events-none">
               <h3 className="font-display font-black text-[22px] sm:text-2xl lg:text-[2.1rem] text-white leading-[1.1] tracking-tight">
                 {category.name}
               </h3>
@@ -134,7 +134,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
     } else if (isTallBlack) {
       cardClasses = "relative block overflow-hidden rounded-2xl bg-[#0A0A0A] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] group h-full w-full border border-white/5";
     } else if (isSmallWhite) {
-      cardClasses = "relative block overflow-hidden rounded-2xl border border-neutral-200/50 bg-white p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.05)] group h-full w-full";
+      cardClasses = "relative block overflow-hidden rounded-2xl border border-neutral-200/50 bg-white px-5 pt-3.5 pb-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.05)] group h-full w-full";
     } else if (isYellowCta) {
       cardClasses = "relative block overflow-hidden rounded-2xl bg-[#F4E100] p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(244,225,0,0.2)] group h-full w-full border border-[#D5CC00]";
     }
@@ -151,7 +151,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
               )}
             </div>
             
-            <div className="absolute top-6 left-6 lg:top-1/2 lg:-translate-y-1/2 lg:left-9 z-20 pointer-events-none">
+            <div className="absolute top-3 left-5 lg:top-1/2 lg:-translate-y-1/2 lg:left-9 z-20 pointer-events-none">
               <h3 className="font-display font-black text-[17px] sm:text-lg lg:text-[2.35rem] text-neutral-900 leading-[1.08] lg:leading-[1.05] tracking-tight">
                 Engine &amp;<br />
                 Powertrain
@@ -177,7 +177,7 @@ export default function CategoryCard({ category, index = 0, isListPage = false }
 
         {isTallBlack && (
           <div className="h-full w-full relative">
-            <div className="absolute top-6 left-6 lg:top-9 lg:left-9 z-20 pointer-events-none">
+            <div className="absolute top-3 left-5 lg:top-9 lg:left-9 z-20 pointer-events-none">
               <h3 className="font-display font-black text-[17px] sm:text-lg lg:text-[2.35rem] text-white leading-[1.08] lg:leading-[1.05] tracking-tight">
                 {category.name}
               </h3>

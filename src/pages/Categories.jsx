@@ -107,7 +107,7 @@ export default function Categories() {
       />
       
       {/* Sleek, premium background styling matching CategoriesSection */}
-      <section className="bg-[#FAF9F6]/55 py-16 md:py-24 border-t border-neutral-200/30">
+      <section className="bg-[#FAF9F6]/55 pt-6 pb-16 md:py-24 border-t border-neutral-200/30">
         <div className="container-x lg:max-w-[96rem]">
           
           {/* Beautiful Symmetrical Grid Layout for all screen sizes */}
