@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
@@ -11,8 +11,31 @@ import Contact from "./pages/Contact";
 import Faqs from "./pages/Faqs";
 import Returns from "./pages/Returns";
 import NotFound from "./pages/NotFound";
+import ComingSoon from "./pages/ComingSoon";
+
+// Set to true to hide the developing site and show the Coming Soon screen
+// Set to false to return to normal site viewing
+const IS_COMING_SOON = true;
 
 function App() {
+  // Check if preview bypass is active (via URL or stored session)
+  const [isBypassed] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("preview") === "true") {
+        sessionStorage.setItem("smauto_preview_bypass", "true");
+        return true;
+      }
+      return sessionStorage.getItem("smauto_preview_bypass") === "true";
+    }
+    return false;
+  });
+
+  // If coming soon is active and user is not in preview bypass mode, show the Coming Soon page
+  if (IS_COMING_SOON && !isBypassed) {
+    return <ComingSoon />;
+  }
+
   return (
     <Routes>
       <Route element={<Layout />}>
