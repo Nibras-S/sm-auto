@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiPhone, FiMail, FiExternalLink } from "react-icons/fi";
 import { siteConfig } from "../config/siteConfig";
 import comingSoonVideo from "../assets/comingsoon.mp4";
+import fallbackPoster from "../assets/car2.jpg";
 
 export default function ComingSoon() {
   const { brand, contact } = siteConfig;
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Render a WhatsApp link with a customized greeting
   const waUrl = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
@@ -15,16 +17,31 @@ export default function ComingSoon() {
   return (
     <div className="fixed inset-0 w-screen h-[100dvh] flex flex-col justify-between items-center text-white p-6 md:p-10 lg:p-12 overflow-hidden select-none bg-black">
       
-      {/* ── BACKGROUND VIDEO & OVERLAYS ─────────────────────────────────────── */}
+      {/* ── BACKGROUND VIDEO & OVERLAYS (Smooth Transition Loader) ───────────── */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        {/* Fallback Static Poster Image (Visible instantly, then dims slightly once video plays) */}
+        <img
+          src={fallbackPoster}
+          alt="Spare Mec Background Loading"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            videoLoaded ? "opacity-35" : "opacity-70"
+          }`}
+        />
+
+        {/* Muted Loops Video - Smoothly Fades In once loaded */}
         <video
           src={comingSoonVideo}
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          poster={fallbackPoster}
+          onPlay={() => setVideoLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
         />
+
         {/* Semi-transparent dark overlay to guarantee white text pop */}
         <div className="absolute inset-0 bg-black/60 pointer-events-none" />
         {/* Subtle grid pattern overlay */}
