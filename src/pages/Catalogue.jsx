@@ -1,14 +1,14 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiSearch, FiX, FiSliders, FiInbox } from "react-icons/fi";
+import { FiSearch, FiX, FiSliders, FiInbox, FiChevronDown } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import useSEO from "../hooks/useSEO";
-import PageHero from "../components/ui/PageHero";
 import ProductCard from "../components/ui/ProductCard";
 import { products, productBrands } from "../data/products";
 import { categories } from "../data/categories";
 import { genericWaLink } from "../utils/whatsapp";
+import featuredCarImg from "../assets/sections/featured_car.png";
 
 const AVAILABILITIES = ["In Stock", "Limited Stock", "Made to Order"];
 const TYPES = ["OEM / Genuine", "OEM-Quality Aftermarket"];
@@ -21,6 +21,66 @@ const SORTS = [
 ];
 
 const AVAIL_ORDER = { "In Stock": 0, "Limited Stock": 1, "Made to Order": 2 };
+
+const getCategoryIcon = (slug, isSelected) => {
+  const color = isSelected ? "#FBBF24" : "#111827"; // Yellow if selected, black otherwise
+  switch (slug) {
+    case "engine":
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Cylinder Block outline */}
+          <rect x="4" y="6" width="16" height="12" rx="2" />
+          {/* Pistons */}
+          <circle cx="8" cy="12" r="2" />
+          <circle cx="16" cy="12" r="2" />
+          {/* Spark connections */}
+          <path d="M12 6V4M8 6V4M16 6V4" />
+        </svg>
+      );
+    case "brakes":
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Brake Rotor Disc with cooling holes */}
+          <circle cx="12" cy="12" r="8" />
+          <circle cx="12" cy="12" r="3" />
+          {/* Caliper overlay */}
+          <path strokeLinecap="round" d="M16.5 4.5A8 8 0 0119.5 12c0 1.25-.3 2.4-.8 3.5" strokeWidth="2.5" />
+        </svg>
+      );
+    case "suspension":
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Coilover Shock absorber strut coil */}
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v4M8 6h8M12 6v2M9 8c0 1.5 6 1 6 2.5S9 12 9 13.5s6 1 6 2.5M12 16v4m-3 0h6" />
+        </svg>
+      );
+    case "steering":
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Steering Wheel details */}
+          <circle cx="12" cy="12" r="8" />
+          <circle cx="12" cy="12" r="2.5" />
+          <path strokeLinecap="round" d="M12 4v5.5M12 14.5v5.5M4 12h5.5M14.5 12h5.5" />
+        </svg>
+      );
+    case "fuel-air":
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Air Filter / Intake system */}
+          <rect x="4" y="5" width="16" height="14" rx="2" />
+          <path strokeLinecap="round" d="M8 5v14M12 5v14M16 5v14" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+          {/* Gear / Transmission */}
+          <circle cx="12" cy="12" r="3" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+        </svg>
+      );
+  }
+};
 
 export default function Catalogue() {
   useSEO({
@@ -37,6 +97,7 @@ export default function Catalogue() {
   const [types, setTypes] = useState([]);
   const [sort, setSort] = useState("featured");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [desktopFiltersOpen, setDesktopFiltersOpen] = useState(false); // Collapsed by default!
 
   // keep URL in sync (shallow)
   useEffect(() => {
@@ -45,6 +106,14 @@ export default function Catalogue() {
     if (category !== "all") next.category = category;
     setParams(next, { replace: true });
   }, [query, category]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // sync state with URL query parameters when it changes externally
+  useEffect(() => {
+    const urlQuery = params.get("q") || "";
+    const urlCategory = params.get("category") || "all";
+    if (query !== urlQuery) setQuery(urlQuery);
+    if (category !== urlCategory) setCategory(urlCategory);
+  }, [params]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggle = (value, list, setList) =>
     setList(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
@@ -87,6 +156,14 @@ export default function Catalogue() {
     setBrands([]);
     setAvails([]);
     setTypes([]);
+  };
+
+  const handleFilterToggle = () => {
+    if (window.innerWidth < 1024) {
+      setMobileOpen(true);
+    } else {
+      setDesktopFiltersOpen((o) => !o);
+    }
   };
 
   const Filters = (
@@ -160,64 +237,107 @@ export default function Catalogue() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Catalogue"
-        title="Find the Right Part for Your Vehicle"
-        subtitle="Search by name or part number and filter by category, brand and availability. Every part is fitment-verified before it ships."
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Catalogue" }]}
-      >
-        <div className="relative max-w-xl">
-          <FiSearch className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search part name or number (e.g. 11427953129)"
-            className="w-full rounded-full border border-white/15 bg-white/10 py-3.5 pl-11 pr-11 text-white placeholder:text-neutral-400 outline-none backdrop-blur focus:border-white/40"
-          />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              aria-label="Clear search"
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-300 hover:text-white"
-            >
-              <FiX />
-            </button>
-          )}
-        </div>
-      </PageHero>
+      {/* Unified Premium Black Showroom Header Banner Card */}
+      <div className="container-x pt-6">
+        <div className="relative overflow-hidden rounded-[24px] bg-neutral-950 text-white p-6 pb-8 md:p-10 md:pb-12 min-h-[200px] md:min-h-[250px]">
+          {/* Background Car Image */}
+          <div className="absolute right-0 top-0 bottom-0 w-[55%] md:w-[48%] pointer-events-none select-none z-0 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/70 to-transparent z-10" />
+            <img
+              src={featuredCarImg}
+              alt="Sports car headlight close-up"
+              className="w-full h-full object-cover object-right opacity-70 z-0 mix-blend-screen"
+            />
+          </div>
 
-      <section className="bg-white py-10 md:py-14">
-        <div className="container-x grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
-          {/* Sidebar (desktop) */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">{Filters}</div>
-          </aside>
+          {/* Banner Contents */}
+          <div className="relative z-20 flex flex-col justify-between h-full">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-1.5 text-[11px] font-medium text-neutral-400 tracking-wide mb-3 md:mb-5">
+              <Link to="/" className="hover:text-white transition-colors">Home</Link>
+              <span>&gt;</span>
+              <span className="text-white">Catalogue</span>
+            </div>
 
-          {/* Results */}
-          <div>
-            {/* Toolbar */}
-            <div className="mb-6 flex items-center justify-between gap-3">
-              <p className="text-sm text-neutral-500">
-                <span className="font-semibold text-ink">{filtered.length}</span>{" "}
-                part{filtered.length !== 1 ? "s" : ""} found
-              </p>
-              <div className="flex items-center gap-2">
+            {/* Heading */}
+            <h1 className="text-xl sm:text-2xl md:text-[40px] font-black font-display tracking-tight leading-[1.05] max-w-[75%] md:max-w-[50%] text-white">
+              Find the Right Part<br className="md:hidden" /> for Your Vehicle
+            </h1>
+
+            {/* Description paragraph (visible on desktop only) */}
+            <p className="hidden md:block mt-3.5 text-xs sm:text-sm text-neutral-400 font-medium max-w-[45%] leading-[1.4]">
+              Search by name or part number and filter by category, brand and availability. Every part is fitment-verified before it ships.
+            </p>
+
+            {/* White Rounded Search bar input */}
+            <div className="relative mt-6 md:mt-8 w-full">
+              <FiSearch className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400 z-30" size={18} />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search part name or number (e.g. LR011593)"
+                className="w-full rounded-full border border-neutral-100 bg-white py-3.5 md:py-4 pl-12 pr-12 text-xs md:text-sm text-neutral-850 placeholder:text-neutral-400 outline-none shadow-sm focus:shadow-md transition-shadow relative z-10"
+              />
+              {query ? (
                 <button
-                  onClick={() => setMobileOpen(true)}
-                  className="btn btn-outline px-4 py-2.5 text-sm lg:hidden"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  className="absolute right-12 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 z-30"
+                >
+                  <FiX size={15} />
+                </button>
+              ) : (
+                <button
+                  onClick={handleFilterToggle}
+                  aria-label="Toggle filter settings"
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 transition-colors z-30"
                 >
                   <FiSliders size={16} />
-                  Filters
-                  {activeCount > 0 && (
-                    <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] text-white">
-                      {activeCount}
-                    </span>
-                  )}
                 </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section className="bg-white py-8 md:py-12">
+        <div className="container-x">
+          
+          {/* Unified Tool bar matching mockup */}
+          <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-100 pb-5">
+            {/* Left side parts count */}
+            <p className="text-sm text-neutral-500 font-medium order-1">
+              <span className="font-black text-neutral-950 text-base">{filtered.length}</span> parts found
+            </p>
+
+            {/* Right side filter and sort triggers */}
+            <div className="flex items-center gap-3 order-2 md:order-3">
+              {/* Pill shaped Filters button (visible on all screens to toggle) */}
+              <button
+                onClick={handleFilterToggle}
+                className={`flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-bold transition-all duration-300 hover:bg-neutral-50 shadow-sm ${
+                  desktopFiltersOpen
+                    ? "border-neutral-950 bg-neutral-950 text-white"
+                    : "border-neutral-200 bg-white text-neutral-800"
+                }`}
+              >
+                <FiSliders size={14} />
+                <span>Filters</span>
+                {activeCount > 0 && (
+                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-black shadow-sm ${
+                    desktopFiltersOpen ? "bg-white text-neutral-950" : "bg-accent-500 text-white"
+                  }`}>
+                    {activeCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Sort Dropdown Selector */}
+              <div className="relative">
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
-                  className="rounded-full border border-neutral-300 px-4 py-2.5 text-sm outline-none focus:border-ink"
+                  className="appearance-none rounded-full border border-neutral-200 bg-white py-2 pl-5 pr-10 text-sm font-bold text-neutral-800 outline-none transition-all duration-300 hover:border-neutral-300 focus:border-neutral-400 shadow-sm"
                 >
                   {SORTS.map((s) => (
                     <option key={s.value} value={s.value}>
@@ -225,23 +345,72 @@ export default function Catalogue() {
                     </option>
                   ))}
                 </select>
+                <FiChevronDown size={14} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-neutral-500" />
               </div>
             </div>
-
-            {filtered.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {filtered.map((p, i) => (
-                  <ProductCard key={p.slug} product={p} index={i} />
-                ))}
-              </div>
-            ) : (
-              <EmptyResults onClear={clearAll} />
-            )}
           </div>
+
+          {/* Horizontal Category Tab Pills below toolbar */}
+          <div className="mb-8 overflow-visible">
+            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-3 scroll-smooth">
+              {categories.map((c) => {
+                const isSelected = category === c.slug;
+                return (
+                  <button
+                    key={c.slug}
+                    onClick={() => setCategory(isSelected ? "all" : c.slug)}
+                    className={`group flex items-center gap-3 px-5 py-3 rounded-[16px] border text-xs sm:text-sm font-black transition-all duration-500 shrink-0 shadow-sm ${
+                      isSelected
+                        ? "border-neutral-950 bg-neutral-950 text-white"
+                        : "border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50 hover:border-neutral-300 hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {getCategoryIcon(c.slug, isSelected)}
+                    <span>{c.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Grid stack & Main catalog content */}
+          <div className={`grid grid-cols-1 gap-8 mt-6 transition-all duration-500 ${
+            desktopFiltersOpen ? "lg:grid-cols-[260px_1fr]" : "grid-cols-1"
+          }`}>
+            {/* Sidebar (desktop - left column, animated on toggle) */}
+            {desktopFiltersOpen && (
+              <aside className="hidden lg:block">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="sticky top-24 border border-neutral-100 rounded-3xl p-6 bg-[#FAFAFA]"
+                >
+                  {Filters}
+                </motion.div>
+              </aside>
+            )}
+
+            {/* Results Grid - right column */}
+            <div className="w-full">
+              {filtered.length > 0 ? (
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-500 ${
+                  desktopFiltersOpen ? "xl:grid-cols-3" : "xl:grid-cols-4"
+                }`}>
+                  {filtered.map((p, i) => (
+                    <ProductCard key={p.slug} product={p} index={i} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyResults onClear={clearAll} />
+              )}
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Mobile filter drawer */}
+      {/* Dynamic Slide-out Filter Drawer for all mobile/tablet viewports */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -257,22 +426,22 @@ export default function Catalogue() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 36 }}
-              className="fixed left-0 top-0 z-[61] flex h-full w-[85%] max-w-sm flex-col bg-white lg:hidden"
+              className="fixed left-0 top-0 z-[61] flex h-full w-[85%] max-w-sm flex-col bg-white shadow-2xl border-r border-neutral-100 lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
-                <h2 className="font-display text-lg font-bold">Filters</h2>
+                <h2 className="font-display text-lg font-bold text-ink">Filters</h2>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100"
+                  className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-neutral-100 text-neutral-600 transition-colors"
                 >
                   <FiX size={20} />
                 </button>
               </div>
               <div className="flex-1 overflow-y-auto px-5 py-5">{Filters}</div>
-              <div className="border-t border-neutral-200 p-4">
+              <div className="border-t border-neutral-200 p-4 bg-neutral-50">
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="btn btn-primary w-full py-3"
+                  className="btn btn-primary w-full py-3 font-bold"
                 >
                   Show {filtered.length} result{filtered.length !== 1 ? "s" : ""}
                 </button>
@@ -365,7 +534,7 @@ function EmptyResults({ onClear }) {
       <h3 className="mt-4 font-display text-xl font-bold text-ink">
         No parts match your search
       </h3>
-      <p className="mt-2 max-w-sm text-sm text-neutral-500">
+      <p className="mt-2 max-w-sm text-sm text-neutral-550">
         We supply far more than what's listed here. Tell us the part you need and
         we'll source it for you.
       </p>

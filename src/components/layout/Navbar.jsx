@@ -31,27 +31,70 @@ export default function Navbar() {
           scrolled ? "shadow-[0_8px_30px_rgb(0,0,0,0.02)]" : ""
         }`}
       >
-        {/* Top Row: Logo & Actions */}
         <div className="container-x lg:max-w-[96rem] flex h-[72px] items-center justify-between gap-4">
-          {/* Logo Brand Text (Text-only, Sora Font, matching mockup style) */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <span className="font-display text-2xl font-extrabold tracking-tight text-ink group-hover:text-accent-500 transition-colors duration-300">
-              Spare<span className="text-neutral-500 font-semibold">Mec</span>
+          
+          {/* Left Block: Logo Brand Text */}
+          <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+            <span className="font-display text-2xl font-black tracking-tight text-neutral-900 group-hover:text-accent-500 transition-colors duration-300">
+              Spare<span className="text-[#6B7280]">Mec</span>
             </span>
           </Link>
 
-          {/* Actions, Wishlist & Profiles */}
-          <div className="flex items-center gap-3">
-            {/* Search (Circular Pill) */}
+          {/* Center-Left Block: Single-Row Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 ml-4 shrink-0">
+            {navLinks.map((link) => {
+              const hasDropdown = link.label === "Catalogue" || link.label === "Categories";
+              return (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    `relative flex items-center gap-1.5 py-6 text-[11px] font-extrabold uppercase tracking-widest transition-all duration-300 h-[72px] ${
+                      isActive
+                        ? "text-[#EF4444] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#EF4444] after:rounded-t-full"
+                        : "text-neutral-500 hover:text-[#EF4444]"
+                    }`
+                  }
+                >
+                  <span>{link.label}</span>
+                  {hasDropdown && <FiChevronDown size={11} className="opacity-70 mt-0.5" />}
+                </NavLink>
+              );
+            })}
+          </nav>
+
+          {/* Center-Right Block: Wide Inline Search Bar (Desktop only) */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const q = e.target.search.value;
+              if (q.trim()) {
+                window.location.href = `/catalogue?q=${encodeURIComponent(q)}`;
+              }
+            }}
+            className="hidden xl:flex relative w-[240px] xl:w-[280px] shrink-0 ml-auto mr-1"
+          >
+            <FiSearch className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" size={16} />
+            <input
+              name="search"
+              placeholder="Search for parts, brands or products..."
+              className="w-full rounded-full border border-neutral-200/60 bg-[#F3F4F6] py-2 pl-9 pr-4 text-xs font-semibold text-neutral-850 placeholder:text-neutral-400 outline-none transition-all duration-300 focus:bg-white focus:border-neutral-300 focus:shadow-sm"
+            />
+          </form>
+
+          {/* Right Block: Badges & Profile Dropdown Widget */}
+          <div className="flex items-center gap-3 shrink-0 ml-auto xl:ml-0">
+            {/* Mobile/Tablet Search Button (Hidden on wide Desktop since input is shown) */}
             <Link
               to="/catalogue"
               aria-label="Search catalogue"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
+              className="flex xl:hidden h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
               <FiSearch size={18} />
             </Link>
 
-            {/* Inquiry/Cart List (Circular Pill with Badge) */}
+            {/* Request/Inquiry list Badge (Circular Button) */}
             <button
               onClick={openDrawer}
               aria-label="Open inquiry list"
@@ -66,7 +109,7 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Wishlist Heart Icon (Circular Pill) */}
+            {/* Wishlist Heart Badge (Circular Button) */}
             <Link
               to="/wishlist"
               aria-label="Wishlist"
@@ -81,7 +124,7 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* User Profile Dropdown Widget (Mockup Style) */}
+            {/* User Profile Widget (Desktop only) */}
             <div className="hidden md:flex items-center gap-2.5 border-l border-neutral-200 pl-4 ml-1">
               <svg
                 viewBox="0 0 32 32"
@@ -100,7 +143,7 @@ export default function Navbar() {
               <FiChevronDown size={14} className="text-neutral-400" />
             </div>
 
-            {/* Mobile Hamburger menu */}
+            {/* Mobile Hamburger menu icon */}
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label="Toggle menu"
@@ -110,37 +153,9 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-
-        {/* Bottom Row: Secondary Categories Navigation (Desktop only) */}
-        <div className="hidden lg:block border-t border-neutral-100 bg-neutral-50/50">
-          <div className="container-x lg:max-w-[96rem] flex h-11 items-center">
-            <nav className="flex items-center gap-1.5">
-              {navLinks.map((link) => {
-                const hasDropdown = link.label === "Catalogue" || link.label === "Categories";
-                return (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    end={link.to === "/"}
-                    className={({ isActive }) =>
-                      `flex items-center gap-1 rounded-md px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
-                        isActive
-                          ? "text-accent-500"
-                          : "text-neutral-500 hover:text-ink hover:bg-neutral-100/50"
-                      }`
-                    }
-                  >
-                    <span>{link.label}</span>
-                    {hasDropdown && <FiChevronDown size={12} className="opacity-75" />}
-                  </NavLink>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
       </header>
 
-      {/* Mobile Menu Slideout */}
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {open && (
           <>
@@ -149,14 +164,14 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-45 bg-ink/40 backdrop-blur-sm lg:hidden"
             />
             <motion.nav
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-0 right-0 top-[72px] z-40 mx-3 rounded-2xl border border-neutral-200 bg-white p-3 shadow-card lg:hidden"
+              className="fixed left-0 right-0 top-[72px] z-45 mx-3 rounded-2xl border border-neutral-200 bg-white p-3 shadow-card lg:hidden"
             >
               {navLinks.map((link, i) => (
                 <motion.div

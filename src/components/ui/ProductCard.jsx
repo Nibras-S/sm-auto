@@ -47,7 +47,7 @@ export default function ProductCard({ product, index = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.5, delay: (index % 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex overflow-hidden rounded-[24px] border border-neutral-200/80 bg-white transition-all duration-500 hover:border-accent-500/25 hover:shadow-[0_16px_36px_-12px_rgba(10,10,10,0.05)] hover:-translate-y-1 flex-row md:flex-col p-4 md:p-0 min-h-[148px] md:min-h-0"
+      className="group relative flex overflow-hidden rounded-[24px] border border-neutral-200/80 bg-white transition-all duration-500 hover:border-neutral-300 hover:shadow-[0_16px_36px_-12px_rgba(10,10,10,0.05)] hover:-translate-y-1 flex-row md:flex-col p-4 md:p-0 min-h-[148px] md:min-h-0"
     >
       <Link
         to={`/product/${product.slug}`}
@@ -58,7 +58,7 @@ export default function ProductCard({ product, index = 0 }) {
           className="relative aspect-square overflow-hidden bg-neutral-50/65 rounded-xl md:rounded-none shrink-0 w-28 h-28 sm:w-32 sm:h-32 md:w-full md:h-auto"
         >
           <div className="absolute inset-0 bg-grid-light bg-[size:22px_22px] opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-accent-500/0 via-transparent to-accent-500/0 opacity-0 group-hover:opacity-100 group-hover:from-accent-500/[0.02] group-hover:to-accent-500/[0.05] transition-all duration-700 ease-out" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-neutral-500/0 via-transparent to-neutral-500/0 opacity-0 group-hover:opacity-100 group-hover:from-neutral-500/[0.01] group-hover:to-neutral-500/[0.03] transition-all duration-700 ease-out" />
           <img
             src={img}
             alt={product.name}
@@ -82,9 +82,9 @@ export default function ProductCard({ product, index = 0 }) {
                 toggleWishlist(product);
               }}
               aria-label={isWished ? "Remove from wishlist" : "Add to wishlist"}
-              className="text-neutral-400 hover:text-accent-500 transition-colors duration-300 shrink-0 -mt-1 -mr-1"
+              className="text-neutral-400 hover:text-neutral-800 transition-colors duration-300 shrink-0 -mt-1 -mr-1"
             >
-              <FiHeart size={18} className={isWished ? "fill-accent-500 text-accent-500" : ""} />
+              <FiHeart size={18} className={isWished ? "fill-neutral-900 text-neutral-900" : ""} />
             </button>
           </div>
 
@@ -123,8 +123,8 @@ export default function ProductCard({ product, index = 0 }) {
               onClick={handleAdd}
               className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 shadow-sm ${
                 added
-                  ? "border-accent-500 bg-accent-500 text-white"
-                  : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100 hover:text-accent-500"
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 hover:border-neutral-300"
               }`}
             >
               {added ? <FiCheck size={11} /> : <FiShoppingCart size={11} />}
@@ -138,7 +138,7 @@ export default function ProductCard({ product, index = 0 }) {
           <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">
             {product.categoryName}
           </span>
-          <h3 className="mt-2 text-sm font-bold leading-snug text-ink transition-colors duration-300 group-hover:text-accent-500 line-clamp-2 pr-6 h-[40px]">
+          <h3 className="mt-2 text-sm font-bold leading-snug text-neutral-800 transition-colors duration-300 group-hover:text-neutral-950 line-clamp-2 pr-6 h-[40px]">
             {product.name}
           </h3>
           <div className="flex items-center gap-1.5 mt-2">
@@ -171,8 +171,8 @@ export default function ProductCard({ product, index = 0 }) {
           onClick={handleAdd}
           className={`w-full py-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all duration-300 shadow-sm ${
             added
-              ? "border-accent-500 bg-accent-500 text-white shadow-md scale-105"
-              : "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 hover:text-accent-500 hover:border-accent-500/30"
+              ? "border-neutral-900 bg-neutral-900 text-white shadow-sm"
+              : "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 hover:border-neutral-300"
           }`}
         >
           {added ? <FiCheck size={14} /> : <FiShoppingCart size={14} />}
@@ -188,9 +188,9 @@ export default function ProductCard({ product, index = 0 }) {
           toggleWishlist(product);
         }}
         aria-label={isWished ? "Remove from wishlist" : "Add to wishlist"}
-        className="absolute right-4 top-4 z-30 hidden md:flex text-neutral-400 hover:text-accent-500 transition-colors duration-300"
+        className="absolute right-4 top-4 z-30 hidden md:flex text-neutral-400 hover:text-neutral-800 transition-colors duration-300"
       >
-        <FiHeart size={18} className={isWished ? "fill-accent-500 text-accent-500" : ""} />
+        <FiHeart size={18} className={isWished ? "fill-neutral-900 text-neutral-900" : ""} />
       </button>
     </motion.article>
   );
