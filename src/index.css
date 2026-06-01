@@ -73,6 +73,11 @@
     outline: 2px solid rgb(var(--accent));
     outline-offset: 2px;
   }
+
+  img, video {
+    max-width: 106%;
+    height: auto;
+  }
 }
 
 @layer components {

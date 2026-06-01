@@ -34,7 +34,7 @@ const homeCategories = [
     tagline: "Smooth road control",
     image: suspensionImg,
     type: "small-white",
-    imageClass: "absolute right-[-10px] bottom-[2%] w-[96%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-21px] bottom-[-17%] w-[104%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "fuel-air",
@@ -42,7 +42,7 @@ const homeCategories = [
     tagline: "Clean engine flow",
     image: filtrationImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[2%] w-[96%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-8px] bottom-[-17%] w-[104%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "electrical-lighting",
@@ -50,7 +50,7 @@ const homeCategories = [
     tagline: "Reliable power systems",
     image: electricalImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[2%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[-17%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "electrical-lighting",
@@ -58,7 +58,7 @@ const homeCategories = [
     tagline: "Maximum road visibility",
     image: lightingImg,
     type: "small-white",
-    imageClass: "absolute right-[-8px] bottom-[2%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[-17%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "all",

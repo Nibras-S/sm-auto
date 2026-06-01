@@ -20,9 +20,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <TrustBar />
       <CategoriesSection />
       <FeaturedProducts />
+      <TrustBar />
       <WhyChooseUs />
       <HowItWorks />
       <BrandsSection />

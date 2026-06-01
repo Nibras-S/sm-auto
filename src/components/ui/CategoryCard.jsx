@@ -114,8 +114,8 @@ export default function CategoryCard({ category, index = 0 }) {
               className={category.imageClass || "absolute right-[-4%] lg:right-[-6%] bottom-1/2 lg:bottom-1/2 translate-y-[52%] lg:translate-y-[50%] w-[54%] sm:w-[52%] lg:w-[65%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1 z-10"}
             />
 
-            {/* Bottom-left Arrow Button on Mobile (bottom-3 left-3), Bottom-right on Desktop (bottom-6 right-6) */}
-            <div className="absolute bottom-3 left-3 lg:bottom-6 lg:right-6 lg:left-auto z-20">
+            {/* Bottom-left Arrow Button on Mobile (bottom-[-8px] left-[-8px] sm:bottom-[-12px] sm:left-[-12px]), Bottom-right on Desktop (bottom-6 right-6) */}
+            <div className="absolute bottom-[-8px] left-[-8px] sm:bottom-[-12px] sm:left-[-12px] lg:bottom-6 lg:right-6 lg:left-auto z-20">
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-neutral-200/60 shadow-sm flex items-center justify-center text-neutral-950 transition-all duration-300 group-hover:scale-105 group-hover:shadow group-hover:border-neutral-300">
                 <FiArrowRight size={14} className="sm:w-[15px] sm:h-[15px]" />
               </div>
