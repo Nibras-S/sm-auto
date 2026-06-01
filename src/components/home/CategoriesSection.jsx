@@ -114,12 +114,12 @@ export default function CategoriesSection() {
         {/* Mobile Responsive Grid Layout (Reduced mobile tall card heights to matches reference) */}
         <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:hidden">
           {/* Engine & Powertrain */}
-          <div className="col-span-1 h-[310px] sm:h-[350px]">
+          <div className="col-span-1 h-[280px] sm:h-[320px]">
             <CategoryCard category={homeCategories[0]} index={0} />
           </div>
 
           {/* Brake Systems */}
-          <div className="col-span-1 h-[310px] sm:h-[350px]">
+          <div className="col-span-1 h-[280px] sm:h-[320px]">
             <CategoryCard category={homeCategories[1]} index={1} />
           </div>
 

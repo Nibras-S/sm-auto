@@ -12,16 +12,16 @@ export default function CategoryCard({ category, index = 0 }) {
     const isSmallWhite = category.type === "small-white";
     const isYellowCta = category.type === "yellow-cta";
 
-    // Set layout classes based on card type
+    // Set layout classes based on card type (reduced corner roundness to rounded-2xl to match reference exactly)
     let cardClasses = "";
     if (isTallWhite) {
-      cardClasses = "relative block overflow-hidden rounded-[1.5rem] border border-neutral-200/50 bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.06)] group h-full";
+      cardClasses = "relative block overflow-hidden rounded-2xl border border-neutral-200/50 bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.06)] group h-full";
     } else if (isTallBlack) {
-      cardClasses = "relative block overflow-hidden rounded-[1.5rem] bg-[#0A0A0A] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] group h-full border border-white/5";
+      cardClasses = "relative block overflow-hidden rounded-2xl bg-[#0A0A0A] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] group h-full border border-white/5";
     } else if (isSmallWhite) {
-      cardClasses = "relative block overflow-hidden rounded-[1.25rem] border border-neutral-200/50 bg-white p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.05)] group h-full";
+      cardClasses = "relative block overflow-hidden rounded-2xl border border-neutral-200/50 bg-white p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.05)] group h-full";
     } else if (isYellowCta) {
-      cardClasses = "relative block overflow-hidden rounded-[1.25rem] bg-[#F4E100] p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(244,225,0,0.2)] group h-full border border-[#D5CC00]";
+      cardClasses = "relative block overflow-hidden rounded-2xl bg-[#F4E100] p-5 sm:p-6 lg:p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-12px_rgba(244,225,0,0.2)] group h-full border border-[#D5CC00]";
     }
 
     const cardContent = (
@@ -53,11 +53,11 @@ export default function CategoryCard({ category, index = 0 }) {
             <img
               src={category.image}
               alt={category.name}
-              className="absolute right-[-8%] bottom-[20%] lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:right-4 w-[109%] sm:w-[98%] lg:w-[65%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1 z-10"
+              className="absolute right-[-8%] bottom-[11%] lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:right-4 w-[109%] sm:w-[98%] lg:w-[65%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1 z-10"
             />
 
-            {/* Bottom-left Arrow Button - Moved left-4 and bottom-10 on mobile as requested */}
-            <div className="absolute bottom-10 left-4 lg:bottom-9 lg:left-9 z-20">
+            {/* Bottom-left Arrow Button - Moved left-3 and bottom-3 on mobile as requested */}
+            <div className="absolute bottom-3 left-3 lg:bottom-9 lg:left-9 z-20">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-neutral-950 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-neutral-800 group-hover:scale-105 shadow-md">
                 <FiArrowRight size={18} className="sm:w-5 sm:h-5" />
               </div>
@@ -82,11 +82,11 @@ export default function CategoryCard({ category, index = 0 }) {
             <img
               src={category.image}
               alt={category.name}
-              className="absolute bottom-[20%] lg:bottom-[15%] left-1/2 -translate-x-1/2 w-[109%] sm:w-[98%] lg:w-[100%] xl:w-[105%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px] z-10"
+              className="absolute bottom-[11%] lg:bottom-[15%] left-1/2 -translate-x-1/2 w-[109%] sm:w-[98%] lg:w-[100%] xl:w-[105%] max-w-none object-contain transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px] z-10"
             />
 
-            {/* Bottom-left Arrow Button - Moved left-4 and bottom-10 on mobile as requested */}
-            <div className="absolute bottom-10 left-4 lg:bottom-9 lg:left-9 z-20">
+            {/* Bottom-left Arrow Button - Moved left-3 and bottom-3 on mobile as requested */}
+            <div className="absolute bottom-3 left-3 lg:bottom-9 lg:left-9 z-20">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all duration-300 group-hover:bg-white/15 group-hover:scale-105 shadow-md">
                 <FiArrowRight size={18} className="sm:w-5 sm:h-5" />
               </div>
