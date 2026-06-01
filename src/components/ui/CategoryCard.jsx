@@ -70,8 +70,9 @@ export default function CategoryCard({ category, index = 0 }) {
           <div className="h-full w-full relative">
             {/* Top-left Title Content */}
             <div className="absolute top-6 left-6 lg:top-9 lg:left-9 z-20">
-              {category.name}
-            </h3>
+              <h3 className="font-display font-black text-[17px] sm:text-lg lg:text-[2.35rem] text-white leading-[1.08] lg:leading-[1.05] tracking-tight">
+                {category.name}
+              </h3>
               <p className="text-neutral-400 text-[10px] sm:text-xs lg:text-[14px] font-medium mt-1 lg:mt-2">
                 {category.tagline}
               </p>
