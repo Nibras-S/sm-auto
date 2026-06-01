@@ -34,7 +34,7 @@ const homeCategories = [
     tagline: "Smooth road control",
     image: suspensionImg,
     type: "small-white",
-    imageClass: "absolute right-2 bottom-[10%] w-[58%] sm:w-[50%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-10px] bottom-[2%] w-[96%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-12px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "fuel-air",
@@ -42,7 +42,7 @@ const homeCategories = [
     tagline: "Clean engine flow",
     image: filtrationImg,
     type: "small-white",
-    imageClass: "absolute right-2 bottom-[10%] w-[58%] sm:w-[50%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
+    imageClass: "absolute right-[-8px] bottom-[2%] w-[96%] sm:w-[85%] lg:w-[85%] lg:bottom-[12%] lg:right-[-10px] object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-x-1",
   },
   {
     slug: "electrical-lighting",
@@ -50,7 +50,7 @@ const homeCategories = [
     tagline: "Reliable power systems",
     image: electricalImg,
     type: "small-white",
-    imageClass: "absolute right-2 bottom-[10%] w-[56%] sm:w-[48%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[2%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "electrical-lighting",
@@ -58,7 +58,7 @@ const homeCategories = [
     tagline: "Maximum road visibility",
     image: lightingImg,
     type: "small-white",
-    imageClass: "absolute right-2 bottom-[10%] w-[56%] sm:w-[48%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
+    imageClass: "absolute right-[-8px] bottom-[2%] w-[94%] sm:w-[82%] lg:w-[80%] lg:bottom-[18%] lg:left-1/2 lg:-translate-x-1/2 lg:right-auto object-contain z-10 transition-all duration-700 ease-out group-hover:scale-105 group-hover:translate-y-[-4px]",
   },
   {
     slug: "all",
@@ -111,8 +111,8 @@ export default function CategoriesSection() {
           </div>
         </div>
 
-        {/* Mobile Responsive Grid Layout (Reduced mobile tall card heights to matches reference) */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:hidden">
+        {/* Mobile Responsive Grid Layout (Reduced mobile tall card heights and gaps to match reference exactly) */}
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:hidden">
           {/* Engine & Powertrain */}
           <div className="col-span-1 h-[280px] sm:h-[320px]">
             <CategoryCard category={homeCategories[0]} index={0} />
@@ -124,22 +124,22 @@ export default function CategoriesSection() {
           </div>
 
           {/* Suspension & Steering */}
-          <div className="col-span-1 h-[200px] sm:h-[220px]">
+          <div className="col-span-1 h-[165px] sm:h-[185px]">
             <CategoryCard category={homeCategories[2]} index={2} />
           </div>
 
           {/* Filtration */}
-          <div className="col-span-1 h-[200px] sm:h-[220px]">
+          <div className="col-span-1 h-[165px] sm:h-[185px]">
             <CategoryCard category={homeCategories[3]} index={3} />
           </div>
 
           {/* Electrical */}
-          <div className="col-span-1 h-[200px] sm:h-[220px]">
+          <div className="col-span-1 h-[165px] sm:h-[185px]">
             <CategoryCard category={homeCategories[4]} index={4} />
           </div>
 
           {/* Lighting */}
-          <div className="col-span-1 h-[200px] sm:h-[220px]">
+          <div className="col-span-1 h-[165px] sm:h-[185px]">
             <CategoryCard category={homeCategories[5]} index={5} />
           </div>
 
