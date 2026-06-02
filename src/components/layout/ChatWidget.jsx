@@ -196,20 +196,29 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating Chat Trigger Button */}
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        aria-label="Open chat assistant"
-        className="fixed bottom-[88px] right-6 z-40 group flex h-14 w-14 items-center justify-center rounded-full bg-[#0B0B0C] border border-[#E2F314]/30 hover:border-[#E2F314] text-white hover:text-[#E2F314] shadow-glow transition-all duration-300 active:scale-95"
-      >
-        <span className="relative flex items-center justify-center">
-          <FiMessageSquare size={24} className="group-hover:scale-110 transition-transform duration-300" />
-          <span className="absolute -top-1 -right-1 flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E2F314] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E2F314]" />
-          </span>
+      {/* Floating Chat Trigger Button Container with Hover Tooltip */}
+      <div className="fixed bottom-[88px] right-6 z-40 group flex items-center justify-end">
+        {/* Tooltip */}
+        <span className="pointer-events-none absolute right-17 opacity-0 translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden md:inline-flex items-center gap-1.5 bg-neutral-950/90 border border-white/[0.08] text-white text-[11px] font-semibold px-3 py-1.5 rounded-full shadow-2xl backdrop-blur-md whitespace-nowrap">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#E2F314] animate-pulse" />
+          MecAssist AI • Find Parts in 60s
         </span>
-      </button>
+
+        {/* Trigger Button */}
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label="Open chat assistant"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-neutral-950 border border-white/10 hover:border-[#E2F314] text-white hover:text-[#E2F314] shadow-2xl hover:shadow-[0_8px_28px_rgba(226,243,20,0.18)] transition-all duration-300 active:scale-95 shrink-0"
+        >
+          <span className="relative flex items-center justify-center">
+            <FiMessageSquare size={24} className="group-hover:rotate-6 transition-transform duration-300" />
+            <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E2F314] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E2F314]" />
+            </span>
+          </span>
+        </button>
+      </div>
 
       {/* Chat Window Panel */}
       <AnimatePresence>
@@ -219,17 +228,20 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] max-w-[90vw] h-[520px] bg-[#0B0B0C] border border-white/5 rounded-[2rem] shadow-glow flex flex-col overflow-hidden text-white"
+            className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] max-w-[90vw] h-[540px] bg-neutral-950/95 border border-white/[0.08] rounded-[2.25rem] shadow-[0_24px_64px_-16px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden text-white backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-5 border-b border-white/5 bg-[#141415]">
+            <div className="flex items-center justify-between p-5 border-b border-white/[0.06] bg-neutral-900/40 backdrop-blur-md">
               <div className="flex items-center gap-3">
-                <div className="relative w-8 h-8 rounded-full bg-[#E2F314]/10 border border-[#E2F314]/20 flex items-center justify-center">
+                <div className="relative w-9 h-9 rounded-full bg-neutral-800 border border-white/10 flex items-center justify-center shadow-inner">
                   <FiMessageSquare className="text-[#E2F314] w-4.5 h-4.5" />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-[#0B0B0C]" />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-neutral-950" />
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="font-display text-sm font-bold text-white tracking-wide">SpareMec Assistant</span>
+                  <span className="font-display text-sm font-bold text-white tracking-wide flex items-center gap-1.5">
+                    MecAssist AI
+                    <span className="text-[8px] uppercase font-black tracking-widest px-1.5 py-0.5 rounded bg-[#E2F314]/10 text-[#E2F314] border border-[#E2F314]/20">parts expert</span>
+                  </span>
                   <span className="text-[10px] text-neutral-400 font-medium">Online • Responds Instantly</span>
                 </div>
               </div>
@@ -238,7 +250,7 @@ export default function ChatWidget() {
                 {currentStep > 0 && (
                   <button
                     onClick={handleResetChat}
-                    className="text-[10px] text-neutral-400 hover:text-white px-2 py-1 rounded-md bg-white/5 transition-colors"
+                    className="text-[10px] text-neutral-400 hover:text-white px-2.5 py-1 rounded-md bg-white/5 transition-colors font-bold"
                   >
                     Reset
                   </button>
@@ -260,10 +272,10 @@ export default function ChatWidget() {
                   className={`flex w-full ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] p-4 text-xs leading-relaxed ${
+                    className={`max-w-[80%] p-4 text-xs leading-relaxed transition-all duration-300 ${
                       msg.sender === "user"
-                        ? "bg-[#E2F314] text-[#0B0B0C] font-semibold rounded-[1.25rem] rounded-tr-none"
-                        : "bg-[#18181A] text-neutral-200 border border-white/5 rounded-[1.25rem] rounded-tl-none text-left"
+                        ? "bg-gradient-to-r from-[#E2F314] to-[#CBE00B] text-neutral-950 font-bold rounded-[1.25rem] rounded-tr-none shadow-[0_4px_16px_rgba(226,243,20,0.15)]"
+                        : "bg-neutral-900/60 text-neutral-200 border border-white/[0.04] rounded-[1.25rem] rounded-tl-none text-left"
                     }`}
                   >
                     {msg.text}
@@ -278,7 +290,7 @@ export default function ChatWidget() {
                     <button
                       key={brand}
                       onClick={() => handleQuickSelect(brand)}
-                      className="text-[11px] font-medium bg-white/5 hover:bg-[#E2F314] hover:text-[#0B0B0C] border border-white/10 hover:border-transparent px-3 py-1.5 rounded-full transition-all duration-200"
+                      className="text-[11px] font-bold bg-neutral-900/50 hover:bg-[#E2F314] text-neutral-300 hover:text-neutral-950 border border-white/[0.08] hover:border-transparent px-3.5 py-2 rounded-full transition-all duration-300 backdrop-blur-sm shadow-sm"
                     >
                       {brand}
                     </button>
@@ -289,7 +301,7 @@ export default function ChatWidget() {
               {/* Typing indicator */}
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-[#18181A] border border-white/5 rounded-[1.25rem] rounded-tl-none p-4 flex items-center gap-1">
+                  <div className="bg-neutral-900/60 border border-white/[0.04] rounded-[1.25rem] rounded-tl-none p-4 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 bg-[#E2F314] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
                     <span className="w-1.5 h-1.5 bg-[#E2F314] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
                     <span className="w-1.5 h-1.5 bg-[#E2F314] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -297,48 +309,49 @@ export default function ChatWidget() {
                 </div>
               )}
 
-              {/* Inquiry Summary Form Card */}
+              {/* Inquiry Summary Form Card (Diagnostic Sheet Layout) */}
               {currentStep === 6 && !isTyping && (
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#18181A] border border-[#E2F314]/20 rounded-[1.5rem] p-5 space-y-3.5 text-left animate-fadeIn"
+                  className="bg-neutral-900/40 border border-white/[0.08] rounded-[1.5rem] p-5 space-y-4 text-left animate-fadeIn backdrop-blur-md shadow-inner"
                 >
-                  <div className="border-b border-white/5 pb-2">
-                    <span className="text-[10px] uppercase font-bold text-[#E2F314] tracking-wider">Inquiry Summary</span>
+                  <div className="border-b border-white/[0.06] pb-2 flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-black text-[#E2F314] tracking-wider">Parts Spec Sheet</span>
+                    <span className="text-[9px] uppercase font-semibold text-neutral-500">Ready to Query</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-y-2.5 gap-x-2 text-[11px]">
-                    <div>
-                      <span className="text-neutral-400 block">Brand:</span>
-                      <span className="font-semibold text-white">{data.brand}</span>
+                  <div className="grid grid-cols-2 gap-y-3.5 gap-x-4 text-[11px]">
+                    <div className="bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                      <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">Brand:</span>
+                      <span className="font-bold text-white text-[12px]">{data.brand}</span>
                     </div>
-                    <div>
-                      <span className="text-neutral-400 block">Model:</span>
-                      <span className="font-semibold text-white">{data.model}</span>
+                    <div className="bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                      <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">Model:</span>
+                      <span className="font-bold text-white text-[12px]">{data.model}</span>
                     </div>
-                    <div>
-                      <span className="text-neutral-400 block">Year:</span>
-                      <span className="font-semibold text-white">{data.year}</span>
+                    <div className="bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                      <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">Year:</span>
+                      <span className="font-bold text-white text-[12px]">{data.year}</span>
                     </div>
-                    <div>
-                      <span className="text-neutral-400 block">Part Needed:</span>
-                      <span className="font-semibold text-white">{data.part}</span>
+                    <div className="bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                      <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">Part Needed:</span>
+                      <span className="font-bold text-[#E2F314] text-[12px]">{data.part}</span>
                     </div>
-                    <div className="col-span-2">
-                      <span className="text-neutral-400 block">WhatsApp:</span>
-                      <span className="font-semibold text-white">{data.phone}</span>
+                    <div className="col-span-2 bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                      <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">WhatsApp Contact:</span>
+                      <span className="font-bold text-white text-[12px]">{data.phone}</span>
                     </div>
                     {data.notes && data.notes !== "None" && (
-                      <div className="col-span-2">
-                        <span className="text-neutral-400 block">Details:</span>
-                        <span className="font-semibold text-white">{data.notes}</span>
+                      <div className="col-span-2 bg-neutral-900/40 p-2.5 rounded-xl border border-white/[0.02]">
+                        <span className="text-[9px] text-neutral-400 block uppercase font-bold tracking-wider mb-0.5">Additional Details:</span>
+                        <span className="font-bold text-neutral-300 text-[11px] leading-relaxed">{data.notes}</span>
                       </div>
                     )}
                   </div>
 
                   <button
                     onClick={handleOpenWhatsApp}
-                    className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold py-3 px-4 rounded-xl text-xs transition-colors duration-300 mt-2 shadow-lg shadow-[#25D366]/10"
+                    className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:shadow-[0_12px_28px_rgba(37,211,102,0.25)] text-white font-bold py-3.5 px-4 rounded-[1.25rem] text-xs transition-all duration-300 mt-2 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-[#25D366]/10"
                   >
                     <FaWhatsapp size={16} />
                     Send Quote Request
@@ -351,7 +364,7 @@ export default function ChatWidget() {
 
             {/* Input Footer */}
             {currentStep < 6 && (
-              <div className="p-4 bg-[#141415] border-t border-white/5">
+              <div className="p-4 bg-neutral-900/40 border-t border-white/[0.06] backdrop-blur-md">
                 <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
                   <input
                     type={currentStep === 4 ? "tel" : "text"}
@@ -370,14 +383,14 @@ export default function ChatWidget() {
                         ? "Enter WhatsApp number..."
                         : "Enter details (VIN, OEM...)"
                     }
-                    className="w-full rounded-full bg-[#222224] border border-white/5 px-5 pr-12 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#E2F314]/30 transition-colors h-[44px]"
+                    className="w-full rounded-full bg-neutral-900 border border-white/[0.08] px-5 pr-12 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#E2F314]/30 transition-colors h-[44px] shadow-inner"
                   />
                   
                   {currentStep === 5 && (
                     <button
                       type="button"
                       onClick={handleSkipNotes}
-                      className="absolute right-14 top-1/2 -translate-y-1/2 text-[10px] text-[#E2F314] hover:text-white bg-white/5 px-2.5 py-1.5 rounded-full transition-colors"
+                      className="absolute right-14 top-1/2 -translate-y-1/2 text-[10px] text-[#E2F314] hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full transition-colors font-bold"
                     >
                       Skip
                     </button>
@@ -386,7 +399,7 @@ export default function ChatWidget() {
                   <button
                     type="submit"
                     disabled={!inputValue.trim()}
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-[32px] h-[32px] inline-flex items-center justify-center rounded-full bg-[#E2F314] disabled:bg-neutral-800 text-[#0B0B0C] disabled:text-neutral-500 transition-colors"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-[32px] h-[32px] inline-flex items-center justify-center rounded-full bg-[#E2F314] disabled:bg-neutral-800 text-neutral-950 disabled:text-neutral-500 transition-all duration-300 shadow-md active:scale-90"
                     aria-label="Send message"
                   >
                     <FiSend size={12} />
