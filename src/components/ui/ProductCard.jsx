@@ -72,7 +72,7 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
 
         {/* MOBILE VIEW BODY */}
-        <div className="flex flex-1 flex-col justify-between md:hidden pt-2.5 pb-2.5 pl-2.5 pr-1.5 relative">
+        <div className="flex flex-1 flex-col justify-between md:hidden pt-2.5 pb-2.5 pl-1 pr-1.5 relative">
           {/* Row 1: Category on left, Heart Icon on right */}
           <div className="flex justify-between items-start w-full">
             <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest block pt-0.5">
