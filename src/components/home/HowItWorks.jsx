@@ -11,8 +11,8 @@ const steps = [
   },
   {
     icon: FiList,
-    title: "Add to inquiry list",
-    desc: "Tap “Add to Inquiry” on every part you need — or “Request Best Price” for a single item.",
+    title: "Add parts to cart",
+    desc: "Tap “Add to Cart” on every part you need — or “Request Best Price” for a single item.",
   },
   {
     icon: FiSend,

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  FiMinus,
   FiPlus,
   FiCheck,
   FiShield,
@@ -10,7 +9,7 @@ import {
   FiRefreshCw,
   FiChevronRight,
 } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
+
 import useSEO from "../hooks/useSEO";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
 import AvailabilityBadge from "../components/ui/AvailabilityBadge";
@@ -21,7 +20,7 @@ import {
   getRelatedProducts,
 } from "../data/products";
 import { getProductImage } from "../utils/productImages";
-import { productWaLink } from "../utils/whatsapp";
+
 import { useInquiry } from "../context/InquiryContext";
 import NotFound from "./NotFound";
 
@@ -31,7 +30,6 @@ export default function ProductDetail() {
   const { slug } = useParams();
   const product = getProductBySlug(slug);
   const { addItem, has, openDrawer, count } = useInquiry();
-  const [qty, setQty] = useState(1);
   const [tab, setTab] = useState("Description");
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -51,7 +49,11 @@ export default function ProductDetail() {
   const added = has(product.slug);
 
   const handleAdd = () => {
-    addItem(product, qty);
+    if (added) {
+      openDrawer();
+      return;
+    }
+    addItem(product);
     if (count === 0) {
       openDrawer();
     }
@@ -145,59 +147,30 @@ export default function ProductDetail() {
             </ul>
 
             {/* Price note */}
-            <div className="mt-7 rounded-2xl border border-neutral-200 border-l-4 border-l-accent-500 bg-neutral-50 p-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="font-display text-lg font-bold text-ink">
-                    Best price on inquiry
-                  </div>
-                  <p className="text-xs text-neutral-500">
-                    Send an inquiry and we'll confirm price, fitment & delivery.
-                  </p>
+            <div className="mt-7 rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
+              <div>
+                <div className="font-display text-lg font-bold text-ink">
+                  Best price on inquiry
                 </div>
-                {/* Qty */}
-                <div className="flex items-center rounded-full border border-neutral-300 bg-white">
-                  <button
-                    onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    aria-label="Decrease quantity"
-                    className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-600 hover:text-ink"
-                  >
-                    <FiMinus size={15} />
-                  </button>
-                  <span className="w-8 text-center font-semibold">{qty}</span>
-                  <button
-                    onClick={() => setQty((q) => q + 1)}
-                    aria-label="Increase quantity"
-                    className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-600 hover:text-ink"
-                  >
-                    <FiPlus size={15} />
-                  </button>
-                </div>
+                <p className="text-xs text-neutral-500">
+                  Send an inquiry and we'll confirm price, fitment & delivery.
+                </p>
               </div>
 
-              <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
-                <a
-                  href={productWaLink(product)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-wa flex-1 py-3.5"
-                >
-                  <FaWhatsapp size={19} />
-                  Request Best Price
-                </a>
+              <div className="mt-4 hidden md:flex flex-col gap-2.5">
                 <button
                   onClick={handleAdd}
-                  className={`btn flex-1 py-3.5 ${
-                    added ? "btn-outline" : "btn-primary"
+                  className={`btn w-full py-3.5 ${
+                    added ? "btn-outline border-neutral-400 text-neutral-800 hover:bg-neutral-50" : "btn-primary"
                   }`}
                 >
                   {added ? (
                     <>
-                      <FiCheck size={18} /> Added — Add more
+                      <FiCheck size={18} /> Added — View Cart
                     </>
                   ) : (
                     <>
-                      <FiPlus size={18} /> Add to Inquiry
+                      <FiPlus size={18} /> Add to Cart
                     </>
                   )}
                 </button>
@@ -315,7 +288,7 @@ export default function ProductDetail() {
             />
             <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
               {related.map((p, i) => (
-                <ProductCard key={p.slug} product={p} index={i} />
+                <ProductCard key={p.slug} product={p} index={i} forceCol={true} />
               ))}
             </div>
           </div>
@@ -323,19 +296,10 @@ export default function ProductDetail() {
       )}
 
       {/* Mobile sticky bar */}
-      <div className="sticky bottom-0 z-30 flex items-center gap-2 border-t border-neutral-200 bg-white/95 p-3 backdrop-blur md:hidden">
-        <a
-          href={productWaLink(product)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-wa flex-1 py-3"
-        >
-          <FaWhatsapp size={18} />
-          Request Price
-        </a>
-        <button onClick={handleAdd} className="btn btn-primary flex-1 py-3">
-          {added ? <FiCheck size={18} /> : <FiPlus size={18} />}
-          {added ? "Added" : "Add to Inquiry"}
+      <div className="sticky bottom-0 z-30 flex items-center border-t border-neutral-200 bg-white/95 p-3 backdrop-blur md:hidden">
+        <button onClick={handleAdd} className="btn btn-primary w-full py-3.5">
+          {added ? <FiCheck size={18} className="inline mr-1.5" /> : <FiPlus size={18} className="inline mr-1.5" />}
+          {added ? "Added — View Cart" : "Add to Cart"}
         </button>
       </div>
     </>
