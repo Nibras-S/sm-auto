@@ -72,7 +72,7 @@ export default function ProductCard({ product, index = 0 }) {
         </div>
 
         {/* MOBILE VIEW BODY */}
-        <div className="flex flex-1 flex-col justify-between md:hidden p-1 relative">
+        <div className="flex flex-1 flex-col justify-between md:hidden pt-2.5 pb-2.5 pl-2.5 pr-1.5 relative">
           {/* Row 1: Category on left, Heart Icon on right */}
           <div className="flex justify-between items-start w-full">
             <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest block pt-0.5">
@@ -99,10 +99,10 @@ export default function ProductCard({ product, index = 0 }) {
             </h3>
             <div className="flex flex-col items-end shrink-0 text-right -mt-0.5 min-w-[70px]">
               <span className="text-[10px] text-neutral-400 line-through font-semibold leading-none">
-                ${getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
+                AED {getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
               </span>
               <span className="text-[14px] text-neutral-950 font-black mt-1 leading-none">
-                ${getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
+                AED {getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
               </span>
             </div>
           </div>
@@ -122,17 +122,17 @@ export default function ProductCard({ product, index = 0 }) {
               </span>
             </div>
 
-            {/* Add to Cart rounded rectangular button with outline shopping cart icon */}
+            {/* Add to Cart rounded rectangular button with outline shopping cart icon on the right */}
             <button
               onClick={handleAdd}
-              className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 shadow-sm ${
+              className={`px-3 py-1.5 -mr-3 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 shadow-sm ${
                 added
                   ? "border-neutral-900 bg-neutral-900 text-white"
                   : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 hover:border-neutral-300"
               }`}
             >
-              {added ? <FiCheck size={11} /> : <FiShoppingCart size={11} />}
               <span>{added ? "Added" : "Add to Cart"}</span>
+              {added ? <FiCheck size={11} /> : <FiShoppingCart size={11} />}
             </button>
           </div>
         </div>
@@ -159,10 +159,10 @@ export default function ProductCard({ product, index = 0 }) {
           </div>
           <div className="flex items-baseline gap-2.5 mt-2.5">
             <span className="text-[12px] text-neutral-400 line-through font-semibold">
-              ${getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
+              AED {getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
             </span>
             <span className="text-[15px] text-neutral-900 font-black">
-              ${getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
+              AED {getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
             </span>
           </div>
         </div>
@@ -179,8 +179,8 @@ export default function ProductCard({ product, index = 0 }) {
               : "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 hover:border-neutral-300"
           }`}
         >
-          {added ? <FiCheck size={14} /> : <FiShoppingCart size={14} />}
           <span>{added ? "Added" : "Add to Cart"}</span>
+          {added ? <FiCheck size={14} /> : <FiShoppingCart size={14} />}
         </button>
       </div>
 
