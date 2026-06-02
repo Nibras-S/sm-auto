@@ -10,6 +10,7 @@ import MechanicBanner from "../components/home/MechanicBanner";
 import HowItWorks from "../components/home/HowItWorks";
 import BrandsSection from "../components/home/BrandsSection";
 import TestimonialsSection from "../components/home/TestimonialsSection";
+import BrakeAnimation from "../components/home/BrakeAnimation";
 import FaqPreview from "../components/home/FaqPreview";
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
       <HowItWorks />
       <BrandsSection />
       <TestimonialsSection />
+      <BrakeAnimation />
       <FaqPreview />
     </>
   );
