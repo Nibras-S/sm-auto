@@ -36,9 +36,14 @@ export default function HowItWorks() {
           subtitle="No complicated checkout. Just a clear, four-step path from finding your part to getting it delivered."
         />
 
-        <div className="relative mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Connector line */}
-          <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent lg:block" />
+        <div className="relative mt-16 flex flex-col gap-10 lg:flex-row lg:gap-8 justify-between">
+          
+          {/* Desktop Horizontal Connector Line */}
+          <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent lg:block pointer-events-none" />
+          
+          {/* Mobile Vertical Timeline Track */}
+          <div className="absolute left-[28px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-neutral-200/20 via-neutral-200 to-neutral-200/20 lg:hidden pointer-events-none" />
+
           {steps.map((s, i) => (
             <motion.div
               key={s.title}
@@ -46,18 +51,23 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative flex flex-col items-center text-center"
+              className="relative flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-5 lg:gap-0"
             >
-              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-ink text-white shadow-card">
-                <s.icon size={22} />
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-accent-500 text-xs font-bold text-white shadow-soft">
-                  {i + 1}
+              {/* Timeline Step Badge */}
+              <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-ink text-white shadow-card transition-all duration-300 hover:scale-105">
+                <s.icon size={22} className="text-white" />
+                <span className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-accent-500 text-[10px] font-bold text-white shadow-soft">
+                  0{i + 1}
                 </span>
               </div>
-              <h3 className="mt-5 text-base font-bold text-ink">{s.title}</h3>
-              <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-500">
-                {s.desc}
-              </p>
+
+              {/* Step Text Details */}
+              <div className="lg:mt-5 flex flex-col">
+                <h3 className="text-base font-bold text-ink leading-tight">{s.title}</h3>
+                <p className="mt-1.5 max-w-xs text-sm leading-relaxed text-neutral-500">
+                  {s.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

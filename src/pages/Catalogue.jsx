@@ -37,6 +37,7 @@ const getCategoryIcon = (slug, isSelected) => {
           <path d="M12 6V4M8 6V4M16 6V4" />
         </svg>
       );
+    case "brakes-suspension":
     case "brakes":
       return (
         <svg className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">

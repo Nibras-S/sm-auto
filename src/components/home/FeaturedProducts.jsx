@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
   };
 
   return (
-    <section id="products" className="bg-white py-16 md:py-24">
+    <section id="products" className="bg-white pt-6 pb-6 md:py-24">
       <div className="container-x lg:max-w-[96rem]">
         
         {/* Responsive Showroom Header Container */}

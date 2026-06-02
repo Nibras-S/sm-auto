@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiX, FiMinus, FiPlus, FiTrash2, FiShield } from "react-icons/fi";
+import { FiX, FiMinus, FiPlus, FiTrash2, FiShield, FiShoppingCart } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { useInquiry } from "../../context/InquiryContext";
 import { getProductImage } from "../../utils/productImages";
@@ -71,7 +71,7 @@ export default function InquiryDrawer() {
             <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
               <div>
                 <h2 className="font-display text-lg font-bold text-ink">
-                  Your Inquiry List
+                  Your Inquiry Cart
                 </h2>
                 <p className="text-xs text-neutral-500">
                   {count} item{count !== 1 ? "s" : ""} · No payment now
@@ -158,7 +158,7 @@ export default function InquiryDrawer() {
                     onClick={clear}
                     className="mt-3 text-[10px] font-bold uppercase tracking-wider text-neutral-400 hover:text-accent-500 transition-colors duration-300"
                   >
-                    Clear list
+                    Clear cart
                   </button>
 
                   {/* Form */}
@@ -279,13 +279,13 @@ function EmptyState({ onClose }) {
   return (
     <div className="flex h-full flex-col items-center justify-center py-16 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
-        <FaWhatsapp size={28} />
+        <FiShoppingCart size={26} />
       </div>
       <h3 className="mt-4 font-display text-lg font-bold text-ink">
-        Your inquiry list is empty
+        Your inquiry cart is empty
       </h3>
       <p className="mt-1 max-w-xs text-sm text-neutral-500">
-        Add the parts you need, then send them all to us in one WhatsApp message
+        Add the parts you need to your cart, then send them all in one WhatsApp message
         for your best price.
       </p>
       <Link to="/catalogue" onClick={onClose} className="btn btn-primary mt-5 px-6 py-3">

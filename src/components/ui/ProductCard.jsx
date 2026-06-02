@@ -35,6 +35,10 @@ export default function ProductCard({ product, index = 0 }) {
   const handleAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (added) {
+      openDrawer();
+      return;
+    }
     addItem(product);
     if (count === 0) {
       openDrawer();

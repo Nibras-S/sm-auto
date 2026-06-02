@@ -69,7 +69,7 @@ const homeCategories = [
 
 export default function CategoriesSection() {
   return (
-    <section id="categories" className="bg-[#FAF9F6]/55 pt-10 pb-20 md:py-28 border-t border-neutral-200/30">
+    <section id="categories" className="bg-[#FAF9F6]/55 pt-10 pb-6 md:pt-16 md:pb-28 border-t border-neutral-200/30">
       {/* Expanded Max-Width to matches Hero and layouts perfectly */}
       <div className="container-x lg:max-w-[96rem]">
         {/* Minimal Modern Header matching reference screens exactly */}

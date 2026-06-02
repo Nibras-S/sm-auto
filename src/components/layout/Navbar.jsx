@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiSearch, FiFileText, FiHeart, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiX, FiSearch, FiShoppingCart, FiHeart, FiChevronDown } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
@@ -50,7 +50,7 @@ export default function Navbar() {
                   to={link.to}
                   end={link.to === "/"}
                   className={({ isActive }) =>
-                    `relative flex items-center gap-1.5 py-6 text-[11px] font-extrabold uppercase tracking-widest transition-all duration-300 h-[72px] ${
+                    `relative flex items-center gap-1.5 py-6 text-[12px] font-extrabold uppercase tracking-widest transition-all duration-300 h-[72px] ${
                       isActive
                         ? "text-[#EF4444] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#EF4444] after:rounded-t-full"
                         : "text-neutral-500 hover:text-[#EF4444]"
@@ -97,10 +97,10 @@ export default function Navbar() {
             {/* Request/Inquiry list Badge (Circular Button) */}
             <button
               onClick={openDrawer}
-              aria-label="Open inquiry list"
+              aria-label="Open inquiry cart"
               className="relative flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
             >
-              <FiFileText size={18} />
+              <FiShoppingCart size={18} />
               {count > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-accent-500 px-1.5 text-[9px] font-bold text-white shadow-sm">
                   {count}
