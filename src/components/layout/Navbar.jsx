@@ -7,6 +7,7 @@ import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
 import { useInquiry } from "../../context/InquiryContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { categories } from "../../data/categories";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,7 +32,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b border-neutral-100 ${
+        className={`sticky top-0 z-[110] transition-all duration-300 bg-white border-b border-neutral-100 ${
           scrolled ? "shadow-[0_8px_30px_rgb(0,0,0,0.02)]" : ""
         }`}
       >
@@ -73,26 +74,43 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Center-Left Block: Single-Row Desktop Navigation Links */}
+            {/* Center-Left Block: Single-Row Desktop Navigation Links with Hover Dropdown */}
             <nav className="hidden lg:flex items-center gap-5 xl:gap-6 ml-4 shrink-0">
               {navLinks.map((link) => {
-                const hasDropdown = link.label === "Catalogue" || link.label === "Categories";
+                const hasDropdown = link.label === "Categories";
                 return (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    end={link.to === "/"}
-                    className={({ isActive }) =>
-                      `relative flex items-center gap-1.5 py-6 text-[12px] font-extrabold uppercase tracking-widest transition-all duration-300 h-[72px] ${
-                        isActive
-                          ? "text-[#EF4444] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#EF4444] after:rounded-t-full"
-                          : "text-neutral-500 hover:text-[#EF4444]"
-                      }`
-                    }
-                  >
-                    <span>{link.label}</span>
-                    {hasDropdown && <FiChevronDown size={11} className="opacity-70 mt-0.5" />}
-                  </NavLink>
+                  <div key={link.to} className="relative group/nav h-[72px] flex items-center">
+                    <NavLink
+                      to={link.to}
+                      end={link.to === "/"}
+                      className={({ isActive }) =>
+                        `relative flex items-center gap-1.5 text-[12px] font-extrabold uppercase tracking-widest transition-all duration-300 py-6 ${
+                          isActive
+                            ? "text-[#EF4444] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#EF4444] after:rounded-t-full"
+                            : "text-neutral-500 hover:text-[#EF4444]"
+                        }`
+                      }
+                    >
+                      <span>{link.label}</span>
+                      {hasDropdown && <FiChevronDown size={11} className="opacity-70 mt-0.5 group-hover/nav:rotate-180 transition-transform duration-300" />}
+                    </NavLink>
+
+                    {/* Premium Dropdown Flyout */}
+                    {hasDropdown && (
+                      <div className="absolute top-[72px] left-1/2 -translate-x-1/2 w-[260px] bg-white border border-neutral-100 rounded-2xl shadow-[0_16px_36px_-12px_rgba(10,10,10,0.08)] py-3 px-2 hidden group-hover/nav:block animate-fadeIn z-50">
+                        {categories.map((cat) => (
+                          <Link
+                            key={cat.slug}
+                            to={`/category/${cat.slug}`}
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 text-neutral-600 hover:text-neutral-900 transition-all duration-200"
+                          >
+                            <img src={cat.icon} alt={cat.name} className="w-5 h-5 object-contain opacity-80" />
+                            <span className="text-xs font-bold">{cat.name}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </nav>
@@ -189,83 +207,73 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer (Right-Side Slide-In Sidebar) */}
       <AnimatePresence>
         {open && (
           <>
+            {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-45 bg-ink/40 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[120] bg-ink/40 backdrop-blur-sm lg:hidden"
             />
+            
+            {/* Full-Height Drawer Nav */}
             <motion.nav
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-0 right-0 top-[72px] z-45 mx-3 rounded-2xl border border-neutral-200 bg-white p-3 shadow-card lg:hidden"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 32 }}
+              className="fixed right-0 top-0 bottom-0 z-[121] w-[290px] sm:w-[320px] bg-white border-l border-neutral-100 p-6 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.08)] lg:hidden"
             >
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.to}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i }}
+              {/* Drawer Header with Close Button */}
+              <div className="flex items-center justify-between pb-5 border-b border-neutral-100 mb-5 shrink-0">
+                <span className="font-display text-xl font-black tracking-tight text-neutral-900">
+                  Spare<span className="text-[#6B7280]">Mec</span>
+                </span>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100"
                 >
+                  <FiX size={18} />
+                </button>
+              </div>
+
+              {/* Navigation Links (Scrollable area) */}
+              <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+                {navLinks.map((link) => (
                   <NavLink
+                    key={link.to}
                     to={link.to}
                     end={link.to === "/"}
                     className={({ isActive }) =>
-                      `block rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                      `block rounded-xl px-4 py-3 text-base font-bold transition-all duration-300 ${
                         isActive
-                          ? "bg-neutral-100 text-ink"
-                          : "text-neutral-600 hover:bg-neutral-50"
+                          ? "bg-neutral-50 text-[#EF4444] border-l-4 border-[#EF4444]"
+                          : "text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900"
                       }`
                     }
                   >
                     {link.label}
                   </NavLink>
-                </motion.div>
-              ))}
-              
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.04 * navLinks.length }}
-              >
-                <NavLink
-                  to="/wishlist"
-                  className={({ isActive }) =>
-                    `flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                      isActive
-                        ? "bg-neutral-100 text-ink"
-                        : "text-neutral-600 hover:bg-neutral-50"
-                    }`
-                  }
-                >
-                  <div className="flex items-center gap-2">
-                    <FiHeart size={18} className="text-neutral-500" />
-                    <span>My Wishlist</span>
-                  </div>
-                  {wishlistCount > 0 && (
-                    <span className="rounded-full bg-accent-500 px-2.5 py-0.5 text-[11px] font-bold text-white">
-                      {wishlistCount}
-                    </span>
-                  )}
-                </NavLink>
-              </motion.div>
+                ))}
+              </div>
 
-              <a
-                href={genericWaLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-wa mt-2 w-full py-3"
-              >
-                <FaWhatsapp size={18} />
-                Chat on WhatsApp
-              </a>
+              {/* WhatsApp Action Button pinned to bottom */}
+              <div className="pt-5 border-t border-neutral-100 mt-auto shrink-0">
+                <a
+                  href={genericWaLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-wa w-full py-3.5 justify-center"
+                >
+                  <FaWhatsapp size={18} />
+                  Chat on WhatsApp
+                </a>
+              </div>
             </motion.nav>
           </>
         )}

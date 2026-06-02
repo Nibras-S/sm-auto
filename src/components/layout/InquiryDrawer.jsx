@@ -56,14 +56,14 @@ export default function InquiryDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeDrawer}
-            className="fixed inset-0 z-[60] bg-ink/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[120] bg-ink/50 backdrop-blur-sm"
           />
           <motion.aside
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 320, damping: 36 }}
-            className="fixed right-0 top-0 z-[61] flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
+            className="fixed right-0 top-0 z-[121] flex h-full w-full max-w-md flex-col bg-white shadow-2xl"
             role="dialog"
             aria-label="Inquiry list"
           >
