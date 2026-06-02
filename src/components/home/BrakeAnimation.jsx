@@ -169,8 +169,10 @@ export default function BrakeAnimation() {
       const current = currentProgressRef.current;
       const diff = target - current;
 
-      // Easing factor - lower means smoother but slightly slower response (perfect balance at 0.09)
-      currentProgressRef.current += diff * 0.09;
+      // Dynamic easing: lower factor (0.04) on mobile heavily dampens rapid touch swipes
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const easeFactor = isMobile ? 0.04 : 0.055;
+      currentProgressRef.current += diff * easeFactor;
 
       // Close enough threshold to prevent unnecessary ticks
       if (Math.abs(diff) < 0.0001) {
@@ -229,8 +231,8 @@ export default function BrakeAnimation() {
       ref={containerRef}
       className="relative w-full bg-gradient-to-b from-neutral-50 via-neutral-100 to-neutral-50 select-none z-10"
       style={{
-        // Set shorter scroll depth on mobile for comfort, longer luxury depth on desktop
-        height: typeof window !== "undefined" && window.innerWidth < 768 ? "135vh" : "280vh",
+        // Set longer, luxurious scroll depth for slower animation progression
+        height: typeof window !== "undefined" && window.innerWidth < 768 ? "260vh" : "400vh",
       }}
     >
       <AnimatePresence>
