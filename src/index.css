@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -292,6 +294,51 @@
   width: max-content;
   animation: marquee 22s linear infinite;
   will-change: transform;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   CUSTOM 3D METALLIC TYPOGRAPHY FOR AUTOMOTIVE THEMES
+   ─────────────────────────────────────────────────────────────────── */
+.font-mechanic-header {
+  font-family: 'Oswald', 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Mobile view (default) - absolutely flat, pristine vector-sharp quality without heavy shadows or distorting outlines */
+.text-3d-glossy-black {
+  color: #111111;
+  -webkit-text-stroke: unset;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.text-3d-glossy-red {
+  color: #dc2626; /* Matches standard Racing Red */
+  -webkit-text-stroke: unset;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Desktop view (md and up) - refined 3px 3D metallic extrusion depth for sleek showroom appearance */
+@media (min-width: 768px) {
+  .text-3d-glossy-black {
+    -webkit-text-stroke: 0.75px rgba(255, 255, 255, 0.15);
+    text-shadow: 
+      0 1px 0 #2b2b2b,
+      0 2px 0 #1f1f1f,
+      0 3px 0 #111111,
+      0 4px 6px rgba(0, 0, 0, 0.3),
+      0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .text-3d-glossy-red {
+    -webkit-text-stroke: 0.75px rgba(255, 255, 255, 0.25);
+    text-shadow: 
+      0 1px 0 #b91c1c,
+      0 2px 0 #8b1414,
+      0 3px 0 #500505,
+      0 4px 6px rgba(0, 0, 0, 0.3),
+      0 8px 12px rgba(0, 0, 0, 0.15);
+  }
 }
 
 

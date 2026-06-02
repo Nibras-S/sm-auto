@@ -25,8 +25,8 @@ export default function Home() {
       <FeaturedProducts />
       <PromoBanners />
       <TrustBar />
-      <WhyChooseUs />
       <MechanicBanner />
+      <WhyChooseUs />
       <HowItWorks />
       <BrandsSection />
       <TestimonialsSection />
