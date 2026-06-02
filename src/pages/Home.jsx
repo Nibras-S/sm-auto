@@ -14,7 +14,7 @@ import FaqPreview from "../components/home/FaqPreview";
 export default function Home() {
   useSEO({
     description:
-      "Spare Mec Auto Spare Parts — genuine and OEM-quality parts for BMW, Mercedes-Benz, Porsche, Land Rover and more. Fitment-verified, delivered across the UAE & GCC. Request your best price on WhatsApp.",
+      "No.1 Spare Parts Dealer. Your one-stop shop for everything from exhaust to suspensions. Shop Now. 24/7 Support. Support every time. FREE SHIPPING.",
   });
 
   return (
