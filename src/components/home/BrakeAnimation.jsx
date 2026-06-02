@@ -235,79 +235,79 @@ export default function BrakeAnimation() {
         height: typeof window !== "undefined" && window.innerWidth < 768 ? "260vh" : "400vh",
       }}
     >
-      <AnimatePresence>
-        {isPreloading && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fixed inset-0 w-full h-full flex flex-col items-center justify-center bg-zinc-950 z-50 px-6 text-center"
-          >
-            {/* Ambient Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none" />
-
-            <div className="relative z-10 max-w-md w-full flex flex-col items-center">
-              {/* Luxury Tech Eyebrow */}
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500 mb-2">
-                SM-AUTO PERFORMANCE LAB
-              </span>
-              
-              <h3 className="text-2xl font-bold font-mechanic-header text-white italic tracking-wide uppercase mb-8">
-                3D ENGINEERING SHOWROOM
-              </h3>
-
-              {/* High-end Circular Preloader Meter */}
-              <div className="relative w-28 h-28 flex items-center justify-center mb-8">
-                <svg className="w-full h-full transform -rotate-90">
-                  <circle
-                    cx="56"
-                    cy="56"
-                    r="48"
-                    className="stroke-white/5"
-                    strokeWidth="4"
-                    fill="transparent"
-                  />
-                  <motion.circle
-                    cx="56"
-                    cy="56"
-                    r="48"
-                    className="stroke-red-600"
-                    strokeWidth="4"
-                    fill="transparent"
-                    strokeDasharray={2 * Math.PI * 48}
-                    strokeDashoffset={2 * Math.PI * 48 * (1 - loadProgress / 100)}
-                    transition={{ ease: "easeOut" }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-xl font-bold font-mechanic-header text-white italic">
-                    {loadProgress}%
-                  </span>
-                  <span className="text-[8px] uppercase tracking-[0.1em] text-neutral-400 font-semibold mt-0.5">
-                    LOADED
-                  </span>
-                </div>
-              </div>
-
-              {/* Progress Detail */}
-              <div className="w-full bg-white/5 h-[2px] rounded-full overflow-hidden mb-3">
-                <motion.div
-                  className="bg-red-600 h-full rounded-full"
-                  style={{ width: `${loadProgress}%` }}
-                  transition={{ ease: "easeOut" }}
-                />
-              </div>
-              
-              <p className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
-                PRELOADING HIGH-FIDELITY BINDINGS
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Sticky Frame Container */}
       <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-between py-12 md:py-20">
+        
+        <AnimatePresence>
+          {isPreloading && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-zinc-950 z-50 px-6 text-center"
+            >
+              {/* Ambient Background Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+              <div className="relative z-10 max-w-md w-full flex flex-col items-center">
+                {/* Luxury Tech Eyebrow */}
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-red-500 mb-2">
+                  SM-AUTO PERFORMANCE LAB
+                </span>
+                
+                <h3 className="text-2xl font-bold font-mechanic-header text-white italic tracking-wide uppercase mb-8">
+                  3D ENGINEERING SHOWROOM
+                </h3>
+
+                {/* High-end Circular Preloader Meter */}
+                <div className="relative w-28 h-28 flex items-center justify-center mb-8">
+                  <svg className="w-full h-full transform -rotate-90">
+                    <circle
+                      cx="56"
+                      cy="56"
+                      r="48"
+                      className="stroke-white/5"
+                      strokeWidth="4"
+                      fill="transparent"
+                    />
+                    :                  <motion.circle
+                      cx="56"
+                      cy="56"
+                      r="48"
+                      className="stroke-red-600"
+                      strokeWidth="4"
+                      fill="transparent"
+                      strokeDasharray={2 * Math.PI * 48}
+                      strokeDashoffset={2 * Math.PI * 48 * (1 - loadProgress / 100)}
+                      transition={{ ease: "easeOut" }}
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-xl font-bold font-mechanic-header text-white italic">
+                      {loadProgress}%
+                    </span>
+                    <span className="text-[8px] uppercase tracking-[0.1em] text-neutral-400 font-semibold mt-0.5">
+                      LOADED
+                    </span>
+                  </div>
+                </div>
+
+                {/* Progress Detail */}
+                <div className="w-full bg-white/5 h-[2px] rounded-full overflow-hidden mb-3">
+                  <motion.div
+                    className="bg-red-600 h-full rounded-full"
+                    style={{ width: `${loadProgress}%` }}
+                    transition={{ ease: "easeOut" }}
+                  />
+                </div>
+                
+                <p className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+                  PRELOADING HIGH-FIDELITY BINDINGS
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         
         {/* Dynamic Glowing Background Behind Canvas */}
         <div className="absolute inset-0 w-full h-full bg-radial-glow pointer-events-none z-0" />
