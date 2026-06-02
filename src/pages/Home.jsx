@@ -10,7 +10,6 @@ import HowItWorks from "../components/home/HowItWorks";
 import BrandsSection from "../components/home/BrandsSection";
 import TestimonialsSection from "../components/home/TestimonialsSection";
 import FaqPreview from "../components/home/FaqPreview";
-import CtaBanner from "../components/home/CtaBanner";
 
 export default function Home() {
   useSEO({
@@ -30,7 +29,6 @@ export default function Home() {
       <BrandsSection />
       <TestimonialsSection />
       <FaqPreview />
-      <CtaBanner />
     </>
   );
 }

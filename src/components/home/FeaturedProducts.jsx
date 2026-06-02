@@ -6,8 +6,8 @@ import { featuredProducts, products } from "../../data/products";
 import featuredCarImg from "../../assets/sections/featured_car.png";
 
 export default function FeaturedProducts() {
-  // We display the top 8 premium parts in the slider/grid
-  const list = (featuredProducts.length ? featuredProducts : products).slice(0, 8);
+  // We display the top 6 premium parts in the slider/grid
+  const list = (featuredProducts.length ? featuredProducts : products).slice(0, 6);
   const sliderRef = useRef(null);
 
   const handleScroll = (direction) => {
@@ -113,13 +113,13 @@ export default function FeaturedProducts() {
 
         {/* MOBILE VIEW: Premium Horizontal Card Stack */}
         <div className="mt-4 flex flex-col gap-3.5 md:hidden">
-          {list.slice(0, 5).map((p, i) => (
+          {list.slice(0, 4).map((p, i) => (
             <ProductCard key={p.slug} product={p} index={i} isFeaturedSection={true} />
           ))}
         </div>
 
         {/* View All CTA Button */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-6 flex justify-center">
           <Link
             to="/catalogue"
             className="btn bg-neutral-950 hover:bg-neutral-800 text-white rounded-xl px-6 py-3 font-bold flex items-center justify-center gap-2 text-sm shadow-md transition-all duration-300 hover:scale-105"
@@ -131,7 +131,7 @@ export default function FeaturedProducts() {
             >
               <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
             </svg>
-            <span>View All Categories</span>
+            <span>View All Products</span>
           </Link>
         </div>
 

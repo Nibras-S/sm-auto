@@ -40,13 +40,13 @@ export default function MechanicBanner() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ type: "spring", stiffness: 40, damping: 14, delay: 0.25 }}
-          className="relative z-10 w-full max-w-6xl mx-auto -mt-8 sm:-mt-16 md:-mt-32 lg:-mt-48 xl:-mt-56 select-none pointer-events-none"
+          className="relative z-10 w-full max-w-6xl mx-auto -mt-12 sm:-mt-24 md:-mt-48 lg:-mt-72 xl:-mt-80 select-none pointer-events-none"
         >
           <img
             src={mechanicImg}
             alt="Professional mechanics servicing a luxury sports car"
             loading="lazy"
-            className="w-full h-auto object-contain mx-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)]"
+            className="w-full h-auto object-contain mx-auto drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)] scale-[1.4] xs:scale-[1.2] sm:scale-100 transition-transform origin-center duration-700"
           />
         </motion.div>
 

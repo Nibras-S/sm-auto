@@ -38,7 +38,7 @@ export default function Hero() {
           {/* Main Hero Card */}
           <motion.div
             variants={itemVariants}
-            className="flex-grow relative bg-[#0B0B0C] text-white rounded-none lg:rounded-[2rem] overflow-hidden shadow-none lg:shadow-glow min-h-[460px] lg:h-[540px] xl:h-[580px]"
+            className="flex-grow relative bg-[#0B0B0C] text-white rounded-none lg:rounded-[2rem] overflow-hidden shadow-none lg:shadow-glow min-h-[460px] lg:h-[540px] xl:h-[675px]"
           >
             {/* Top Content Area */}
             <div className="relative z-20 px-0 py-8 lg:p-10 xl:p-12 flex flex-col h-full pointer-events-none">
@@ -118,7 +118,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column Stack */}
-          <div className="w-full lg:w-[420px] flex-shrink-0 flex flex-col gap-5 lg:gap-6 justify-between lg:h-[540px] xl:h-[580px]">
+          <div className="w-full lg:w-[420px] flex-shrink-0 flex flex-col gap-5 lg:gap-6 justify-between lg:h-[540px] xl:h-[675px]">
 
             {/* Top Product Card */}
             <motion.div

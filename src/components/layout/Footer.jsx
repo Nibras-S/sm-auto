@@ -48,105 +48,113 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main */}
-      <div className="container-x relative grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Brand */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2.5">
-            <img src={logo} alt="Spare Mec" className="h-9 w-auto object-contain brightness-0 invert" />
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-lg font-extrabold text-white">
-                SPARE<span className="text-neutral-400">MEC</span>
+      {/* Main 2-Column Grid */}
+      <div className="container-x relative grid grid-cols-1 gap-12 py-16 lg:grid-cols-2">
+        
+        {/* Column 1: Brand Info & Contact Info Sub-Grid */}
+        <div className="flex flex-col justify-between space-y-8">
+          {/* Brand details */}
+          <div className="space-y-4 max-w-lg">
+            <div className="flex items-center gap-2.5">
+              <img src={logo} alt="Spare Mec" className="h-9 w-auto object-contain brightness-0 invert" />
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-lg font-extrabold text-white">
+                  SPARE<span className="text-neutral-400">MEC</span>
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.28em] text-neutral-500">
+                  Auto Spare Parts
+                </span>
               </span>
-              <span className="text-[9px] uppercase tracking-[0.28em] text-neutral-500">
-                Auto Spare Parts
-              </span>
-            </span>
+            </div>
+            <p className="text-sm leading-relaxed text-neutral-400">
+              {brand.legalName} — your trusted source for genuine and OEM-quality
+              spare parts for luxury European & American vehicles across the UAE
+              and GCC.
+            </p>
+            <div className="flex gap-2.5 pt-1">
+              {social.instagram && (
+                <SocialIcon href={social.instagram} label="Instagram">
+                  <FaInstagram size={16} />
+                </SocialIcon>
+              )}
+              {social.facebook && (
+                <SocialIcon href={social.facebook} label="Facebook">
+                  <FaFacebookF size={15} />
+                </SocialIcon>
+              )}
+              {social.tiktok && (
+                <SocialIcon href={social.tiktok} label="TikTok">
+                  <FaTiktok size={15} />
+                </SocialIcon>
+              )}
+              <SocialIcon href={genericWaLink()} label="WhatsApp">
+                <FaWhatsapp size={16} />
+              </SocialIcon>
+            </div>
           </div>
-          <p className="text-sm leading-relaxed text-neutral-400">
-            {brand.legalName} — your trusted source for genuine and OEM-quality
-            spare parts for luxury European & American vehicles across the UAE
-            and GCC.
-          </p>
-          <div className="flex gap-2.5 pt-1">
-            {social.instagram && (
-              <SocialIcon href={social.instagram} label="Instagram">
-                <FaInstagram size={16} />
-              </SocialIcon>
-            )}
-            {social.facebook && (
-              <SocialIcon href={social.facebook} label="Facebook">
-                <FaFacebookF size={15} />
-              </SocialIcon>
-            )}
-            {social.tiktok && (
-              <SocialIcon href={social.tiktok} label="TikTok">
-                <FaTiktok size={15} />
-              </SocialIcon>
-            )}
-            <SocialIcon href={genericWaLink()} label="WhatsApp">
-              <FaWhatsapp size={16} />
-            </SocialIcon>
+
+          {/* Contact Sub-Grid inside Left Column */}
+          <div className="border-t border-white/10 pt-8 max-w-lg">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
+              Get in Touch
+            </h4>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <li className="flex items-start gap-3">
+                <FiPhone className="mt-0.5 shrink-0 text-neutral-500" />
+                <a href={`tel:+${contact.phoneNumber}`} className="hover:text-white transition-colors">
+                  {contact.phoneDisplay}
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <FiMail className="mt-0.5 shrink-0 text-neutral-500" />
+                <a href={`mailto:${contact.email}`} className="break-all hover:text-white transition-colors">
+                  {contact.email}
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <FiMapPin className="mt-0.5 shrink-0 text-neutral-500" />
+                <span className="text-neutral-400">{contact.address}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <FiClock className="mt-0.5 shrink-0 text-neutral-500" />
+                <span className="text-neutral-400">{contact.hours}</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Links */}
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-            Company
-          </h4>
-          <ul className="mt-4 space-y-2.5 text-sm">
-            <FootLink to="/about">About Us</FootLink>
-            <FootLink to="/catalogue">Catalogue</FootLink>
-            <FootLink to="/categories">Categories</FootLink>
-            <FootLink to="/faqs">FAQs</FootLink>
-            <FootLink to="/returns">Returns & Refunds</FootLink>
-            <FootLink to="/contact">Contact</FootLink>
-          </ul>
+        {/* Column 2: Navigation Links & Top Categories Sub-Grid */}
+        <div className="grid grid-cols-2 gap-8 lg:pl-8 border-t border-white/10 pt-8 lg:border-t-0 lg:pt-0">
+          {/* Company Links */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
+              Company
+            </h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <FootLink to="/about">About Us</FootLink>
+              <FootLink to="/catalogue">Catalogue</FootLink>
+              <FootLink to="/categories">Categories</FootLink>
+              <FootLink to="/faqs">FAQs</FootLink>
+              <FootLink to="/returns">Returns & Refunds</FootLink>
+              <FootLink to="/contact">Contact</FootLink>
+            </ul>
+          </div>
+
+          {/* Top Categories Links */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
+              Top Categories
+            </h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              {categories.slice(0, 6).map((c) => (
+                <FootLink key={c.slug} to={`/category/${c.slug}`}>
+                  {c.name}
+                </FootLink>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Categories */}
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-            Top Categories
-          </h4>
-          <ul className="mt-4 space-y-2.5 text-sm">
-            {categories.slice(0, 6).map((c) => (
-              <FootLink key={c.slug} to={`/category/${c.slug}`}>
-                {c.name}
-              </FootLink>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-white">
-            Get in Touch
-          </h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            <li className="flex items-start gap-3">
-              <FiPhone className="mt-0.5 shrink-0 text-neutral-500" />
-              <a href={`tel:+${contact.phoneNumber}`} className="hover:text-white">
-                {contact.phoneDisplay}
-              </a>
-            </li>
-            <li className="flex items-start gap-3">
-              <FiMail className="mt-0.5 shrink-0 text-neutral-500" />
-              <a href={`mailto:${contact.email}`} className="break-all hover:text-white">
-                {contact.email}
-              </a>
-            </li>
-            <li className="flex items-start gap-3">
-              <FiMapPin className="mt-0.5 shrink-0 text-neutral-500" />
-              <span>{contact.address}</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <FiClock className="mt-0.5 shrink-0 text-neutral-500" />
-              <span>{contact.hours}</span>
-            </li>
-          </ul>
-        </div>
       </div>
 
       {/* Bottom */}

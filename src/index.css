@@ -246,3 +246,52 @@
     }
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────
+   CUSTOM SLICK SLIDER STYLES
+   ─────────────────────────────────────────────────────────────────── */
+.testimonials-slider .slick-dots {
+  bottom: -24px !important;
+}
+.testimonials-slider .slick-dots li {
+  margin: 0 4px !important;
+}
+.testimonials-slider .slick-dots li button:before {
+  font-size: 8px !important;
+  color: #111827 !important;
+  opacity: 0.25 !important;
+  transition: all 0.3s ease !important;
+}
+.testimonials-slider .slick-dots li.slick-active button:before {
+  font-size: 10px !important;
+  color: rgb(var(--accent)) !important;
+  opacity: 1 !important;
+}
+.testimonials-slider .slick-slide {
+  height: inherit !important;
+}
+.testimonials-slider .slick-track {
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   INFINITE TICKER / MARQUEE ANIMATION
+   ─────────────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+
+
