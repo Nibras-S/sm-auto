@@ -5,6 +5,7 @@ import TrustBar from "../components/home/TrustBar";
 import CategoriesSection from "../components/home/CategoriesSection";
 import FeaturedProducts from "../components/home/FeaturedProducts";
 import WhyChooseUs from "../components/home/WhyChooseUs";
+import MechanicBanner from "../components/home/MechanicBanner";
 import HowItWorks from "../components/home/HowItWorks";
 import BrandsSection from "../components/home/BrandsSection";
 import TestimonialsSection from "../components/home/TestimonialsSection";
@@ -24,6 +25,7 @@ export default function Home() {
       <FeaturedProducts />
       <TrustBar />
       <WhyChooseUs />
+      <MechanicBanner />
       <HowItWorks />
       <BrandsSection />
       <TestimonialsSection />
