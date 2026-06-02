@@ -67,7 +67,7 @@ export default function ProductCard({ product, index = 0 }) {
             src={img}
             alt={product.name}
             loading="lazy"
-            className="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 p-3 sm:p-4 md:p-6"
+            className="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105 p-0 sm:p-0.5 md:p-1.5"
           />
         </div>
 
