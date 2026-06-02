@@ -3,6 +3,7 @@ import useSEO from "../hooks/useSEO";
 import Hero from "../components/home/Hero";
 import TrustBar from "../components/home/TrustBar";
 import CategoriesSection from "../components/home/CategoriesSection";
+import PromoBanners from "../components/home/PromoBanners";
 import FeaturedProducts from "../components/home/FeaturedProducts";
 import WhyChooseUs from "../components/home/WhyChooseUs";
 import MechanicBanner from "../components/home/MechanicBanner";
@@ -22,6 +23,7 @@ export default function Home() {
       <Hero />
       <CategoriesSection />
       <FeaturedProducts />
+      <PromoBanners />
       <TrustBar />
       <WhyChooseUs />
       <MechanicBanner />
