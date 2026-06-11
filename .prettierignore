@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+coverage
+apps/storefront/package-lock.json
+package-lock.json
+docs
+.git.bak

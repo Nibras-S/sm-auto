@@ -1,49 +1,32 @@
 {
-  "name": "smauto",
+  "name": "sm-auto",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "framer-motion": "^11.18.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^5.3.0",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
-    "react-slick": "^0.30.2",
-    "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
-  },
+  "description": "Spare Mec — Automotive Spare Parts E-Commerce + CRM/Admin (monorepo)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "concurrently -n api,admin,store -c green,magenta,cyan \"npm:dev:api\" \"npm:dev:admin\" \"npm:dev:storefront\"",
+    "dev:api": "npm --workspace @sm/api run dev",
+    "dev:admin": "npm --workspace @sm/admin run dev",
+    "dev:storefront": "npm --workspace smauto run start",
+    "build": "npm --workspace @sm/shared run build && npm --workspace @sm/api run build && npm --workspace @sm/admin run build",
+    "build:shared": "npm --workspace @sm/shared run build",
+    "typecheck": "npm --workspace @sm/shared run typecheck && npm --workspace @sm/api run typecheck && npm --workspace @sm/admin run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:up": "docker compose up -d mongo",
+    "db:down": "docker compose down",
+    "seed:admin": "npm --workspace @sm/api run seed:admin"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.45",
-    "tailwindcss": "^3.4.11"
+    "concurrently": "^9.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

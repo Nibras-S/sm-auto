@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Spare Mec — Automotive Spare Parts Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Monorepo for the Spare Mec e-commerce storefront, CRM/Admin panel, and backend API.
 
-## Available Scripts
+> **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · **Delivery plan:** [docs/ROADMAP.md](docs/ROADMAP.md)
 
-In the project directory, you can run:
+## Stack
 
-### `npm start`
+| Layer       | Tech                                                        |
+| ----------- | ----------------------------------------------------------- |
+| Storefront  | React 18 (CRA), React Router, TailwindCSS, framer-motion    |
+| Admin / CRM | React + Vite + TypeScript, TailwindCSS, TanStack Query      |
+| API         | Node.js + Express + TypeScript                              |
+| Database    | MongoDB + Mongoose (single-node replica set for txns)       |
+| Images      | Cloudinary (signed direct uploads)                          |
+| Auth        | JWT (in-memory access + httpOnly refresh cookie) + Google   |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Layout
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+apps/
+  api/         Express + TypeScript REST API
+  admin/       React + Vite admin / CRM panel
+  storefront/  Existing customer storefront (CRA)
+packages/
+  shared/      Canonical enums, RBAC permission map, types, helpers (@sm/shared)
+docs/          Architecture + roadmap
+```
 
-### `npm test`
+## Quickstart
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+# 1. Install all workspaces
+npm install
 
-### `npm run build`
+# 2. Build the shared contracts package (api + admin depend on it)
+npm run build:shared
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 3. Start MongoDB (Docker) — single-node replica set
+npm run db:up
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 4. Configure env (copy examples, fill secrets)
+cp apps/api/.env.example apps/api/.env
+cp apps/admin/.env.example apps/admin/.env
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 5. Seed a Super Admin account
+npm run seed:admin
 
-### `npm run eject`
+# 6. Run everything (api :4000, admin :5173, storefront :3000)
+npm run dev
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Workspace scripts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `npm run dev` — run api, admin, and storefront together
+- `npm run build` — build shared, api, admin
+- `npm run typecheck` — type-check all TypeScript workspaces
+- `npm run format` — Prettier write
