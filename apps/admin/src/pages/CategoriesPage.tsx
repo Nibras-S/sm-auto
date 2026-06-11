@@ -1,0 +1,115 @@
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { CategoryDTO } from '@sm/shared';
+import * as catalog from '../lib/catalog';
+import { Badge, Button, Card, Field, Input, PageHeader, Spinner, Textarea } from '../components/ui';
+
+interface Draft {
+  id?: string;
+  name: string;
+  description: string;
+  displayOrder: number;
+  isActive: boolean;
+}
+const blank: Draft = { name: '', description: '', displayOrder: 0, isActive: true };
+
+export function CategoriesPage() {
+  const qc = useQueryClient();
+  const { data, isLoading } = useQuery({ queryKey: ['categories'], queryFn: catalog.listCategories });
+  const [draft, setDraft] = useState<Draft | null>(null);
+  const invalidate = () => qc.invalidateQueries({ queryKey: ['categories'] });
+
+  const save = useMutation({
+    mutationFn: (d: Draft) => {
+      const body = { name: d.name, description: d.description, displayOrder: d.displayOrder, isActive: d.isActive };
+      return d.id ? catalog.updateCategory(d.id, body) : catalog.createCategory(body);
+    },
+    onSuccess: () => {
+      invalidate();
+      setDraft(null);
+    },
+  });
+  const del = useMutation({ mutationFn: catalog.deleteCategory, onSuccess: invalidate });
+
+  const edit = (c: CategoryDTO) =>
+    setDraft({ id: c.id, name: c.name, description: c.description ?? '', displayOrder: c.displayOrder, isActive: c.isActive });
+
+  return (
+    <div className="max-w-3xl">
+      <PageHeader title="Categories" action={<Button onClick={() => setDraft({ ...blank })}>+ New category</Button>} />
+
+      {draft && (
+        <Card className="mb-5">
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Name *">
+              <Input value={draft.name} onChange={(e) => setDraft({ ...draft, name: e.target.value })} />
+            </Field>
+            <Field label="Display order">
+              <Input
+                type="number"
+                value={draft.displayOrder}
+                onChange={(e) => setDraft({ ...draft, displayOrder: Number(e.target.value) })}
+              />
+            </Field>
+            <div className="col-span-2">
+              <Field label="Description">
+                <Textarea value={draft.description} onChange={(e) => setDraft({ ...draft, description: e.target.value })} />
+              </Field>
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={draft.isActive} onChange={(e) => setDraft({ ...draft, isActive: e.target.checked })} /> Active
+            </label>
+          </div>
+          <div className="mt-4 flex gap-2">
+            <Button onClick={() => save.mutate(draft)} disabled={!draft.name || save.isPending}>
+              Save
+            </Button>
+            <Button variant="secondary" onClick={() => setDraft(null)}>
+              Cancel
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+              <tr>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Slug</th>
+                <th className="px-4 py-3">Order</th>
+                <th className="px-4 py-3">Active</th>
+                <th className="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {data?.map((c) => (
+                <tr key={c.id} className="hover:bg-slate-50">
+                  <td className="px-4 py-2 font-medium text-slate-800">{c.name}</td>
+                  <td className="px-4 py-2 text-slate-500">{c.slug}</td>
+                  <td className="px-4 py-2 text-slate-500">{c.displayOrder}</td>
+                  <td className="px-4 py-2">{c.isActive ? <Badge>Active</Badge> : <Badge>Hidden</Badge>}</td>
+                  <td className="px-4 py-2 text-right">
+                    <Button variant="secondary" className="!py-1 text-xs" onClick={() => edit(c)}>
+                      Edit
+                    </Button>{' '}
+                    <Button
+                      variant="ghost"
+                      className="!py-1 text-xs text-red-600"
+                      onClick={() => confirm(`Delete "${c.name}"?`) && del.mutate(c.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}

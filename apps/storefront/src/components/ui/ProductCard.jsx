@@ -30,7 +30,7 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
   const { toggleWishlist, hasWishlist } = useWishlist();
   const added = has(product.slug);
   const isWished = hasWishlist(product.slug);
-  const img = getProductImage(product.imageKey);
+  const img = product.images?.[0]?.url || getProductImage(product.imageKey);
 
   const handleAdd = (e) => {
     e.preventDefault();

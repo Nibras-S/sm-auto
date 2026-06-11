@@ -16,6 +16,11 @@ const schema = z.object({
   CUSTOMER_REFRESH_COOKIE: z.string().default('sm_cust_rt'),
   COOKIE_DOMAIN: z.string().optional(),
   COOKIE_SAMESITE: z.enum(['lax', 'strict', 'none']).default('lax'),
+
+  CLOUDINARY_CLOUD_NAME: z.string().optional(),
+  CLOUDINARY_API_KEY: z.string().optional(),
+  CLOUDINARY_API_SECRET: z.string().optional(),
+  CLOUDINARY_FOLDER: z.string().default('sparemec'),
 });
 
 const parsed = schema.safeParse(process.env);

@@ -19,7 +19,8 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "db:up": "docker compose up -d mongo",
     "db:down": "docker compose down",
-    "seed:admin": "npm --workspace @sm/api run seed:admin"
+    "seed:admin": "npm --workspace @sm/api run seed:admin",
+    "seed:catalog": "npm --workspace @sm/api run seed:catalog"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

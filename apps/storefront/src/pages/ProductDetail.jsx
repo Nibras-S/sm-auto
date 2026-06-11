@@ -15,10 +15,7 @@ import Breadcrumbs from "../components/ui/Breadcrumbs";
 import AvailabilityBadge from "../components/ui/AvailabilityBadge";
 import ProductCard from "../components/ui/ProductCard";
 import SectionHeading from "../components/ui/SectionHeading";
-import {
-  getProductBySlug,
-  getRelatedProducts,
-} from "../data/products";
+import { useProduct, useRelatedProducts } from "../hooks/useCatalog";
 import { getProductImage } from "../utils/productImages";
 
 import { useInquiry } from "../context/InquiryContext";
@@ -28,7 +25,8 @@ const TABS = ["Description", "Specifications", "Fitment"];
 
 export default function ProductDetail() {
   const { slug } = useParams();
-  const product = getProductBySlug(slug);
+  const { product, isLoading, notFound } = useProduct(slug);
+  const { related } = useRelatedProducts(slug);
   const { addItem, has, openDrawer, count } = useInquiry();
   const [tab, setTab] = useState("Description");
 
@@ -42,10 +40,12 @@ export default function ProductDetail() {
       : { title: "Product" }
   );
 
-  if (!product) return <NotFound />;
+  if (isLoading) {
+    return <div className="container-x py-24 text-center text-neutral-400">Loading product…</div>;
+  }
+  if (notFound || !product) return <NotFound />;
 
-  const img = getProductImage(product.imageKey);
-  const related = getRelatedProducts(product);
+  const img = product.images?.[0]?.url || getProductImage(product.imageKey);
   const added = has(product.slug);
 
   const handleAdd = () => {

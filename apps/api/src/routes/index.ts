@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import mongoose from 'mongoose';
 import { authRouter } from '../modules/auth/auth.routes';
+import { catalogAdminRouter, catalogPublicRouter } from '../modules/catalog/catalog.routes';
+import { uploadsRouter } from '../modules/uploads/uploads.routes';
 
 export const router = Router();
 
@@ -13,3 +15,10 @@ router.get('/health', (_req, res) => {
 });
 
 router.use('/auth', authRouter);
+
+// Public storefront catalog
+router.use('/catalog', catalogPublicRouter);
+
+// Admin / CRM
+router.use('/admin/uploads', uploadsRouter);
+router.use('/admin', catalogAdminRouter);

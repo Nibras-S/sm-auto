@@ -4,6 +4,11 @@ import { ProtectedRoute } from './auth/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ModulePlaceholder } from './pages/ModulePlaceholder';
+import { ProductsListPage } from './pages/products/ProductsListPage';
+import { ProductFormPage } from './pages/products/ProductFormPage';
+import { CategoriesPage } from './pages/CategoriesPage';
+import { SubcategoriesPage } from './pages/SubcategoriesPage';
+import { BrandsPage } from './pages/BrandsPage';
 
 export function App() {
   return (
@@ -13,8 +18,12 @@ export function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<AppLayout />}>
           <Route index element={<DashboardPage />} />
-          <Route path="products" element={<ModulePlaceholder title="Products" />} />
-          <Route path="inventory" element={<ModulePlaceholder title="Inventory" />} />
+          <Route path="products" element={<ProductsListPage />} />
+          <Route path="products/new" element={<ProductFormPage />} />
+          <Route path="products/:id" element={<ProductFormPage />} />
+          <Route path="categories" element={<CategoriesPage />} />
+          <Route path="subcategories" element={<SubcategoriesPage />} />
+          <Route path="brands" element={<BrandsPage />} />
           <Route path="orders" element={<ModulePlaceholder title="Orders" />} />
           <Route path="customers" element={<ModulePlaceholder title="Customers" />} />
           <Route path="inquiries" element={<ModulePlaceholder title="Inquiries" />} />

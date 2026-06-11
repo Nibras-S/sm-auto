@@ -5,12 +5,12 @@ import { FiSearch, FiX, FiSliders, FiInbox, FiChevronDown } from "react-icons/fi
 import { FaWhatsapp } from "react-icons/fa";
 import useSEO from "../hooks/useSEO";
 import ProductCard from "../components/ui/ProductCard";
-import { products, productBrands } from "../data/products";
+import { useAllProducts } from "../hooks/useCatalog";
 import { categories } from "../data/categories";
 import { genericWaLink } from "../utils/whatsapp";
 import featuredCarImg from "../assets/sections/featured_car.png";
 
-const AVAILABILITIES = ["In Stock", "Limited Stock", "Made to Order"];
+const AVAILABILITIES = ["Available", "On Request"];
 const TYPES = ["OEM / Genuine", "OEM-Quality Aftermarket"];
 
 const SORTS = [
@@ -20,7 +20,7 @@ const SORTS = [
   { value: "availability", label: "Availability" },
 ];
 
-const AVAIL_ORDER = { "In Stock": 0, "Limited Stock": 1, "Made to Order": 2 };
+const AVAIL_ORDER = { Available: 0, "On Request": 1 };
 
 const getCategoryIcon = (slug, isSelected) => {
   const color = isSelected ? "#FBBF24" : "#111827"; // Yellow if selected, black otherwise
@@ -100,6 +100,9 @@ export default function Catalogue() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopFiltersOpen, setDesktopFiltersOpen] = useState(false); // Collapsed by default!
 
+  // Live catalog data from the API.
+  const { products, productBrands, isLoading } = useAllProducts();
+
   // keep URL in sync (shallow)
   useEffect(() => {
     const next = {};
@@ -127,7 +130,7 @@ export default function Catalogue() {
       if (avails.length && !avails.includes(p.availability)) return false;
       if (types.length && !types.includes(p.type)) return false;
       if (q) {
-        const hay = `${p.name} ${p.partNumber} ${p.brand} ${p.categoryName}`.toLowerCase();
+        const hay = `${p.name} ${p.partNumber || ""} ${p.oemNumber || ""} ${p.sku || ""} ${p.brand} ${p.categoryName} ${(p.fitment || []).join(" ")}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -394,7 +397,9 @@ export default function Catalogue() {
 
             {/* Results Grid - right column */}
             <div className="w-full">
-              {filtered.length > 0 ? (
+              {isLoading ? (
+                <div className="py-20 text-center text-neutral-400">Loading parts…</div>
+              ) : filtered.length > 0 ? (
                 <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-500 ${
                   desktopFiltersOpen ? "xl:grid-cols-3" : "xl:grid-cols-4"
                 }`}>

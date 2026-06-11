@@ -12,7 +12,9 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Dashboard', to: '/', permission: 'dashboard.read' },
   { label: 'Products', to: '/products', permission: 'product.read' },
-  { label: 'Inventory', to: '/inventory', permission: 'inventory.read' },
+  { label: 'Categories', to: '/categories', permission: 'category.read' },
+  { label: 'Subcategories', to: '/subcategories', permission: 'subcategory.read' },
+  { label: 'Brands', to: '/brands', permission: 'brand.read' },
   { label: 'Orders', to: '/orders', permission: 'order.read' },
   { label: 'Customers', to: '/customers', permission: 'customer.read' },
   { label: 'Inquiries', to: '/inquiries', permission: 'inquiry.read' },

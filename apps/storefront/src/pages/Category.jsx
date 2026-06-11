@@ -6,7 +6,7 @@ import useSEO from "../hooks/useSEO";
 import PageHero from "../components/ui/PageHero";
 import ProductCard from "../components/ui/ProductCard";
 import { getCategory, categories } from "../data/categories";
-import { getProductsByCategory } from "../data/products";
+import { useProductsByCategory } from "../hooks/useCatalog";
 import { genericWaLink } from "../utils/whatsapp";
 import NotFound from "./NotFound";
 
@@ -24,10 +24,7 @@ export default function Category() {
       : { title: "Category" }
   );
 
-  const all = useMemo(
-    () => (category ? getProductsByCategory(category.slug) : []),
-    [category]
-  );
+  const { products: all } = useProductsByCategory(category?.slug);
   const brandOptions = useMemo(
     () => [...new Set(all.map((p) => p.brand))].sort(),
     [all]

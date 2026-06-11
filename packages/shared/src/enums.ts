@@ -76,18 +76,24 @@ export const QuotationStatus = {
 export type QuotationStatus = (typeof QuotationStatus)[keyof typeof QuotationStatus];
 export const QUOTATION_STATUSES = Object.values(QuotationStatus) as QuotationStatus[];
 
-export const StockStatus = {
-  InStock: 'In Stock',
-  LowStock: 'Low Stock',
-  OutOfStock: 'Out Of Stock',
+// Admin-controlled product lifecycle / visibility. SpareMec does NOT track stock
+// (the client uses an external accounting system) — availability is manual.
+export const ProductStatus = {
+  Active: 'Active', // visible on the storefront
+  Hidden: 'Hidden', // saved but not shown to customers
+  Draft: 'Draft', // work-in-progress, never shown
+  Archived: 'Archived', // retired, not shown
 } as const;
-export type StockStatus = (typeof StockStatus)[keyof typeof StockStatus];
-export const STOCK_STATUSES = Object.values(StockStatus) as StockStatus[];
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus];
+export const PRODUCT_STATUSES = Object.values(ProductStatus) as ProductStatus[];
 
+/** Storefront-visible products (Active = shown to customers). */
+export const STOREFRONT_VISIBLE_STATUSES: ProductStatus[] = [ProductStatus.Active];
+
+// Customer-facing availability. "Available" = priced, can be added to cart /
+// checked out. "On Request" = price on enquiry (inquiry/quote only).
 export const ProductAvailability = {
-  InStock: 'In Stock',
-  LowStock: 'Low Stock',
-  OutOfStock: 'Out of Stock',
+  Available: 'Available',
   OnRequest: 'On Request',
 } as const;
 export type ProductAvailability = (typeof ProductAvailability)[keyof typeof ProductAvailability];
@@ -106,7 +112,6 @@ export const NotificationType = {
   NewOrder: 'new_order',
   NewInquiry: 'new_inquiry',
   NewQuoteRequest: 'new_quote_request',
-  LowStock: 'low_stock',
 } as const;
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType];
 

@@ -16,7 +16,7 @@ import Wishlist from "./pages/Wishlist";
 
 // Set to true to hide the developing site and show the Coming Soon screen
 // Set to false to return to normal site viewing
-const IS_COMING_SOON = true;
+const IS_COMING_SOON = false;
 
 function App() {
   // Check if preview bypass is active (via URL or stored session)

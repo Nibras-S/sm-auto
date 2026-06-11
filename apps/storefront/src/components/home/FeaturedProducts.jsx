@@ -2,12 +2,13 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import ProductCard from "../ui/ProductCard";
-import { featuredProducts, products } from "../../data/products";
+import { useFeaturedProducts } from "../../hooks/useCatalog";
 import featuredCarImg from "../../assets/sections/featured_car.png";
 
 export default function FeaturedProducts() {
-  // We display the top 6 premium parts in the slider/grid
-  const list = (featuredProducts.length ? featuredProducts : products).slice(0, 6);
+  // We display the top 6 premium parts in the slider/grid (live API data).
+  const { featured, products } = useFeaturedProducts();
+  const list = (featured.length ? featured : products).slice(0, 6);
   const sliderRef = useRef(null);
 
   const handleScroll = (direction) => {

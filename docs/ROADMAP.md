@@ -12,9 +12,9 @@ each block (see Milestone Summary below).
 
 | Block | Contents (milestones) | Outcome | Status |
 |-------|-----------------------|---------|--------|
-| **A — Foundation** | M0 | Git recovery, monorepo, `@sm/shared`, API skeleton, auth + RBAC core, admin shell, storefront migration | 🟡 In progress |
-| **B — Catalog Core** | Catalog · Images · Fitment · Inventory | Full product domain: CRUD, Cloudinary images, vehicle fitment, stock | ⬜ Next |
-| **C — Sales Pipeline** | WhatsApp Inquiry · Orders/Checkout · Quote Requests | All three purchase flows working end-to-end into the CRM | ⬜ |
+| **A — Foundation** | M0 | Git recovery, monorepo, `@sm/shared`, API skeleton, auth + RBAC core, admin shell, storefront migration | ✅ Done |
+| **B — Catalog Core** | Catalog · Brands · Fitment · Images · Search · Storefront | Product/category/brand admin CRUD, Cloudinary images, vehicle fitment, search, live storefront. **No inventory** — availability is manual (status + Available/On Request). | ✅ Done |
+| **C — Sales Pipeline** | WhatsApp Inquiry · Orders/Checkout · Quote Requests · Chatbot lead · Customers · Order status | All three purchase flows + CRM intake end-to-end | ⬜ Next |
 | **D — CRM & Accounts** | Customer Accounts · Quotations · CMS · Dashboard · Notifications · Reports | Full CRM + customer self-service + content management | ⬜ |
 | **E — Scale & Hardening** | Bulk Import · RBAC Admin UI · Search Upgrade · Performance · Production Hardening | 50k-product readiness, ops, security | ⬜ |
 

@@ -19,8 +19,6 @@ export const PERMISSIONS = [
   'subcategory.write',
   'brand.read',
   'brand.write',
-  'inventory.read',
-  'inventory.write',
   'order.read',
   'order.write',
   'customer.read',
@@ -93,8 +91,6 @@ export const ROLE_PERMISSIONS: Record<AdminRole, PermissionKey[]> = {
     'subcategory.write',
     'brand.read',
     'brand.write',
-    'inventory.read',
-    'inventory.write',
     'report.read',
   ],
 
