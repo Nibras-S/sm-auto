@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiX, FiMinus, FiPlus, FiTrash2, FiShield, FiShoppingCart } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { useInquiry } from "../../context/InquiryContext";
 import { getProductImage } from "../../utils/productImages";
 import { inquiryListWaLink } from "../../utils/whatsapp";
+import { submitWhatsappInquiry } from "../../lib/crmApi";
 
 const EMIRATES = [
   "Dubai",
@@ -34,6 +35,8 @@ export default function InquiryDrawer() {
   const { items, isOpen, closeDrawer, removeItem, setQty, clear, count } =
     useInquiry();
   const [customer, setCustomer] = useState(emptyCustomer);
+  const [saving, setSaving] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -46,6 +49,45 @@ export default function InquiryDrawer() {
     setCustomer((c) => ({ ...c, [key]: e.target.value }));
 
   const waHref = inquiryListWaLink(items, customer);
+
+  const buildPayload = () => ({
+    contact: { name: customer.name.trim() || "Guest", phone: customer.phone || undefined },
+    vehicle: {
+      brand: customer.carMake || undefined,
+      model: customer.carModel || undefined,
+      year: customer.year ? Number(customer.year) : undefined,
+      vin: customer.vin || undefined,
+    },
+    emirate: customer.emirate || undefined,
+    items: items.map((i) => ({
+      productId: i.productId || undefined,
+      slug: i.slug,
+      name: i.name,
+      partNumber: i.partNumber || undefined,
+      quantity: i.qty,
+    })),
+    message: customer.notes || undefined,
+  });
+
+  const handleWhatsApp = async () => {
+    if (!customer.name.trim()) {
+      alert("Please enter your name so our team can assist you.");
+      return;
+    }
+    setSaving(true);
+    try {
+      await submitWhatsappInquiry(buildPayload());
+    } catch {
+      /* still open WhatsApp even if the CRM save fails */
+    }
+    setSaving(false);
+    window.open(waHref, "_blank", "noopener,noreferrer");
+  };
+
+  const goToCheckout = () => {
+    closeDrawer();
+    navigate("/checkout");
+  };
 
   return (
     <AnimatePresence>
@@ -178,6 +220,13 @@ export default function InquiryDrawer() {
                         full
                       />
                       <Field
+                        label="Phone"
+                        value={customer.phone}
+                        onChange={update("phone")}
+                        placeholder="WhatsApp number"
+                        full
+                      />
+                      <Field
                         label="Car Make"
                         value={customer.carMake}
                         onChange={update("carMake")}
@@ -239,18 +288,23 @@ export default function InquiryDrawer() {
             {/* Footer */}
             {items.length > 0 && (
               <div className="border-t border-neutral-200/60 bg-white px-5 py-4">
-                <a
-                  href={waHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-wa w-full py-3.5 text-sm font-bold"
+                <button
+                  onClick={handleWhatsApp}
+                  disabled={saving}
+                  className="btn btn-wa w-full py-3.5 text-sm font-bold disabled:opacity-60"
                 >
                   <FaWhatsapp size={18} />
-                  Send Inquiry on WhatsApp
-                </a>
+                  {saving ? "Sending…" : "Send Inquiry on WhatsApp"}
+                </button>
+                <button
+                  onClick={goToCheckout}
+                  className="btn btn-primary mt-2.5 w-full py-3 text-sm font-bold"
+                >
+                  Proceed to Checkout
+                </button>
                 <p className="mt-2.5 flex items-center justify-center gap-1.5 text-center text-[10px] font-semibold text-neutral-400">
                   <FiShield size={12} className="text-accent-500" />
-                  We reply with your best price — no obligation.
+                  WhatsApp for your best price, or checkout and we'll verify & confirm.
                 </p>
               </div>
             )}

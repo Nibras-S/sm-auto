@@ -24,24 +24,34 @@ export const AuthProvider = {
 } as const;
 export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider];
 
+// Simplified order lifecycle (client's actual workflow). Orders START at
+// "Pending Verification" — sales verify price/availability/delivery manually.
 export const OrderStatus = {
-  New: 'New',
   PendingVerification: 'Pending Verification',
   Confirmed: 'Confirmed',
   Processing: 'Processing',
-  ReadyForDispatch: 'Ready For Dispatch',
   Shipped: 'Shipped',
   Delivered: 'Delivered',
   Cancelled: 'Cancelled',
+  OnHold: 'On Hold',
 } as const;
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 export const ORDER_STATUSES = Object.values(OrderStatus) as OrderStatus[];
 
-/** Order statuses a customer is allowed to self-cancel (Appendix A, fix #5). */
-export const CUSTOMER_CANCELLABLE_ORDER_STATUSES: OrderStatus[] = [
-  OrderStatus.New,
-  OrderStatus.PendingVerification,
-];
+/** Orders are created in this status (sales verify manually). */
+export const ORDER_INITIAL_STATUS: OrderStatus = OrderStatus.PendingVerification;
+
+/** Order statuses a customer is allowed to self-cancel. */
+export const CUSTOMER_CANCELLABLE_ORDER_STATUSES: OrderStatus[] = [OrderStatus.PendingVerification];
+
+export const LeadStatus = {
+  New: 'New',
+  Contacted: 'Contacted',
+  Converted: 'Converted',
+  Closed: 'Closed',
+} as const;
+export type LeadStatus = (typeof LeadStatus)[keyof typeof LeadStatus];
+export const LEAD_STATUSES = Object.values(LeadStatus) as LeadStatus[];
 
 export const InquiryStatus = {
   New: 'New',

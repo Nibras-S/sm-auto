@@ -67,11 +67,13 @@ export function InquiryProvider({ children }) {
     dispatch({
       type: "ADD",
       item: {
+        productId: product.id || product.productId,
         slug: product.slug,
         name: product.name,
         partNumber: product.partNumber,
         brand: product.brand,
         imageKey: product.imageKey,
+        images: product.images,
         qty,
       },
     });

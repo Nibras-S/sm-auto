@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageSquare, FiX, FiSend } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { waLink } from "../../utils/whatsapp";
+import { submitLead } from "../../lib/crmApi";
 
 const QUICK_BRANDS = ["BMW", "Mercedes", "Porsche", "Audi", "Land Rover", "Toyota", "Nissan"];
 
@@ -35,6 +36,27 @@ export default function ChatWidget() {
   ]);
 
   const messagesEndRef = useRef(null);
+  const leadSentRef = useRef(false);
+
+  // When the chatbot reaches its summary step, create a CRM lead.
+  useEffect(() => {
+    if (currentStep === 6 && !leadSentRef.current) {
+      leadSentRef.current = true;
+      submitLead({
+        name: "Website Chatbot",
+        phone: data.phone || undefined,
+        vehicleBrand: data.brand || undefined,
+        vehicleModel: data.model || undefined,
+        vehicleYear: data.year ? Number(data.year) : undefined,
+        requiredPart: data.part || undefined,
+        notes: data.notes || undefined,
+      }).catch(() => {});
+      setMessages((m) => [
+        ...m,
+        { id: Date.now(), sender: "ai", text: "Thank you. Our sales team will contact you within 1 hour." },
+      ]);
+    }
+  }, [currentStep, data]);
 
   // Auto-open chatbot on first load after a short delay
   useEffect(() => {

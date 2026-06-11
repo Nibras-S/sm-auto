@@ -9,6 +9,11 @@ import { ProductFormPage } from './pages/products/ProductFormPage';
 import { CategoriesPage } from './pages/CategoriesPage';
 import { SubcategoriesPage } from './pages/SubcategoriesPage';
 import { BrandsPage } from './pages/BrandsPage';
+import { OrdersPage } from './pages/OrdersPage';
+import { InquiriesPage } from './pages/InquiriesPage';
+import { LeadsPage } from './pages/LeadsPage';
+import { QuoteRequestsPage } from './pages/QuoteRequestsPage';
+import { CustomersPage } from './pages/CustomersPage';
 
 export function App() {
   return (
@@ -24,10 +29,11 @@ export function App() {
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="subcategories" element={<SubcategoriesPage />} />
           <Route path="brands" element={<BrandsPage />} />
-          <Route path="orders" element={<ModulePlaceholder title="Orders" />} />
-          <Route path="customers" element={<ModulePlaceholder title="Customers" />} />
-          <Route path="inquiries" element={<ModulePlaceholder title="Inquiries" />} />
-          <Route path="quote-requests" element={<ModulePlaceholder title="Quote Requests" />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="customers" element={<CustomersPage />} />
+          <Route path="inquiries" element={<InquiriesPage />} />
+          <Route path="leads" element={<LeadsPage />} />
+          <Route path="quote-requests" element={<QuoteRequestsPage />} />
           <Route path="quotations" element={<ModulePlaceholder title="Quotations" />} />
           <Route path="banners" element={<ModulePlaceholder title="Banners" />} />
           <Route path="content" element={<ModulePlaceholder title="Content" />} />

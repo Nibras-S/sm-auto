@@ -5,6 +5,7 @@ import { apiClient } from "./apiClient";
 export function mapProduct(dto) {
   if (!dto) return dto;
   return {
+    id: dto.id,
     slug: dto.slug,
     name: dto.name,
     sku: dto.sku,

@@ -14,6 +14,7 @@ import useSEO from "../hooks/useSEO";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
 import AvailabilityBadge from "../components/ui/AvailabilityBadge";
 import ProductCard from "../components/ui/ProductCard";
+import QuoteModal from "../components/ui/QuoteModal";
 import SectionHeading from "../components/ui/SectionHeading";
 import { useProduct, useRelatedProducts } from "../hooks/useCatalog";
 import { getProductImage } from "../utils/productImages";
@@ -29,6 +30,7 @@ export default function ProductDetail() {
   const { related } = useRelatedProducts(slug);
   const { addItem, has, openDrawer, count } = useInquiry();
   const [tab, setTab] = useState("Description");
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useSEO(
@@ -61,6 +63,7 @@ export default function ProductDetail() {
 
   return (
     <>
+      <QuoteModal product={product} open={quoteOpen} onClose={() => setQuoteOpen(false)} />
       {/* Breadcrumbs */}
       <div className="border-b border-neutral-200 bg-neutral-50">
         <div className="container-x py-4">
@@ -173,6 +176,12 @@ export default function ProductDetail() {
                       <FiPlus size={18} /> Add to Cart
                     </>
                   )}
+                </button>
+                <button
+                  onClick={() => setQuoteOpen(true)}
+                  className="btn btn-outline w-full py-3"
+                >
+                  Request a Quote
                 </button>
               </div>
             </div>

@@ -11,6 +11,7 @@ export const DOC_PREFIX = {
   quotation: 'SM-Q',
   quoteRequest: 'SM-QR',
   inquiry: 'SM-INQ',
+  lead: 'SM-L',
 } as const;
 
 export type DocKind = keyof typeof DOC_PREFIX;
@@ -29,6 +30,8 @@ export const quoteRequestNumber = (year: number, seq: number) =>
   formatDocNumber(DOC_PREFIX.quoteRequest, year, seq);
 export const inquiryNumber = (year: number, seq: number) =>
   formatDocNumber(DOC_PREFIX.inquiry, year, seq);
+export const leadNumber = (year: number, seq: number) =>
+  formatDocNumber(DOC_PREFIX.lead, year, seq);
 
 /** The Counter collection key for a given doc kind + year, e.g. "order:2026". */
 export const counterKey = (kind: DocKind, year: number) => `${kind}:${year}`;

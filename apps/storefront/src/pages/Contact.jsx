@@ -6,6 +6,7 @@ import PageHero from "../components/ui/PageHero";
 import Reveal from "../components/ui/Reveal";
 import { siteConfig } from "../config/siteConfig";
 import { waLink, genericWaLink } from "../utils/whatsapp";
+import { submitContactInquiry } from "../lib/crmApi";
 
 export default function Contact() {
   useSEO({
@@ -24,7 +25,7 @@ export default function Contact() {
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     const lines = [
       `Hello ${siteConfig.brand.name} 👋, I'd like to make an inquiry.`,
@@ -36,6 +37,16 @@ export default function Contact() {
     ]
       .filter(Boolean)
       .join("\n");
+    // Save a CRM record, then hand off to WhatsApp.
+    try {
+      await submitContactInquiry({
+        contact: { name: form.name.trim() || "Guest", phone: form.phone || undefined },
+        vehicle: form.vehicle ? { model: form.vehicle } : undefined,
+        message: form.message || form.vehicle || "Contact form inquiry",
+      });
+    } catch {
+      /* still open WhatsApp even if the CRM save fails */
+    }
     window.open(waLink(lines), "_blank", "noopener,noreferrer");
   };
 
