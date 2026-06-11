@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatMoney, fromFils, toFils, QUOTATION_STATUSES, type QuotationDTO } from '@sm/shared';
 import * as p from '../lib/platform';
-import { Badge, Button, Card, Field, Input, PageHeader, Select, Spinner } from '../components/ui';
+import { Badge, Button, Card, Field, Input, PageHeader, Pager, Select, Spinner } from '../components/ui';
 
 interface ItemDraft {
   name: string;
@@ -24,10 +24,12 @@ const blank: Draft = { contactName: '', contactPhone: '', validUntil: '', notes:
 export function QuotationsPage() {
   const qc = useQueryClient();
   const [status, setStatus] = useState('');
+  const [page, setPage] = useState(1);
   const [draft, setDraft] = useState<Draft | null>(null);
+  const LIMIT = 20;
   const { data, isLoading } = useQuery({
-    queryKey: ['quotations', { status }],
-    queryFn: () => p.listQuotations({ status: status || undefined, limit: 50 }),
+    queryKey: ['quotations', { status, page }],
+    queryFn: () => p.listQuotations({ status: status || undefined, page, limit: LIMIT }),
   });
   const invalidate = () => qc.invalidateQueries({ queryKey: ['quotations'] });
 
@@ -109,7 +111,7 @@ export function QuotationsPage() {
       )}
 
       <div className="mb-4">
-        <Select value={status} onChange={(e) => setStatus(e.target.value)} className="max-w-[180px]">
+        <Select value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }} className="max-w-[180px]">
           <option value="">All statuses</option>
           {QUOTATION_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
         </Select>
@@ -150,6 +152,11 @@ export function QuotationsPage() {
               {!data?.data.length && <tr><td colSpan={5} className="px-4 py-10 text-center text-slate-400">No quotations yet.</td></tr>}
             </tbody>
           </table>
+          {data && (
+            <div className="px-4 pb-3">
+              <Pager page={page} total={data.meta.total} limit={LIMIT} onChange={setPage} />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatMoney, ORDER_STATUSES, type OrderDTO } from '@sm/shared';
 import * as crm from '../lib/crm';
-import { Badge, Button, Card, Input, PageHeader, Select, Spinner, Textarea } from '../components/ui';
+import { Badge, Button, Card, Input, PageHeader, Pager, Select, Spinner, Textarea } from '../components/ui';
 import { ContactBlock, ItemsTable, VehicleBlock } from '../components/crm';
 
 const fmtDate = (s?: string) => (s ? new Date(s).toLocaleString() : '');
@@ -11,14 +11,16 @@ export function OrdersPage() {
   const qc = useQueryClient();
   const [q, setQ] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<OrderDTO | null>(null);
   const [statusDraft, setStatusDraft] = useState('');
   const [statusNote, setStatusNote] = useState('');
   const [notes, setNotes] = useState('');
 
+  const LIMIT = 20;
   const listQ = useQuery({
-    queryKey: ['orders', { q, statusFilter }],
-    queryFn: () => crm.listOrders({ q: q || undefined, status: statusFilter || undefined, limit: 50 }),
+    queryKey: ['orders', { q, statusFilter, page }],
+    queryFn: () => crm.listOrders({ q: q || undefined, status: statusFilter || undefined, page, limit: LIMIT }),
   });
   const invalidate = () => qc.invalidateQueries({ queryKey: ['orders'] });
 
@@ -48,8 +50,8 @@ export function OrdersPage() {
     <div>
       <PageHeader title="Orders" />
       <div className="mb-4 flex flex-wrap gap-3">
-        <Input placeholder="Search order #, customer…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
-        <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="max-w-[190px]">
+        <Input placeholder="Search order #, customer…" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} className="max-w-xs" />
+        <Select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }} className="max-w-[190px]">
           <option value="">All statuses</option>
           {ORDER_STATUSES.map((s) => (
             <option key={s} value={s}>
@@ -99,6 +101,11 @@ export function OrdersPage() {
                 )}
               </tbody>
             </table>
+          )}
+          {listQ.data && (
+            <div className="px-4 pb-3">
+              <Pager page={page} total={listQ.data.meta.total} limit={LIMIT} onChange={setPage} />
+            </div>
           )}
         </div>
 

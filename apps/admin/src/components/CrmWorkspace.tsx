@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Badge, Button, Card, Input, PageHeader, Select, Spinner, Textarea } from './ui';
+import { Badge, Button, Card, Input, PageHeader, Pager, Select, Spinner, Textarea } from './ui';
 
 export interface Column {
   header: string;
@@ -35,18 +35,27 @@ export function CrmWorkspace({ config }: { config: CrmWorkspaceConfig }) {
   const [q, setQ] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [sourceFilter, setSourceFilter] = useState('');
+  const [page, setPage] = useState(1);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selected, setSelected] = useState<any | null>(null);
   const [notes, setNotes] = useState('');
 
+  const LIMIT = 20;
+
+  function resetPage() {
+    setPage(1);
+    setSelected(null);
+  }
+
   const listQ = useQuery({
-    queryKey: [config.queryKey, { q, statusFilter, sourceFilter }],
+    queryKey: [config.queryKey, { q, statusFilter, sourceFilter, page }],
     queryFn: () =>
       config.list({
         q: q || undefined,
         status: statusFilter || undefined,
         source: sourceFilter || undefined,
-        limit: 50,
+        page,
+        limit: LIMIT,
       }),
   });
 
@@ -84,8 +93,8 @@ export function CrmWorkspace({ config }: { config: CrmWorkspaceConfig }) {
     <div>
       <PageHeader title={config.title} />
       <div className="mb-4 flex flex-wrap gap-3">
-        <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
-        <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="max-w-[170px]">
+        <Input placeholder="Search…" value={q} onChange={(e) => { setQ(e.target.value); resetPage(); }} className="max-w-xs" />
+        <Select value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); resetPage(); }} className="max-w-[170px]">
           <option value="">All statuses</option>
           {config.statuses.map((s) => (
             <option key={s} value={s}>
@@ -94,7 +103,7 @@ export function CrmWorkspace({ config }: { config: CrmWorkspaceConfig }) {
           ))}
         </Select>
         {config.sources && (
-          <Select value={sourceFilter} onChange={(e) => setSourceFilter(e.target.value)} className="max-w-[180px]">
+          <Select value={sourceFilter} onChange={(e) => { setSourceFilter(e.target.value); resetPage(); }} className="max-w-[180px]">
             <option value="">All sources</option>
             {config.sources.map((s) => (
               <option key={s} value={s}>
@@ -147,6 +156,16 @@ export function CrmWorkspace({ config }: { config: CrmWorkspaceConfig }) {
                 )}
               </tbody>
             </table>
+          )}
+          {listQ.data && (
+            <div className="px-4 pb-3">
+              <Pager
+                page={page}
+                total={listQ.data.meta.total}
+                limit={LIMIT}
+                onChange={setPage}
+              />
+            </div>
           )}
         </div>
 

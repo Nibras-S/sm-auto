@@ -17,6 +17,7 @@ import { Customer } from '../../models/Customer';
 import { Product } from '../../models/Product';
 import { AppError } from '../../utils/AppError';
 import { nextSeq } from '../../utils/sequence';
+import { sendMail } from '../../utils/mailer';
 import type {
   ContactInquiryInput,
   LeadInput,
@@ -170,7 +171,7 @@ function computeSubtotal(items: any[]): number | null {
 
 export async function createOrder(input: OrderInput, customerId?: string) {
   const items = await resolveOrderItems(input.items);
-  return Order.create({
+  const order = await Order.create({
     orderNumber: await genOrderNumber(),
     status: ORDER_INITIAL_STATUS,
     contact: cleanContact(input.contact),
@@ -183,6 +184,28 @@ export async function createOrder(input: OrderInput, customerId?: string) {
     source: 'web-checkout',
     linkedCustomer: customerId,
   });
+  const email = order.contact?.email;
+  if (email) {
+    void sendMail({
+      to: email,
+      subject: `Order ${order.orderNumber} received — Spare Mec`,
+      text: [
+        `Dear ${order.contact?.name ?? 'Customer'},`,
+        '',
+        `Thank you for your order. We have received it and it is now pending verification.`,
+        '',
+        `Order number: ${order.orderNumber}`,
+        `Status: ${ORDER_INITIAL_STATUS}`,
+        '',
+        `Our team will review your order and contact you within 24 hours to confirm pricing and availability.`,
+        '',
+        `If you have any questions, please reply to this email or reach us on WhatsApp.`,
+        '',
+        `Thank you for choosing Spare Mec.`,
+      ].join('\n'),
+    });
+  }
+  return order;
 }
 
 export async function getOrderByNumber(num: string, verify: { phone?: string; email?: string }) {

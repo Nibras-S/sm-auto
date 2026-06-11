@@ -3,9 +3,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiX, FiSliders, FiInbox, FiChevronDown } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
 import useSEO from "../hooks/useSEO";
 import ProductCard from "../components/ui/ProductCard";
 import { useAllProducts } from "../hooks/useCatalog";
+import { searchProducts } from "../lib/catalogApi";
 import { categories } from "../data/categories";
 import { genericWaLink } from "../utils/whatsapp";
 import featuredCarImg from "../assets/sections/featured_car.png";
@@ -103,6 +105,17 @@ export default function Catalogue() {
   // Live catalog data from the API.
   const { products, productBrands, isLoading } = useAllProducts();
 
+  const trimmedQuery = query.trim();
+
+  const searchQ = useQuery({
+    queryKey: ["product-search", trimmedQuery],
+    queryFn: () => searchProducts(trimmedQuery),
+    enabled: trimmedQuery.length > 0,
+    staleTime: 60_000,
+  });
+
+  const searchLoading = trimmedQuery ? searchQ.isFetching : isLoading;
+
   // keep URL in sync (shallow)
   useEffect(() => {
     const next = {};
@@ -123,16 +136,14 @@ export default function Catalogue() {
     setList(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let result = products.filter((p) => {
+    // When a text query is active, results come from the backend (MongoDB text index).
+    // Structural filters (category, brand, availability, type) are still applied client-side.
+    const base = trimmedQuery ? (searchQ.data ?? []) : products;
+    let result = base.filter((p) => {
       if (category !== "all" && p.category !== category) return false;
       if (brands.length && !brands.includes(p.brand)) return false;
       if (avails.length && !avails.includes(p.availability)) return false;
       if (types.length && !types.includes(p.type)) return false;
-      if (q) {
-        const hay = `${p.name} ${p.partNumber || ""} ${p.oemNumber || ""} ${p.sku || ""} ${p.brand} ${p.categoryName} ${(p.fitment || []).join(" ")}`.toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
       return true;
     });
 
@@ -149,7 +160,8 @@ export default function Catalogue() {
       }
     });
     return result;
-  }, [query, category, brands, avails, types, sort]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trimmedQuery, searchQ.data, products, category, brands, avails, types, sort]);
 
   const activeCount =
     (category !== "all" ? 1 : 0) + brands.length + avails.length + types.length;
@@ -397,7 +409,7 @@ export default function Catalogue() {
 
             {/* Results Grid - right column */}
             <div className="w-full">
-              {isLoading ? (
+              {searchLoading ? (
                 <div className="py-20 text-center text-neutral-400">Loading parts…</div>
               ) : filtered.length > 0 ? (
                 <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-500 ${

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import {
   authenticate,
   optionalAuth,
@@ -9,13 +10,23 @@ import {
 import * as pub from './crm.public.controller';
 import * as adm from './crm.admin.controller';
 
+// 10 submissions/min/IP — tighter than the global 300/min baseline.
+const intakeLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: { code: 'RATE_LIMITED', message: 'Too many submissions. Please wait a minute and try again.' } },
+  skip: () => process.env.NODE_ENV === 'test',
+});
+
 // ── public (storefront; optionalAuth links a logged-in customer) ──────────────
 export const crmPublicRouter = Router();
-crmPublicRouter.post('/inquiries/whatsapp', optionalAuth, pub.createWhatsappInquiry);
-crmPublicRouter.post('/inquiries/contact', optionalAuth, pub.createContactInquiry);
-crmPublicRouter.post('/leads', optionalAuth, pub.createLead);
-crmPublicRouter.post('/quote-requests', optionalAuth, pub.createQuoteRequest);
-crmPublicRouter.post('/orders', optionalAuth, pub.createOrder);
+crmPublicRouter.post('/inquiries/whatsapp', intakeLimiter, optionalAuth, pub.createWhatsappInquiry);
+crmPublicRouter.post('/inquiries/contact', intakeLimiter, optionalAuth, pub.createContactInquiry);
+crmPublicRouter.post('/leads', intakeLimiter, optionalAuth, pub.createLead);
+crmPublicRouter.post('/quote-requests', intakeLimiter, optionalAuth, pub.createQuoteRequest);
+crmPublicRouter.post('/orders', intakeLimiter, optionalAuth, pub.createOrder);
 crmPublicRouter.get('/orders/:number', pub.lookupOrder);
 
 const meRouter = Router();

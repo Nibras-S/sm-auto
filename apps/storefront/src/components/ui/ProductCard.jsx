@@ -6,24 +6,9 @@ import { getProductImage } from "../../utils/productImages";
 import { useInquiry } from "../../context/InquiryContext";
 import { useWishlist } from "../../context/WishlistContext";
 
-const getMockPriceAndRating = (slug) => {
-  if (slug.includes("wheel") || slug.includes("steering") || slug.includes("suspension") || slug.includes("mount")) {
-    return { originalPrice: 290.00, salePrice: 219.99, reviews: 128 };
-  }
-  if (slug.includes("brake") || slug.includes("disc")) {
-    return { originalPrice: 210.00, salePrice: 149.00, reviews: 98 };
-  }
-  if (slug.includes("control") || slug.includes("arm")) {
-    return { originalPrice: 249.00, salePrice: 179.00, reviews: 74 };
-  }
-  if (slug.includes("spark") || slug.includes("plug") || slug.includes("ignition")) {
-    return { originalPrice: 70.00, salePrice: 49.00, reviews: 63 };
-  }
-  if (slug.includes("filter") || slug.includes("oil")) {
-    return { originalPrice: 25.00, salePrice: 16.00, reviews: 112 };
-  }
-  return { originalPrice: 45.00, salePrice: 31.00, reviews: 96 };
-};
+// price is stored as integer fils (AED × 100). Null → On Request.
+const fmtPrice = (fils) =>
+  fils != null ? `AED ${(fils / 100).toFixed(2)}` : null;
 
 export default function ProductCard({ product, index = 0, forceCol = false }) {
   const { addItem, has, openDrawer, count } = useInquiry();
@@ -31,6 +16,7 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
   const added = has(product.slug);
   const isWished = hasWishlist(product.slug);
   const img = product.images?.[0]?.url || getProductImage(product.imageKey);
+  const priceLabel = fmtPrice(product.price);
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -86,7 +72,6 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
             <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest block pt-0.5">
               {product.categoryName}
             </span>
-            {/* Borderless Wishlist heart toggle */}
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -100,37 +85,27 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
             </button>
           </div>
 
-          {/* Row 2: Title on left, Price Block on right */}
+          {/* Row 2: Title on left, Price on right */}
           <div className="flex justify-between items-start w-full mt-1 gap-2">
             <h3 className="text-[13px] font-bold leading-snug text-neutral-900 line-clamp-2 flex-1 h-[36px]">
               {product.name}
             </h3>
-            <div className="flex flex-col items-end shrink-0 text-right -mt-0.5 min-w-[70px]">
-              <span className="text-[10px] text-neutral-400 line-through font-semibold leading-none">
-                AED {getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
-              </span>
-              <span className="text-[14px] text-neutral-950 font-black mt-1 leading-none">
-                AED {getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
-              </span>
+            <div className="flex flex-col items-end shrink-0 text-right -mt-0.5 min-w-[72px]">
+              {priceLabel ? (
+                <span className="text-[13px] text-neutral-950 font-black leading-none">{priceLabel}</span>
+              ) : (
+                <span className="text-[10px] font-bold text-neutral-500 border border-neutral-300 rounded-full px-2 py-0.5 leading-none">
+                  On Request
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Row 3: Stars on left, Add to Cart Button on right */}
+          {/* Row 3: Availability on left, Add to Cart Button on right */}
           <div className="flex justify-between items-end w-full mt-2">
-            <div className="flex items-center gap-1 pb-1">
-              <div className="flex items-center gap-0.5 text-[#FBBF24]">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <span className="text-[10px] text-neutral-400 font-medium">
-                ({getMockPriceAndRating(product.slug).reviews})
-              </span>
-            </div>
-
-            {/* Add to Cart rounded rectangular button with outline shopping cart icon on the right */}
+            <span className="text-[9px] uppercase tracking-wider font-semibold text-neutral-400 pb-1">
+              {product.availability}
+            </span>
             <button
               onClick={handleAdd}
               className={`px-3 py-1.5 -mr-3 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 shadow-sm ${
@@ -153,32 +128,25 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
           <h3 className="mt-1.5 md:mt-2 text-xs md:text-sm font-bold leading-snug text-neutral-800 transition-colors duration-300 group-hover:text-neutral-950 line-clamp-2 pr-6 h-[32px] md:h-[40px]">
             {product.name}
           </h3>
-          <div className="flex items-center gap-1 mt-1.5 md:mt-2">
-            <div className="flex items-center gap-0.5 text-[#FBBF24]">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 fill-current" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            <span className="text-[10px] md:text-[11px] text-neutral-400 font-medium">
-              ({getMockPriceAndRating(product.slug).reviews})
+          <div className="mt-1.5 md:mt-2">
+            <span className="text-[9px] md:text-[10px] uppercase tracking-wider font-semibold text-neutral-400">
+              {product.availability}
             </span>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-baseline gap-0.5 sm:gap-2.5 mt-2 md:mt-2.5">
-            <span className="text-[10px] md:text-[12px] text-neutral-400 line-through font-semibold">
-              AED {getMockPriceAndRating(product.slug).originalPrice.toFixed(2)}
-            </span>
-            <span className="text-[13px] md:text-[15px] text-neutral-900 font-black">
-              AED {getMockPriceAndRating(product.slug).salePrice.toFixed(2)}
-            </span>
+          <div className="mt-2 md:mt-2.5">
+            {priceLabel ? (
+              <span className="text-[13px] md:text-[15px] text-neutral-900 font-black">{priceLabel}</span>
+            ) : (
+              <span className="text-[11px] font-bold text-neutral-500 border border-neutral-300 rounded-full px-2.5 py-1 leading-none">
+                On Request
+              </span>
+            )}
           </div>
         </div>
       </Link>
 
       {/* ACTION BUTTON AREA */}
       <div className={`${forceCol ? "flex" : "hidden md:flex"} items-center w-full px-4 pb-4 md:px-4.5 md:pb-4.5 mt-auto`}>
-        {/* Full width rectangular Add to Cart button */}
         <button
           onClick={handleAdd}
           className={`w-full py-2 md:py-2.5 rounded-xl border text-[10px] md:text-xs font-bold flex items-center justify-center gap-1.5 md:gap-2 transition-all duration-300 shadow-sm ${
@@ -192,7 +160,7 @@ export default function ProductCard({ product, index = 0, forceCol = false }) {
         </button>
       </div>
 
-      {/* Floating Wishlist Heart Icon Toggle Button (floating transparent in top-right) */}
+      {/* Floating Wishlist Heart Icon Toggle Button */}
       <button
         onClick={(e) => {
           e.preventDefault();

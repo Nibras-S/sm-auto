@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 import PageHero from "../components/ui/PageHero";
 import ProductCard from "../components/ui/ProductCard";
-import { products } from "../data/products";
+import { useAllProducts } from "../hooks/useCatalog";
 import { FiHeart, FiArrowRight } from "react-icons/fi";
 
 export default function Wishlist() {
   const { wishlistItems } = useWishlist();
+  const { products } = useAllProducts();
 
-  // Map wishlist slug references to full product data objects
+  // Map wishlist slug references to full product data objects (including admin-created products)
   const wishedProducts = wishlistItems
     .map((item) => products.find((p) => p.slug === item.slug))
     .filter(Boolean);

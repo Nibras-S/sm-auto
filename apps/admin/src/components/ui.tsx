@@ -103,3 +103,44 @@ export function PageHeader({
     </div>
   );
 }
+
+export function Pager({
+  page,
+  total,
+  limit,
+  onChange,
+}: {
+  page: number;
+  total: number;
+  limit: number;
+  onChange: (p: number) => void;
+}) {
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+  if (totalPages <= 1) return null;
+  return (
+    <div className="mt-3 flex items-center justify-between text-sm text-slate-500">
+      <span>
+        {Math.min((page - 1) * limit + 1, total)}–{Math.min(page * limit, total)} of {total}
+      </span>
+      <div className="flex gap-1">
+        <button
+          disabled={page <= 1}
+          onClick={() => onChange(page - 1)}
+          className="rounded-md border border-slate-200 px-3 py-1.5 text-xs disabled:opacity-40 hover:bg-slate-50"
+        >
+          ‹ Prev
+        </button>
+        <span className="rounded-md border border-slate-200 px-3 py-1.5 text-xs bg-slate-50">
+          {page} / {totalPages}
+        </span>
+        <button
+          disabled={page >= totalPages}
+          onClick={() => onChange(page + 1)}
+          className="rounded-md border border-slate-200 px-3 py-1.5 text-xs disabled:opacity-40 hover:bg-slate-50"
+        >
+          Next ›
+        </button>
+      </div>
+    </div>
+  );
+}
