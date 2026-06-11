@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiSearch, FiShoppingCart, FiHeart, FiChevronDown, FiUser } from "react-icons/fi";
+import { FiMenu, FiX, FiSearch, FiShoppingCart, FiHeart, FiChevronDown } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
 import { useInquiry } from "../../context/InquiryContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { useAuth } from "../../context/AuthContext";
 import { categories } from "../../data/categories";
 
 export default function Navbar() {
@@ -15,6 +16,7 @@ export default function Navbar() {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const { count, openDrawer } = useInquiry();
   const { wishlistCount } = useWishlist();
+  const { user } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -175,33 +177,29 @@ export default function Navbar() {
                 )}
               </Link>
 
-              {/* Account */}
+              {/* Account — single entry point, shows avatar on all sizes + name on desktop */}
               <Link
-                to="/account"
-                aria-label="My account"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
+                to={user ? "/account" : "/login"}
+                aria-label={user ? "My account" : "Sign in"}
+                className="flex items-center gap-0 md:gap-2.5 md:border-l md:border-neutral-200 md:pl-4 md:ml-1 shrink-0"
               >
-                <FiUser size={18} />
-              </Link>
-
-              {/* User Profile Widget (Desktop only) */}
-              <div className="hidden md:flex items-center gap-2.5 border-l border-neutral-200 pl-4 ml-1">
-                <svg
-                  viewBox="0 0 32 32"
-                  className="w-9 h-9 rounded-full border border-neutral-200/80 shadow-sm"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="16" cy="16" r="16" fill="#E0F2FE" />
-                  <circle cx="16" cy="12" r="5" fill="#0284C7" />
-                  <path d="M7 26.5C7 20.7 11.03 16 16 16C20.97 16 25 20.7 25 26.5" fill="#0284C7" />
-                </svg>
-                <div className="flex flex-col text-left leading-none">
-                  <span className="text-[10px] text-neutral-400 font-medium">Welcome!</span>
-                  <span className="text-xs font-bold text-ink mt-0.5">Guest</span>
+                {user ? (
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-white text-sm font-black shadow-sm shrink-0 select-none">
+                    {user.name?.[0]?.toUpperCase() ?? "U"}
+                  </div>
+                ) : (
+                  <svg viewBox="0 0 32 32" className="w-9 h-9 rounded-full border border-neutral-200/80 shadow-sm shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="16" fill="#E0F2FE" />
+                    <circle cx="16" cy="12" r="5" fill="#0284C7" />
+                    <path d="M7 26.5C7 20.7 11.03 16 16 16C20.97 16 25 20.7 25 26.5" fill="#0284C7" />
+                  </svg>
+                )}
+                <div className="hidden md:flex flex-col text-left leading-none">
+                  <span className="text-[10px] text-neutral-400 font-medium">{user ? "Signed in" : "Welcome!"}</span>
+                  <span className="text-xs font-bold text-ink mt-0.5">{user ? user.name.split(" ")[0] : "Guest"}</span>
                 </div>
-                <FiChevronDown size={14} className="text-neutral-400" />
-              </div>
+                <FiChevronDown size={14} className="hidden md:block text-neutral-400" />
+              </Link>
 
               {/* Mobile Hamburger menu icon */}
               <button
