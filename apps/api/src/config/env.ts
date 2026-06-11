@@ -21,6 +21,16 @@ const schema = z.object({
   CLOUDINARY_API_KEY: z.string().optional(),
   CLOUDINARY_API_SECRET: z.string().optional(),
   CLOUDINARY_FOLDER: z.string().default('sparemec'),
+
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  STOREFRONT_URL: z.string().default('http://localhost:3000'),
+
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  MAIL_FROM: z.string().default('SpareMec <no-reply@sparemec.local>'),
+  ADMIN_NOTIFY_EMAIL: z.string().optional(),
 });
 
 const parsed = schema.safeParse(process.env);

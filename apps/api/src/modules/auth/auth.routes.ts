@@ -19,6 +19,9 @@ authRouter.post('/login', authLimiter, c.login);
 authRouter.post('/refresh', c.refresh);
 authRouter.post('/logout', c.logout);
 authRouter.get('/me', authenticate, requireCustomer, c.me);
+authRouter.post('/google', authLimiter, c.googleLogin);
+authRouter.post('/forgot-password', authLimiter, c.forgotPassword);
+authRouter.post('/reset-password', authLimiter, c.resetPassword);
 
 // Admin / staff
 authRouter.post('/admin/login', authLimiter, c.adminLogin);

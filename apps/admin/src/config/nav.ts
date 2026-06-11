@@ -15,6 +15,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Categories', to: '/categories', permission: 'category.read' },
   { label: 'Subcategories', to: '/subcategories', permission: 'subcategory.read' },
   { label: 'Brands', to: '/brands', permission: 'brand.read' },
+  { label: 'Bulk Import', to: '/import', permission: 'product.write' },
   { label: 'Orders', to: '/orders', permission: 'order.read' },
   { label: 'Customers', to: '/customers', permission: 'customer.read' },
   { label: 'Inquiries', to: '/inquiries', permission: 'inquiry.read' },
@@ -26,5 +27,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'FAQ', to: '/faq', permission: 'faq.read' },
   { label: 'Reports', to: '/reports', permission: 'report.read' },
   { label: 'Users & Roles', to: '/users', permission: 'user.manage' },
+  { label: 'Audit Logs', to: '/audit', permission: 'user.manage' },
   { label: 'Settings', to: '/settings', permission: 'settings.read' },
 ];

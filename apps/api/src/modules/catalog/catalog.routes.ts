@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { authenticate, requireAdmin, requirePermission } from '../../middleware/auth';
 import * as product from './product.controller';
 import * as tax from './taxonomy.controller';
+import { importProducts } from './import.controller';
 
 // ── public (storefront) ──────────────────────────────────────────────────────
 export const catalogPublicRouter = Router();
@@ -21,6 +22,7 @@ catalogAdminRouter.use(authenticate, requireAdmin);
 
 // Products
 catalogAdminRouter.get('/products', requirePermission('product.read'), product.adminList);
+catalogAdminRouter.post('/products/import', requirePermission('product.write'), importProducts);
 catalogAdminRouter.post('/products', requirePermission('product.write'), product.adminCreate);
 catalogAdminRouter.get('/products/:id', requirePermission('product.read'), product.adminGet);
 catalogAdminRouter.patch('/products/:id', requirePermission('product.write'), product.adminUpdate);

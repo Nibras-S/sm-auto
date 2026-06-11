@@ -11,5 +11,12 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
+export const googleSchema = z.object({ idToken: z.string().min(1) });
+export const forgotSchema = z.object({ email: z.string().trim().email() });
+export const resetSchema = z.object({
+  token: z.string().min(1),
+  password: z.string().min(8, 'Password must be at least 8 characters').max(200),
+});
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;

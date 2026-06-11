@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiSearch, FiShoppingCart, FiHeart, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiX, FiSearch, FiShoppingCart, FiHeart, FiChevronDown, FiUser } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import { navLinks } from "../../config/siteConfig";
 import { genericWaLink } from "../../utils/whatsapp";
@@ -173,6 +173,15 @@ export default function Navbar() {
                     <span className="absolute inset-0 -z-10 rounded-full bg-accent-500/50 animate-ping" />
                   </span>
                 )}
+              </Link>
+
+              {/* Account */}
+              <Link
+                to="/account"
+                aria-label="My account"
+                className="relative flex h-10 w-10 items-center justify-center rounded-full bg-neutral-50 border border-neutral-100 text-neutral-600 transition-all duration-300 hover:bg-neutral-100 hover:text-accent-500"
+              >
+                <FiUser size={18} />
               </Link>
 
               {/* User Profile Widget (Desktop only) */}

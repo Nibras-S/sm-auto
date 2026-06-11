@@ -14,6 +14,14 @@ import { InquiriesPage } from './pages/InquiriesPage';
 import { LeadsPage } from './pages/LeadsPage';
 import { QuoteRequestsPage } from './pages/QuoteRequestsPage';
 import { CustomersPage } from './pages/CustomersPage';
+import { QuotationsPage } from './pages/QuotationsPage';
+import { BannersPage } from './pages/BannersPage';
+import { FaqPage } from './pages/FaqPage';
+import { ContentPagesPage } from './pages/ContentPagesPage';
+import { BulkImportPage } from './pages/BulkImportPage';
+import { UsersPage } from './pages/UsersPage';
+import { AuditLogsPage } from './pages/AuditLogsPage';
+import { ReportsPage } from './pages/ReportsPage';
 
 export function App() {
   return (
@@ -34,12 +42,14 @@ export function App() {
           <Route path="inquiries" element={<InquiriesPage />} />
           <Route path="leads" element={<LeadsPage />} />
           <Route path="quote-requests" element={<QuoteRequestsPage />} />
-          <Route path="quotations" element={<ModulePlaceholder title="Quotations" />} />
-          <Route path="banners" element={<ModulePlaceholder title="Banners" />} />
-          <Route path="content" element={<ModulePlaceholder title="Content" />} />
-          <Route path="faq" element={<ModulePlaceholder title="FAQ" />} />
-          <Route path="reports" element={<ModulePlaceholder title="Reports" />} />
-          <Route path="users" element={<ModulePlaceholder title="Users & Roles" />} />
+          <Route path="quotations" element={<QuotationsPage />} />
+          <Route path="import" element={<BulkImportPage />} />
+          <Route path="banners" element={<BannersPage />} />
+          <Route path="content" element={<ContentPagesPage />} />
+          <Route path="faq" element={<FaqPage />} />
+          <Route path="reports" element={<ReportsPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="audit" element={<AuditLogsPage />} />
           <Route path="settings" element={<ModulePlaceholder title="Settings" />} />
         </Route>
       </Route>

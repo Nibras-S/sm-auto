@@ -4,6 +4,7 @@ import { asyncHandler } from '../../utils/asyncHandler';
 import { numParam, pageMeta } from '../../utils/pagination';
 import * as svc from './crm.service';
 import { toInquiryDTO, toLeadDTO, toOrderDTO, toQuoteRequestDTO } from './crm.serializers';
+import { notify } from '../notifications/notification.service';
 import {
   inquiryStatusSchema,
   leadStatusSchema,
@@ -104,7 +105,9 @@ export const getOrder = asyncHandler(async (req, res) => {
 });
 export const setOrderStatus = asyncHandler(async (req, res) => {
   const { status, note } = orderStatusSchema.parse(req.body);
-  res.json({ order: toOrderDTO(await svc.setOrderStatus(req.params.id, status, note)) });
+  const order = await svc.setOrderStatus(req.params.id, status, note);
+  void notify('order_status', `Order ${order.orderNumber} → ${status}`, undefined, '/orders');
+  res.json({ order: toOrderDTO(order) });
 });
 export const updateOrder = asyncHandler(async (req, res) => {
   const patch = orderUpdateSchema.parse(req.body);

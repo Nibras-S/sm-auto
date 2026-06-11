@@ -14,6 +14,22 @@ const vehicleSchema = new Schema(
   { _id: true },
 );
 
+const addressSubSchema = new Schema(
+  {
+    label: { type: String, trim: true },
+    contactName: { type: String, trim: true },
+    phone: { type: String, trim: true },
+    line1: { type: String, trim: true },
+    line2: { type: String, trim: true },
+    area: { type: String, trim: true },
+    city: { type: String, trim: true },
+    emirate: { type: String, trim: true },
+    country: { type: String, trim: true, default: 'United Arab Emirates' },
+    isDefault: { type: Boolean, default: false },
+  },
+  { _id: true },
+);
+
 const customerSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
@@ -28,6 +44,10 @@ const customerSchema = new Schema(
     phone: { type: String, trim: true, index: true },
     emailVerified: { type: Boolean, default: false },
     vehicles: { type: [vehicleSchema], default: [] },
+    addresses: { type: [addressSubSchema], default: [] },
+    wishlist: { type: [String], default: [] }, // product slugs
+    resetTokenHash: { type: String, select: false },
+    resetTokenExpiresAt: { type: Date },
     marketingOptIn: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
     tokenVersion: { type: Number, default: 0 },

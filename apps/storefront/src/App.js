@@ -15,6 +15,12 @@ import ComingSoon from "./pages/ComingSoon";
 import Wishlist from "./pages/Wishlist";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Account from "./pages/Account";
+import WishlistSync from "./components/WishlistSync";
 
 // Set to true to hide the developing site and show the Coming Soon screen
 // Set to false to return to normal site viewing
@@ -40,7 +46,9 @@ function App() {
   }
 
   return (
-    <Routes>
+    <>
+      <WishlistSync />
+      <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/catalogue" element={<Catalogue />} />
@@ -54,6 +62,11 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/account" element={<Account />} />
 
         {/* Legacy redirects */}
         <Route path="/aboutus" element={<Navigate to="/about" replace />} />
@@ -62,7 +75,8 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
       </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }
 

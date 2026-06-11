@@ -3,7 +3,7 @@ import { asyncHandler } from '../../utils/asyncHandler';
 import { AppError } from '../../utils/AppError';
 import { env, isProd } from '../../config/env';
 import { verifyRefreshToken } from '../../utils/jwt';
-import { loginSchema, registerSchema } from './auth.validation';
+import { forgotSchema, googleSchema, loginSchema, registerSchema, resetSchema } from './auth.validation';
 import * as authService from './auth.service';
 
 type Kind = 'admin' | 'customer';
@@ -98,4 +98,24 @@ export const adminLogout = asyncHandler(async (_req, res) => {
 
 export const adminMe = asyncHandler(async (req, res) => {
   res.json({ user: await authService.getAdmin(req.auth!.sub) });
+});
+
+// ── customer: google + password reset ────────────────────────────────────────
+export const googleLogin = asyncHandler(async (req, res) => {
+  const { idToken } = googleSchema.parse(req.body);
+  const { user, accessToken, refreshToken } = await authService.loginWithGoogle(idToken);
+  setRefreshCookie(res, 'customer', refreshToken);
+  res.json({ accessToken, user });
+});
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = forgotSchema.parse(req.body);
+  await authService.requestPasswordReset(email);
+  res.json({ ok: true });
+});
+
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token, password } = resetSchema.parse(req.body);
+  await authService.resetPassword(token, password);
+  res.json({ ok: true });
 });
